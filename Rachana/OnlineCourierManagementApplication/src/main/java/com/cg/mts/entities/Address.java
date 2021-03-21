@@ -1,9 +1,36 @@
 package com.cg.mts.entities;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+@Entity
+@Table(name = "?")
 public class Address {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "street")
+	@NotEmpty(message="This field cannot be empty")
+    @NotNull(message="This field cannot be omitted")
 	private String street;
+	
+	@Column(name = "city")
+	@NotEmpty(message="This field cannot be empty")
+    @NotNull(message="This field cannot be omitted")
 	private String city;
+	
+	@Column(name = "state")
 	private String state;
+	
+	@Column(name = "street")
 	private String country;
+	
+	@Column(name = "zip")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private int zip;
 	
 	public Address() {
