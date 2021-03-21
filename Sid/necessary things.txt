@@ -1,0 +1,25 @@
+	implementation 'javax.servlet:jstl:1.2'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'org.springframework.boot:spring-boot-starter-validation' 
+
+these are the dependencies to be added
+
+1- postgre sql driver
+2-spring web 
+3 - springboot devtools
+4- spring data jpa
+
+
+application properties....
+server.port = 8090
+
+spring.mvc.view.prefix=/pages/
+spring.mvc.view.suffix=.jsp
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=sidhuu123
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
