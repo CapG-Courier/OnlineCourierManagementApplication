@@ -1,4 +1,4 @@
-package com.cg.mts.entity;
+package com.cg.mts.entities;
 public class Address {
 	private String street;
 	private String city;
