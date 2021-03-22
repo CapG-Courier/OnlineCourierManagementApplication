@@ -1,0 +1,91 @@
+
+CREATE TABLE abc (
+    customerid serial CONSTRAINT customer_custid_pk PRIMARY KEY,
+    aadharno bigint CONSTRAINT custmast_aadharno_u UNIQUE,
+    firstname varchar(20) CONSTRAINT customer_firstname_nn NOT NULL,
+    lastname varchar(20) CONSTRAINT customer_lastname_nn NOT NULL,
+    mobileno varchar(15) CONSTRAINT custmast_mobileno_u UNIQUE,
+    addr Address[] ,
+    Ba BankAccount[]
+);
+
+
+CREATE TYPE Address AS ( 
+street varchar(20),  
+city varchar(20), 
+state varchar(20), 
+country varchar(20),
+zip int  
+); 
+ 
+
+CREATE TYPE BankAccount AS ( 
+accountno bigint,
+accountHolderName varchar(20),
+accountType varchar(20)     
+);
+
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123456789147,'Ankita','Sinha',6549873216,
+ARRAY[row('GandhiNagar','Chennai','TamilNadu','India',600020)::Address],
+ARRAY[row(98765432114712,'AnkitaSinha','Savings')::BankAccount]);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989147,'Karan','Thapa',6549812316,
+ARRAY[row('TNagar','Bangalore','Karnataka','India',625872)::Address],
+ARRAY[row(91235432114712,'KaranThapa','Current')::BankAccount]);
+
+
+CREATE TABLE couriertest (
+    courierid serial CONSTRAINT couriertest_courierid_pk PRIMARY KEY,
+    consignmentno int DEFAULT nextval('consignment_seq'),
+    initiatedDate date CONSTRAINT couriertest_idate_c CHECK (initiatedDate <= CURRENT_DATE),
+    deliveredDate date CONSTRAINT couriertest_ddate_c CHECK (deliveredDate <= CURRENT_DATE AND deliveredDate >= initiatedDate) ,
+    customerid int CONSTRAINT couriertest_custid_fk REFERENCES abc(customerid)   
+);
+
+CREATE SEQUENCE consignment_seq start 5000 increment 123;
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2020-11-03','2021-03-20',1);
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2020-12-06','2021-01-24',4);
+
+
+CREATE TABLE complainttest (
+    complaintid serial CONSTRAINT complainttest_complaintid_pk PRIMARY KEY,
+    consignmentno int CONSTRAINT complainttest_consignmentno_u UNIQUE,
+    shortdesc varchar(30) CONSTRAINT complainttest_shortdesc_nn NOT NULL,
+    detaildesc varchar,
+    customerid int CONSTRAINT couriertest_custid_fk REFERENCES abc(customerid)   
+);
+
+INSERT INTO complainttest (consignmentno,shortdesc)
+VALUES(5123,'Ankitas head ..she lost it');
+
+CREATE TABLE officestafftest (
+    empid serial CONSTRAINT officestafftest_empid_pk PRIMARY KEY,
+    name varchar(30) CONSTRAINT officestafftest_name_nn NOT NULL,
+    role varchar(30) CONSTRAINT officestafftest_role_nn NOT NULL,
+    addr Address[],  
+    officeid int CONSTRAINT officestafftest_officeid_fk REFERENCES officeoutlettest(officeid)
+);
+
+CREATE TABLE officeoutlettest (
+    officeid serial CONSTRAINT officestafftest_officeid_pk PRIMARY KEY,
+    openingTime time,
+    closingTime time,
+    addr Address[]  
+);
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('08:35:50','22:00:00',
+ARRAY[row('TNagar','Bangalore','Karnataka','India',625872)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Sidhu','MANAGER',1,
+ARRAY[row('IndiraNagar','Hyderabad','Telengana','India',625461)::Address]);
