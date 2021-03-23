@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "?")
+@Table(name = "customer")
 public class Customer {
 	
 	@Id
