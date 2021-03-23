@@ -1,6 +1,7 @@
 package com.cg.mts.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "?")
+@Table(name = "customer")
 public class Customer {
 	
 	@Id
@@ -35,6 +36,7 @@ public class Customer {
 	@NotNull(message="This field cannot be omitted")
 	private String lastname;
 	
+	@Embedded
 	private Address addr;
 	
 	@Pattern(regexp="[1-9][0-9]{9}", message="Mobile number is expected to be 10 digits and should not start with 0")
@@ -42,6 +44,7 @@ public class Customer {
     @NotNull(message="Mobile number cannot be omitted")
 	private int mobileno;
 	
+	@Embedded
 	private BankAccount acct;
 	
 	public Customer() {
