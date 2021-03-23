@@ -1,0 +1,223 @@
+
+CREATE TYPE Address AS ( 
+street varchar(20),  
+city varchar(20), 
+state varchar(20), 
+country varchar(20),
+zip int  
+); 
+ 
+
+CREATE TYPE BankAccount AS ( 
+accountno bigint,
+accountHolderName varchar(20),
+accountType varchar(20)     
+);
+
+CREATE TABLE abc (
+    customerid serial CONSTRAINT customer_custid_pk PRIMARY KEY,
+    aadharno bigint CONSTRAINT custmast_aadharno_u UNIQUE,
+    firstname varchar(20) CONSTRAINT customer_firstname_nn NOT NULL,
+    lastname varchar(20) CONSTRAINT customer_lastname_nn NOT NULL,
+    mobileno varchar(15) CONSTRAINT custmast_mobileno_u UNIQUE,
+    addr Address[] ,
+    Ba BankAccount[]
+);
+
+
+
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123456789147,'Ankita','Sinha',6549873216,
+ARRAY[row('GandhiNagar','Chennai','TamilNadu','India',600020)::Address],
+ARRAY[row(98765432114712,'AnkitaSinha','Savings')::BankAccount]);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989147,'Karan','Thapa',6549812316,
+ARRAY[row('TNagar','Bangalore','Karnataka','India',625872)::Address],
+ARRAY[row(91235432114712,'KaranThapa','Current')::BankAccount]);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(132457989147,'Pragya','Sukrity',6549812345,
+ARRAY[row('Williams Town','Indore','MP','India',625827)::Address],
+ARRAY[row(91235432224712,'PragyaSukrity','Savings')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989741,'Komal','Priya',6549812321,
+ARRAY[row('Punaichak','Patna','Bihar','India',600068)::Address],
+ARRAY[row(81235432114712,'KomalPriya','Savings')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(543217989147,'Aman','Kumar',6549812351,
+ARRAY[row('LajpathNagar','Delhi','New Delhi','India',625800)::Address],
+ARRAY[row(91235432114722,'AmanKumar','Business')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989157,'Rahul','Kumar',6549812361,
+ARRAY[row('Bandra','Mumbai','Maharashtraa','India',625900)::Address],
+ARRAY[row(91235432114732,'KaranThapa','Current')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989167,'Priya','Singh',6549812371,
+ARRAY[row('GiriNagar','Bangalore','Karnataka','India',626000)::Address],
+ARRAY[row(91235432114742,'KaranThapa','Current')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989177,'Raj','Kumar',6549812381,
+ARRAY[row('VijyaNagar','Bangalore','Karnataka','India',626100)::Address],
+ARRAY[row(91235432114752,'KaranThapa','Current')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989187,'Anjili','Sharma',6549812391,
+ARRAY[row('Chennai Central','Chennai','Tamil Nadu','India',626200)::Address],
+ARRAY[row(91235432114762,'KaranThapa','Current')::BankAccount]
+);
+
+INSERT INTO abc (aadharno,firstname,lastname,mobileno,addr,ba)
+VALUES(123457989197,'Parth','Sinha',6549812401,
+ARRAY[row('Anandpur','Patna','Bihar','India',626300)::Address],
+ARRAY[row(91235432114772,'KaranThapa','Current')::BankAccount]
+);
+
+
+
+
+CREATE SEQUENCE consignment_seq start 5000 increment 123;
+
+
+CREATE TABLE couriertest (
+    courierid serial CONSTRAINT couriertest_courierid_pk PRIMARY KEY,
+    consignmentno int DEFAULT nextval('consignment_seq'),
+    initiatedDate date CONSTRAINT couriertest_idate_c CHECK (initiatedDate <= CURRENT_DATE),
+    deliveredDate date CONSTRAINT couriertest_ddate_c CHECK (deliveredDate <= CURRENT_DATE AND deliveredDate >= initiatedDate) ,
+    customerid int CONSTRAINT couriertest_custid_fk REFERENCES abc(customerid)   
+);
+
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2020-11-03','2021-03-20',1);
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2020-12-06','2021-01-24',2);
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2020-12-06','2020-12-20',10);
+
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-01-02','2021-01-04',3);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-01-12','2021-01-15',6);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-01-15','2021-01-20',10);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-02-28','2021-03-03',2);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-03-06','2021-03-09',5);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-03-06','2021-03-10',4);
+
+INSERT INTO couriertest (initiatedDate,deliveredDate,customerid)
+VALUES('2021-03-14','2021-03-20',8);
+
+
+CREATE TABLE complainttest (
+    complaintid serial CONSTRAINT complainttest_complaintid_pk PRIMARY KEY,
+    consignmentno int CONSTRAINT complainttest_consignmentno_u UNIQUE,
+    shortdesc varchar(30) CONSTRAINT complainttest_shortdesc_nn NOT NULL,
+    detaildesc varchar,
+    customerid int CONSTRAINT couriertest_custid_fk REFERENCES abc(customerid)   
+);
+
+INSERT INTO complainttest (consignmentno,shortdesc)
+VALUES(5123,'Ankitas head ..she lost it');
+
+INSERT INTO complainttest (consignmentno,shortdesc,detaildesc,customerid)
+VALUES(5861,'Courier not delivered','The courier that i sent on 15-02-2021 has not yet reached at the destination', 10);
+
+INSERT INTO complainttest (consignmentno,shortdesc,detaildesc,customerid)
+VALUES(6353,'Courier was torn','The courier received by my family was torn when it arrived', 8);
+
+INSERT INTO complainttest (consignmentno,shortdesc,customerid)
+VALUES(5369,'The courier id getting delayed', 2);
+
+
+CREATE TABLE officeoutlettest (
+    officeid serial CONSTRAINT officestafftest_officeid_pk PRIMARY KEY,
+    openingTime time,
+    closingTime time,
+    addr Address[]  
+);
+
+
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('08:35:50','22:00:00',
+ARRAY[row('TNagar,'Bangalore','Karnataka','India',625872)::Address]);
+
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('08:00:00','22:00:00',
+ARRAY[row('Bandra','Mumbai','Maharashtraa','India',625900)::Address]);
+
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('08:00:00','21:00:00',
+ARRAY[row('Punaichak','Patna','Bihar','India',600068)::Address]);
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('09:00:00','22:00:00',
+ARRAY[row('Chennai Central','Chennai','Tamil Nadu','India',626200)::Address]);
+
+INSERT INTO officeoutlettest(openingTime,closingTime,addr)
+VALUES('08:30:00','23:00:00',
+ARRAY[row('LajpathNagar','Delhi','New Delhi','India',625800)::Address]);
+
+
+
+CREATE TABLE officestafftest (
+    empid serial CONSTRAINT officestafftest_empid_pk PRIMARY KEY,
+    name varchar(30) CONSTRAINT officestafftest_name_nn NOT NULL,
+    role varchar(30) CONSTRAINT officestafftest_role_nn NOT NULL,
+    addr Address[],  
+    officeid int CONSTRAINT officestafftest_officeid_fk REFERENCES officeoutlettest(officeid)
+);
+
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Sidhu','MANAGER',1,
+ARRAY[row('IndiraNagar','Hyderabad','Telengana','India',625461)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Ramu','Postman',3,
+ARRAY[row('A Sector','Patna','Bihar','India',600068)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Ramesh','MANAGER',4,
+ARRAY[row('TNagar','Chennai','TamilNadu','India',626200)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Gopal','Courier Man',1,
+ARRAY[row('JP Nagar','Hyderabad','Telengana','India',625461)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Nandini','MANAGER',3,
+ARRAY[row('A Sector','Patna','Bihar','India',600068)::Address]);
+
+INSERT INTO officestafftest(name,role,officeid,addr)
+VALUES('Shruthi','staff',3,
+ARRAY[row('A Sector','Patna','Bihar','India',600068)::Address]);
