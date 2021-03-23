@@ -1,11 +1,10 @@
 package com.cg.project.service;
-import com.cg.mts.entities.Complaint;
+import com.cg.project.entity.Complaint;
 
 public interface ICustomerService {
 
-	public boolean initiateProcess();
+	public boolean initiateProcess(); //CourierRepo
 	public boolean makePayment();
-	public String checkOnlineTrackingStatus(int consignmentno);
-	
-	public int registerComplaint(Complaint complaint);
+	public String checkOnlineTrackingStatus(int consignmentno); //CourierRepo
+	public int registerComplaint(Complaint complaint);  //ComplaintRepo
 }

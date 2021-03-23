@@ -1,55 +1,54 @@
-package com.cg.project.entity;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.cg.project.model;
 
-@Entity
-@Table(name = "customer")
-public class Customer {
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import com.cg.project.entity.Address;
+import com.cg.project.entity.BankAccount;
+
+public class CustomerModel {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cust_id")
 	private int customerid;
 	
-	@Column(name = "cust_aadhar_no")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private int aadharno;
 	
-	@Column(name = "first_name", length = 20)
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String firstname;
 	
-	@Column(name = "last_name", length = 20)
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String lastname;
 	
-	@Embedded
-	private Address addr;
-	
-	@Column(name = "mobile_no")
+	@Pattern(regexp="[1-9][0-9]{9}", message="Mobile number is expected to be 10 digits and should not start with 0")
+	@NotEmpty(message="This field cannot be empty")
+    @NotNull(message="Mobile number cannot be omitted")
 	private int mobileno;
 	
-	@Embedded
+	private Address addr;
+
 	private BankAccount acct;
-	
-	public Customer() {
-		
-		/*No implementation*/
-		
+
+	public CustomerModel() {
+		 
 	}
 
-	public Customer(int customerid, int aadharno, String firstname, String lastname, Address addr, int mobileno,
-			BankAccount acct) {
+	public CustomerModel(int customerid,int aadharno, String firstname, String lastname, int mobileno,Address addr, BankAccount acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.addr = addr;
 		this.mobileno = mobileno;
+		this.addr = addr;
 		this.acct = acct;
+	}
+
+	public int getCustomerid() {
+		return customerid;
 	}
 
 	public int getAadharno() {
@@ -76,14 +75,6 @@ public class Customer {
 		this.lastname = lastname;
 	}
 
-	public Address getAddr() {
-		return addr;
-	}
-
-	public void setAddr(Address addr) {
-		this.addr = addr;
-	}
-
 	public int getMobileno() {
 		return mobileno;
 	}
@@ -92,16 +83,20 @@ public class Customer {
 		this.mobileno = mobileno;
 	}
 
+	public Address getAddr() {
+		return addr;
+	}
+
+	public void setAddr(Address addr) {
+		this.addr = addr;
+	}
+
 	public BankAccount getAcct() {
 		return acct;
 	}
 
 	public void setAcct(BankAccount acct) {
 		this.acct = acct;
-	}
-
-	public int getCustomerid() {
-		return customerid;
 	}
 
 	@Override
@@ -126,7 +121,7 @@ public class Customer {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Customer other = (Customer) obj;
+		CustomerModel other = (CustomerModel) obj;
 		if (aadharno != other.aadharno)
 			return false;
 		if (acct == null) {
@@ -158,9 +153,9 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct + "]";
+		return "CustomerModel [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", mobileno=" + mobileno + ", addr=" + addr + ", acct=" + acct + "]";
 	}
-
+	
 	
 }

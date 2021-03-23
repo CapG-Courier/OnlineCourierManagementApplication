@@ -1,28 +1,16 @@
-package com.cg.project.entity;
+package com.cg.project.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name="complaint")
-public class Complaint {
+import com.cg.project.entity.Customer;
+
+public class ComplaintModel {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int complaintId;
 	
-	@Column(name = "consignmentno")
-	@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 5000, allocationSize = 123)
-	@GeneratedValue(generator = "mySeqGen")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private int consignmentNo;
 	
 	@NotEmpty(message="This field cannot be empty")
@@ -31,17 +19,13 @@ public class Complaint {
 	
 	private String detailDescription;
 	
-	@ManyToOne
-	@JoinColumn(name = "customerid")
 	private Customer customer;
 
-	public Complaint() {
-		
-		/*No implementation*/
+	public ComplaintModel() {
 		
 	}
 
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription, Customer customer) {
+	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, Customer customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -50,19 +34,13 @@ public class Complaint {
 		this.customer = customer;
 	}
 
-	
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
-		super();
-		this.complaintId = complaintId;
-		this.consignmentNo = consignmentNo;
-		this.shortDescription = shortDescription;
-		this.detailDescription = detailDescription;
-	}
-
 	public int getComplaintId() {
 		return complaintId;
 	}
 
+	public void setComplaintId(int complaintId) {
+		this.complaintId = complaintId;
+	}
 
 	public int getConsignmentNo() {
 		return consignmentNo;
@@ -116,7 +94,7 @@ public class Complaint {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Complaint other = (Complaint) obj;
+		ComplaintModel other = (ComplaintModel) obj;
 		if (complaintId != other.complaintId)
 			return false;
 		if (consignmentNo != other.consignmentNo)
@@ -141,7 +119,7 @@ public class Complaint {
 
 	@Override
 	public String toString() {
-		return "Complaint [complaintId=" + complaintId + ", consignmentNo=" + consignmentNo + ", shortDescription="
+		return "ComplaintModel [complaintId=" + complaintId + ", consignmentNo=" + consignmentNo + ", shortDescription="
 				+ shortDescription + ", detailDescription=" + detailDescription + ", customer=" + customer + "]";
 	}
 
