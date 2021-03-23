@@ -1,6 +1,5 @@
 package com.cg.mts.service;
 import com.cg.mts.entities.Complaint;
-import com.cg.mts.entities.CourierStatus;
 
 public interface ICustomerService {
 
