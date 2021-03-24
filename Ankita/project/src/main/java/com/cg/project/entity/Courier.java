@@ -65,6 +65,29 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 
+	public Courier(LocalDate initiatedDate) {
+		super();
+		this.initiatedDate = initiatedDate;
+	}
+	
+
+	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+	}
+
+	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
+			CourierStatus status) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+		this.status = status;
+	}
+
 
 	public int getCourierId() {
 		return courierId;

@@ -12,7 +12,7 @@ public interface CourierRepo extends JpaRepository <Courier,Integer>{
 	
 	@Query("SELECT c FROM Customer c WHERE (SELECT customerid FROM Courier WHERE courierid = ?)")
 	public Customer findCustomer(int courierid);
-	
 	public Courier findByConsignmentNo(int consignmentno);
+	public boolean existsByConsignmentNo(int consignmentno);
 
 }

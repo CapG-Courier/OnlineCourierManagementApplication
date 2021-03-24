@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import com.cg.project.entity.Address;
 import com.cg.project.entity.CourierOfficeOutlet;
 
-public class CourierStaffMembersModel {
+public class OfficeStaffMembersModel {
 	
 	private int empid;
 	
@@ -22,11 +22,11 @@ public class CourierStaffMembersModel {
 	
 	private Address address;
 
-	public CourierStaffMembersModel() {
+	public OfficeStaffMembersModel() {
 		
 	}
 
-	public CourierStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office, Address address) {
+	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office, Address address) {
 		super();
 		this.empid = empid;
 		this.name = name;
@@ -35,7 +35,7 @@ public class CourierStaffMembersModel {
 		this.address = address;
 	}
 
-	public CourierStaffMembersModel(int empid,
+	public OfficeStaffMembersModel(int empid,
 			@NotEmpty(message = "Employee name cannot be empty") @NotNull(message = "Employee name cannot be omitted") String name,
 			@NotEmpty(message = "Employee role cannot be empty") @NotNull(message = "Employee role cannot be omitted") String role) {
 		super();
@@ -100,7 +100,7 @@ public class CourierStaffMembersModel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CourierStaffMembersModel other = (CourierStaffMembersModel) obj;
+		OfficeStaffMembersModel other = (OfficeStaffMembersModel) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;

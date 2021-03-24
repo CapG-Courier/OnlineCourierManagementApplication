@@ -51,6 +51,14 @@ public class Complaint {
 	}
 
 	
+	public Complaint(int complaintId, int consignmentNo, String shortDescription, Customer customer) {
+		super();
+		this.complaintId = complaintId;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.customer = customer;
+	}
+
 	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
 		super();
 		this.complaintId = complaintId;

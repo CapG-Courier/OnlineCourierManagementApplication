@@ -15,18 +15,30 @@ public class CourierModel {
 	private LocalDate deliveredDate;
 	
 	private Customer customer;
+	
+	private String status;
 
 	public CourierModel() {
 		
 	}
 
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, Customer customer) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, Customer customer) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
+		this.status = status;
 		this.customer = customer;
+	}
+	
+	
+
+	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
 	}
 
 	public int getCourierId() {
@@ -55,6 +67,14 @@ public class CourierModel {
 
 	public void setDeliveredDate(LocalDate deliveredDate) {
 		this.deliveredDate = deliveredDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Customer getCustomer() {

@@ -3,6 +3,7 @@ package com.cg.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.project.model.CustomerModel;
 import com.cg.project.repository.CustomerRepo;
 
 @Service
@@ -26,14 +27,28 @@ public class PaymentServiceImpl implements IPaymentService {
 
 	@Override
 	public boolean processByCash() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return true;
 	}
 
 	@Override
-	public boolean processByCard() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean processByCard(int customerid) {
+		
+		boolean flag = false;
+		
+		if(customerRepo.existsById(customerid)) {
+			
+			if(parser.parse(customerRepo.findById(customerid).orElse(null)).getAcct() != null) {
+				flag = true;
+				
+			}else {
+				
+				flag = false;
+			}
+			
+		}
+		
+		return flag;
 	}
 
 }

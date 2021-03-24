@@ -1,16 +1,17 @@
 package com.cg.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.project.entity.Complaint;
+import com.cg.project.exception.CourierNotFoundException;
+import com.cg.project.exception.DuplicateComplaintFoundException;
+import com.cg.project.exception.DuplicateCourierFoundException;
+import com.cg.project.model.ComplaintModel;
+import com.cg.project.model.CourierModel;
 import com.cg.project.repository.ComplaintRepo;
 import com.cg.project.repository.CourierRepo;
-import com.cg.project.repository.CustomerRepo;
 
 public class CustomerServiceImpl implements ICustomerService {
-	
-	@Autowired
-	private CustomerRepo customerRepo;
 	
 	@Autowired
 	private CourierRepo courierRepo;
@@ -25,37 +26,57 @@ public class CustomerServiceImpl implements ICustomerService {
 		/* No implementation */
 	}
 
-	public CustomerServiceImpl(CustomerRepo customerRepo, CourierRepo courierRepo, ComplaintRepo complaintRepo) {
+	public CustomerServiceImpl(CourierRepo courierRepo, ComplaintRepo complaintRepo) {
 		super();
-		this.customerRepo = customerRepo;
 		this.courierRepo = courierRepo;
 		this.complaintRepo = complaintRepo;
 		this.parser=new EMParser();
 	}
 
-
+	@Transactional
 	@Override
-	public boolean initiateProcess() {
-		// TODO Auto-generated method stub
-		return false;
+	public int initiateProcess(CourierModel courier) throws DuplicateCourierFoundException {
+		
+		if(courier != null) {
+			if(courierRepo.existsById(courier.getCourierId())) {
+				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
+			} else {
+				parser.parse(courierRepo.save(parser.parse(courier)));
+				parser.parse(courierRepo.findById(courier.getCourierId()).orElse(null)).setStatus("INITIATED");
+			}
+		} 
+		return courier.getConsignmentNo();
 	}
 
 	@Override
-	public boolean makePayment() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean makePayment() {        //Empty method for shifting urls
+		return true;
 	}
 
 	@Override
-	public String checkOnlineTrackingStatus(int consignmentno) {
-		// TODO Auto-generated method stub
-		return null;
+	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException{
+		
+		if(courierRepo.findByConsignmentNo(consignmentno) == null) {
+			throw new CourierNotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
+		} else {
+			return (courierRepo.findByConsignmentNo(consignmentno)).getStatus().toString();
+		}
+		
 	}
 
+	@Transactional
 	@Override
-	public int registerComplaint(Complaint complaint) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int registerComplaint(ComplaintModel complaint) throws DuplicateComplaintFoundException {
+		
+		if(complaint != null) {
+			if(complaintRepo.existsById(complaint.getComplaintId())) {
+				throw new DuplicateComplaintFoundException("Complaint with id " + complaint.getComplaintId() + " already exists!");
+			} else {
+				parser.parse(complaintRepo.save(parser.parse(complaint)));
+			}
+		} 
+		return complaint.getComplaintId();
+		
 	}
 
 }

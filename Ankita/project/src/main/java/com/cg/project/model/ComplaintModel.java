@@ -33,6 +33,15 @@ public class ComplaintModel {
 		this.detailDescription = detailDescription;
 		this.customer = customer;
 	}
+	
+
+	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
+		super();
+		this.complaintId = complaintId;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.detailDescription = detailDescription;
+	}
 
 	public int getComplaintId() {
 		return complaintId;

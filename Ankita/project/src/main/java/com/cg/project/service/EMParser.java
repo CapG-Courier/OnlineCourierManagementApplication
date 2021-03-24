@@ -1,6 +1,5 @@
 package com.cg.project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.project.entity.Complaint;
@@ -11,19 +10,11 @@ import com.cg.project.entity.OfficeStaffMembers;
 import com.cg.project.model.ComplaintModel;
 import com.cg.project.model.CourierModel;
 import com.cg.project.model.CourierOfficeOutletModel;
-import com.cg.project.model.CourierStaffMembersModel;
+import com.cg.project.model.OfficeStaffMembersModel;
 import com.cg.project.model.CustomerModel;
-import com.cg.project.repository.ComplaintRepo;
-import com.cg.project.repository.CourierRepo;
 
 @Service
 public class EMParser {
-	
-	@Autowired
-	private ComplaintRepo complaintRepo;
-	
-	@Autowired
-	private CourierRepo courierRepo;
 	
 	public CustomerModel parse(Customer customer) {
 		
@@ -61,7 +52,8 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courierRepo.findCustomer(courier.getCourierId()));
+					courier.getStatus().toString(),
+					courier.getCustomer());
 		
 	}
 	
@@ -73,7 +65,7 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courierRepo.findCustomer(courier.getCourierId()));
+					courier.getCustomer());
 		
 	}
 	
@@ -85,7 +77,7 @@ public class EMParser {
 					complaint.getConsignmentNo(),
 					complaint.getShortDescription(),
 					complaint.getDetailDescription(),
-					complaintRepo.findCustomer(complaint.getComplaintId()));
+					complaint.getCustomer());
 		
 	}
 	
@@ -97,7 +89,7 @@ public class EMParser {
 					complaint.getConsignmentNo(),
 					complaint.getShortDescription(),
 					complaint.getDetailDescription(),
-					complaintRepo.findCustomer(complaint.getComplaintId()));
+					complaint.getCustomer());
 		
 	}
 	
@@ -121,18 +113,18 @@ public class EMParser {
 					office.getClosingTime());
 	}
 	
-	public CourierStaffMembersModel parse(OfficeStaffMembers staff) {
+	public OfficeStaffMembersModel parse(OfficeStaffMembers staff) {
 		
 		return staff==null?null:
 			
-			new CourierStaffMembersModel(staff.getEmpid(),
+			new OfficeStaffMembersModel(staff.getEmpid(),
 					staff.getName(),
 					staff.getRole(),
 					staff.getOffice(),
 					staff.getAddress());
 	}
 	
-	public OfficeStaffMembers parse(CourierStaffMembersModel staff) {
+	public OfficeStaffMembers parse(OfficeStaffMembersModel staff) {
 		
 		return staff==null?null:
 			
