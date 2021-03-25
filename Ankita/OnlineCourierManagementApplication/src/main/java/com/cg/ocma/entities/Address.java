@@ -1,16 +1,11 @@
 package com.cg.ocma.entities;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-@Entity
+
+
 @Embeddable
 public class Address {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "street")
 	private String street;
 	
@@ -20,7 +15,7 @@ public class Address {
 	@Column(name = "state")
 	private String state;
 	
-	@Column(name = "street")
+	@Column(name = "country")
 	private String country;
 	
 	@Column(name = "zip")
@@ -30,7 +25,7 @@ public class Address {
 		
 	}
 	
-	public Address( String street, String city, String state, String country, int zip) {
+	public Address(String street, String city, String state, String country, int zip) {
 		super();
 		this.street = street;
 		this.city = city;

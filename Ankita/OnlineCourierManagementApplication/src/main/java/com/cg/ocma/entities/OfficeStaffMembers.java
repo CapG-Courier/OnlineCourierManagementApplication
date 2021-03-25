@@ -1,7 +1,9 @@
 package com.cg.ocma.entities;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,16 +17,16 @@ public class OfficeStaffMembers {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "emp_id")
+	@Column(name = "empid")
 	private int empid;
 	
-	@Column(name = "emp_name", length = 50)
+	@Column(name = "name", length = 50)
 	private String name;
 	
-	@Column(name = "emp_name", length = 20)
+	@Column(name = "role", length = 20)
 	private String role;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "officeid")
 	private CourierOfficeOutlet office;
 	

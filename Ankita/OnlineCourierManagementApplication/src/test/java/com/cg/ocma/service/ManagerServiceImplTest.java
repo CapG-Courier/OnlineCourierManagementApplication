@@ -21,10 +21,10 @@ import com.cg.ocma.entities.Complaint;
 import com.cg.ocma.entities.Courier;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.OfficeStaffMembers;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.DuplicateStaffMember;
-import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
@@ -125,23 +125,19 @@ public class ManagerServiceImplTest {
 
 	@Test
 	@DisplayName("ManagerServiceImpl:: getAllStaffMember should throws an exception if office does not exsit")
-	void getAllStaffMemberCheck() throws OutletNotFoundException{
-		
-		int officeid=1;
-//		Mockito.when(managerRepo.findAllByOfficeId(officeid)).thenReturn(null);
-		assertThrows(OutletNotFoundException.class, () -> {
-			msImpl.getAllStaffMembers(officeid);
+	void getAllStaffMemberCheck() throws StaffMemberNotFoundException{
+	
+		assertThrows(StaffMemberNotFoundException.class, () -> {
+			msImpl.getAllStaffMembers();
 		});
 	}
 	
 	
 	@Test
 	@DisplayName("ManagerServiceImpl:: getAllStaffMember should return the all staff member with specified office id")
-	void getAllStaffMembers() throws OutletNotFoundException {
+	void getAllStaffMembers() throws StaffMemberNotFoundException {
 		
-		int officeid = 6;
-		
-		Mockito.when(officeRepo.existsById(officeid)).thenReturn(true);
+		Mockito.when(officeRepo.count()).thenReturn(9L);
 
 		List<OfficeStaffMembers> testdata = Arrays.asList(new OfficeStaffMembers[] {
 				new OfficeStaffMembers(7,"Ram","Staff"),
@@ -153,8 +149,8 @@ public class ManagerServiceImplTest {
 				new OfficeStaffMembersModel(8,"Ramu", "Manager")
 			});
 		
-		Mockito.when(managerRepo.findAllByOfficeId(officeid)).thenReturn(testdata);
-		List<OfficeStaffMembersModel> actual = msImpl.getAllStaffMembers(officeid);
+		Mockito.when(managerRepo.findAll()).thenReturn(testdata);
+		List<OfficeStaffMembersModel> actual = msImpl.getAllStaffMembers();
 		assertEquals(expected, actual);
 	}
 	
@@ -216,15 +212,12 @@ public class ManagerServiceImplTest {
 			msImpl.getRegistedComplaint(customerid);
 		});
 	}
-
 	
-	/*@Test
+	@Test
 	@DisplayName("ManagerServiceImpl:: getAllComplaints should return the complaint of specified customer id")
-	void getAllComplaints() throws CustomerNotFoundException {
+	void getAllComplaints() throws ComplaintNotFoundException {
 		
-		int customerid = 10;
-		
-		Mockito.when(customerRepo.existsById(customerid)).thenReturn(true);
+		Mockito.when(complaintRepo.count()).thenReturn(9L);
 
 		List<Complaint> testdata = Arrays.asList(new Complaint[] {
 				new Complaint(7,5123, "Courier was lost", "The courier was lost during transfer"),
@@ -236,9 +229,8 @@ public class ManagerServiceImplTest {
 				new ComplaintModel(8,5124, "Courier was missing", "The courier was missing during transfer")
 			});
 		
-		Mockito.when(complaintRepo.findAllComplaintsByCustomerId(customerid)).thenReturn(testdata);
-		List <ComplaintModel> actual = msImpl.getAllComplaints(customerid);
+		Mockito.when(complaintRepo.findAll()).thenReturn(testdata);
+		List<ComplaintModel> actual = msImpl.getAllComplaints();
 		assertEquals(expected, actual);
-		
-	}*/
+	}
 }

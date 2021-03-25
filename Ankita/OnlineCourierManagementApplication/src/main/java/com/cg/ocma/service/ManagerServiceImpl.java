@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.CustomerNotFoundException;
+import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.DuplicateStaffMember;
 import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
@@ -17,7 +17,6 @@ import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
-import com.cg.ocma.repository.CustomerRepo;
 import com.cg.ocma.repository.ManagerRepo;
 import com.cg.ocma.repository.OfficeOutletRepo;
 
@@ -26,9 +25,6 @@ public class ManagerServiceImpl implements IManagerService {
 	
 	@Autowired
 	private ManagerRepo managerRepo;
-	
-	@Autowired
-	private CustomerRepo customerRepo;
 	
 	@Autowired
 	private CourierRepo courierRepo;
@@ -97,12 +93,14 @@ public class ManagerServiceImpl implements IManagerService {
 	}
 
 	@Override
-	public List<OfficeStaffMembersModel> getAllStaffMembers(int officeid) throws OutletNotFoundException{
+	public List<OfficeStaffMembersModel> getAllStaffMembers() throws StaffMemberNotFoundException{
 	
-		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office with id " + officeid + " doesn't exist!");
+		if(officeRepo.count() == 0) {
+			
+			throw new StaffMemberNotFoundException("No office staff members found!");
 		} else {
-			return managerRepo.findAllByOfficeId(officeid).stream().map(parser::parse).collect(Collectors.toList());
+			
+			return managerRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 		}
 	}
 
@@ -129,13 +127,14 @@ public class ManagerServiceImpl implements IManagerService {
 	}
 
 	@Override
-	public List<ComplaintModel> getAllComplaints(int customerid) throws CustomerNotFoundException{
+	public List<ComplaintModel> getAllComplaints() throws ComplaintNotFoundException{
 		
-		if(customerRepo.existsById(customerid) == false) {
+		if(complaintRepo.count() == 0) {
 			
-			throw new CustomerNotFoundException("Customer with id " + customerid + " doesn't exist!");
+			throw new ComplaintNotFoundException("No complaints found!");
 		} else {
-			return complaintRepo.findAllComplaintsByCustomerId(customerid).stream().map(parser::parse).collect(Collectors.toList());
+			
+			return complaintRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 		}
 	}
 

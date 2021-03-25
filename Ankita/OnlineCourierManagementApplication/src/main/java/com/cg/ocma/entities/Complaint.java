@@ -1,7 +1,9 @@
 package com.cg.ocma.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class Complaint {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "complaintid")
 	private int complaintId;
 	
 	@Column(name = "consignmentno")
@@ -27,11 +30,15 @@ public class Complaint {
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
+	@Column(name = "shortdesc")
 	private String shortDescription;
 	
+	@Column(name = "detaildesc")
 	private String detailDescription;
 	
-	@ManyToOne
+	//@ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	//@JoinColumn(name = "customerid")
+	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "customerid")
 	private Customer customer;
 

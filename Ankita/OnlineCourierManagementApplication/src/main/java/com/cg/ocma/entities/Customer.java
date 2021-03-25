@@ -1,10 +1,15 @@
 package com.cg.ocma.entities;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,26 +18,29 @@ public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cust_id")
+	@Column(name = "customerid")
 	private int customerid;
 	
-	@Column(name = "cust_aadhar_no")
+	@Column(name = "aadharno")
 	private int aadharno;
 	
-	@Column(name = "first_name", length = 20)
+	@Column(name = "firstname", length = 20)
 	private String firstname;
 	
-	@Column(name = "last_name", length = 20)
+	@Column(name = "lastname", length = 20)
 	private String lastname;
 	
 	@Embedded
 	private Address addr;
 	
-	@Column(name = "mobile_no")
+	@Column(name = "mobileno")
 	private int mobileno;
 	
 	@Embedded
 	private BankAccount acct;
+	
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List <Complaint> complaints;
 	
 	public Customer() {
 		
@@ -40,8 +48,7 @@ public class Customer {
 		
 	}
 
-	public Customer(int customerid, int aadharno, String firstname, String lastname, Address addr, int mobileno,
-			BankAccount acct) {
+	public Customer(int customerid, int aadharno, String firstname, String lastname, Address addr, int mobileno, BankAccount acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;

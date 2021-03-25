@@ -1,12 +1,17 @@
 package com.cg.ocma.entities;
 
 import java.time.LocalTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,18 +20,20 @@ public class CourierOfficeOutlet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "office_id")
+	@Column(name = "officeid")
 	private int officeid;
 	
 	@Embedded
 	private Address address;
 	
-	@Column(name = "opening_time")	
+	@Column(name = "openingtime")	
 	private LocalTime openingTime;
 	
-	
-	@Column(name = "closing_time")
+	@Column(name = "closingtime")
 	private LocalTime closingTime;
+	
+	@OneToMany(mappedBy = "office", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List <OfficeStaffMembers> officeStaff;
 	
 	public CourierOfficeOutlet() {
 		

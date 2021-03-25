@@ -2,6 +2,7 @@ package com.cg.ocma.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,18 +23,21 @@ public class Courier {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "courierid")
 	private int courierId;
 	
-	@Column(name = "c_no")
+	@Column(name = "consignmentno")
 	private int consignmentNo;
 	
 	@DateTimeFormat(iso=ISO.DATE)
+	@Column(name = "intitateddate")
 	private LocalDate initiatedDate;
 	
 	@DateTimeFormat(iso=ISO.DATE)
+	@Column(name = "delivereddate")
 	private LocalDate deliveredDate;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "customerid")
 	private Customer customer;
 	

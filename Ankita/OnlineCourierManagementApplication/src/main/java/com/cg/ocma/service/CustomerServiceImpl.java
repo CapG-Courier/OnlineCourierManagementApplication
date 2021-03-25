@@ -1,6 +1,7 @@
 package com.cg.ocma.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.ocma.entities.CourierStatus;
@@ -15,6 +16,7 @@ import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
 
+@Service
 public class CustomerServiceImpl implements ICustomerService {
 	
 	@Autowired

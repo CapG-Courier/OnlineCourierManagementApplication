@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.CustomerNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
@@ -94,14 +95,14 @@ public class ManagerRestController {
 		
 	}
 	
-	@GetMapping("/{managerid}/getStaff/officeid={officeid}")
-	public ResponseEntity <List<OfficeStaffMembersModel>> getAllStaffAction(@PathVariable("{officeid}") int officeid, BindingResult result) throws OutletNotFoundException{
+	@GetMapping("/{managerid}/getAllStaff")
+	public ResponseEntity <List<OfficeStaffMembersModel>> getAllStaffAction(BindingResult result) throws StaffMemberNotFoundException{
 		
 		if (result.hasErrors()) {
-			throw new OutletNotFoundException(GlobalExceptionHandler.messageFrom(result));
+			throw new StaffMemberNotFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			ResponseEntity <List<OfficeStaffMembersModel>> response = new ResponseEntity <> (managerService.getAllStaffMembers(officeid), HttpStatus.FOUND);
+			ResponseEntity <List<OfficeStaffMembersModel>> response = new ResponseEntity <> (managerService.getAllStaffMembers(), HttpStatus.FOUND);
 			return response;
 			
 		}
@@ -135,14 +136,14 @@ public class ManagerRestController {
 		}
 	}
 	
-	@GetMapping("/{managerid}/customerid={customerid}")
-	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction(@PathVariable("{customerid}") int customerid, BindingResult result) throws CustomerNotFoundException {
+	@GetMapping("/{managerid}/getComplaints")
+	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction(BindingResult result) throws ComplaintNotFoundException {
 		
 		if (result.hasErrors()) {
-			throw new CustomerNotFoundException(GlobalExceptionHandler.messageFrom(result));
+			throw new ComplaintNotFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			ResponseEntity <List<ComplaintModel>> response = new ResponseEntity <> (managerService.getAllComplaints(customerid), HttpStatus.FOUND);
+			ResponseEntity <List<ComplaintModel>> response = new ResponseEntity <> (managerService.getAllComplaints(), HttpStatus.FOUND);
 			return response;
 			
 		}

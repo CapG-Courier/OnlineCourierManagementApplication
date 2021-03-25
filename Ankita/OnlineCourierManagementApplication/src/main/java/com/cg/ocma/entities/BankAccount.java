@@ -1,5 +1,6 @@
 package com.cg.ocma.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,14 +10,17 @@ public class BankAccount {
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
+	@Column(name = "accountno")
 	public long accountno;
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
+	@Column(name = "accountholdername")
 	public String accountHolderName;
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
+	@Column(name = "accounttype")
 	public String accountType;
 	
 	public BankAccount() {
