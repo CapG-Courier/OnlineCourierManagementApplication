@@ -30,22 +30,18 @@ public class OfficeStaffMembers {
 	@JoinColumn(name = "officeid")
 	private CourierOfficeOutlet office;
 	
-	@Embedded
-	private Address address;
-	
 	public OfficeStaffMembers() {
 		
 		//no implementation//
 	}
 	
-	public OfficeStaffMembers(int empid, String name, String role, CourierOfficeOutlet office, Address address) {
+	public OfficeStaffMembers(int empid, String name, String role, CourierOfficeOutlet office) {
 		
 		super();
 		this.empid=empid;
 		this.name = name;
 		this.role = role;
 		this.office = office;
-		this.address = address;
 	}
 	
 	public OfficeStaffMembers(int empid, String name, String role) {
@@ -87,19 +83,10 @@ public class OfficeStaffMembers {
 		this.office = office;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + empid;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((office == null) ? 0 : office.hashCode());
@@ -116,11 +103,6 @@ public class OfficeStaffMembers {
 		if (getClass() != obj.getClass())
 			return false;
 		OfficeStaffMembers other = (OfficeStaffMembers) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
 		if (empid != other.empid)
 			return false;
 		if (name == null) {
@@ -143,8 +125,7 @@ public class OfficeStaffMembers {
 
 	@Override
 	public String toString() {
-		return "OfficeStaffMembers [empid=" + empid + ", name=" + name + ", role=" + role + ", office=" + office
-				+ ", address=" + address + "]";
+		return "OfficeStaffMembers [empid=" + empid + ", name=" + name + ", role=" + role + ", office=" + office + "]";
 	}
 	
 }

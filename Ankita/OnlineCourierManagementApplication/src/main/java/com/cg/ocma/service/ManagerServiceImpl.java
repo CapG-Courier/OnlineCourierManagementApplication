@@ -11,7 +11,6 @@ import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.DuplicateStaffMember;
-import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
@@ -70,7 +69,7 @@ public class ManagerServiceImpl implements IManagerService {
 	@Override
 	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException{
 		boolean flag = false;
-		if(managerRepo.findById(empid) == null) {
+		if(managerRepo.existsById(empid) == false) {
 			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");	
 		} else {
 			managerRepo.deleteById(empid);
@@ -85,7 +84,7 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException {
-		if(managerRepo.findById(empid) == null) {
+		if(managerRepo.existsById(empid) == false) {
 			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");
 		} else {
 			return parser.parse(managerRepo.findById(empid).get());

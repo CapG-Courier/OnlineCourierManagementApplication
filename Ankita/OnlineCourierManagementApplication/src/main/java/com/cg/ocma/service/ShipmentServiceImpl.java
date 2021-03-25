@@ -36,7 +36,8 @@ public class ShipmentServiceImpl implements IShipmentService {
 			
 		} else{
 			
-			parser.parse(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.INTRANSIT);
+			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.INITIATED);
+			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
 			
 		}
@@ -64,7 +65,8 @@ public class ShipmentServiceImpl implements IShipmentService {
 			
 		} else{
 			
-			parser.parse(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.DELIVERED);
+			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.DELIVERED);
+			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
 			
 		}
@@ -79,9 +81,9 @@ public class ShipmentServiceImpl implements IShipmentService {
 			
 		} else{
 			
-			parser.parse(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.REJECTED);
+			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.REJECTED);
+			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
-			
 		}
 	}
 

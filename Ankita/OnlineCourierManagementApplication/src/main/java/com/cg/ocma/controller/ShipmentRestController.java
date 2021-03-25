@@ -23,13 +23,8 @@ public class ShipmentRestController {
 	private IShipmentService shipmentService;
 	
 	@PatchMapping("/{courierid}/initiate")
-	public ResponseEntity <String> initiateShipmentAction(@PathVariable("{courierid}") int courierid, BindingResult result) throws CourierNotFoundException {
+	public ResponseEntity <String> initiateShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
-		if (result.hasErrors()) {
-			
-			throw new CourierNotFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
 			boolean flag = shipmentService.initiateShipmentTransaction(courierid);
 			if(flag) {
 				
@@ -40,32 +35,19 @@ public class ShipmentRestController {
 				ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
 				return response;
 			}
-		}
-		
 	}
 	
 	@GetMapping("/{courierid}/checkStatus")
-	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("{courierid}") int courierid, BindingResult result) throws CourierNotFoundException {
+	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
-		if (result.hasErrors()) {
-			throw new CourierNotFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
 			String status = shipmentService.checkShipmentStatus(courierid);
 			ResponseEntity <String> response = new ResponseEntity <> ("The status of the courier with courier id " + courierid + " is: " + status, HttpStatus.OK);
 			return response;
-			
-		}
 	}
 	
 	@PatchMapping("/{courierid}/close")
-	public ResponseEntity <String> closeShipmentAction(@PathVariable("{courierid}") int courierid, BindingResult result) throws CourierNotFoundException {
+	public ResponseEntity <String> closeShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
-		if (result.hasErrors()) {
-			
-			throw new CourierNotFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
 			boolean flag = shipmentService.closeShipmentTransaction(courierid);
 			if(flag) {
 				
@@ -76,18 +58,11 @@ public class ShipmentRestController {
 				ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
 				return response;
 			}
-		}
-		
 	}
 	
 	@PatchMapping("/{courierid}/reject")
-	public ResponseEntity <String> rejectShipmentAction(@PathVariable("{courierid}") int courierid, BindingResult result) throws CourierNotFoundException {
+	public ResponseEntity <String> rejectShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
-		if (result.hasErrors()) {
-			
-			throw new CourierNotFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
 			boolean flag = shipmentService.rejectShipmentTransaction(courierid);
 			if(flag) {
 				
@@ -98,7 +73,6 @@ public class ShipmentRestController {
 				ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
 				return response;
 			}
-		}
 		
 	}
 	

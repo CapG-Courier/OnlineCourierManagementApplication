@@ -2,7 +2,6 @@ package com.cg.ocma.model;
 
 import java.time.LocalDate;
 
-import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.Customer;
 
 public class CourierModel {
@@ -17,13 +16,13 @@ public class CourierModel {
 	
 	private Customer customer;
 	
-	private CourierStatus status;
+	private String status;
 
 	public CourierModel() {
 		
 	}
 
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CourierStatus status, Customer customer) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, Customer customer) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -76,11 +75,11 @@ public class CourierModel {
 		this.deliveredDate = deliveredDate;
 	}
 
-	public CourierStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(CourierStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

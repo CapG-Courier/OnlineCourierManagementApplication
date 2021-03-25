@@ -72,7 +72,7 @@ public class OfficeOutletRestController {
 	}
 	
 	@GetMapping("/getOffice/officeid={officeid}")
-	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("{officeid}") int officeid, BindingResult result) throws OutletNotFoundException{
+	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("officeid") int officeid, BindingResult result) throws OutletNotFoundException{
 		
 		if (result.hasErrors()) {
 			throw new OutletNotFoundException(GlobalExceptionHandler.messageFrom(result));
@@ -100,7 +100,7 @@ public class OfficeOutletRestController {
 	}
 	
 	@GetMapping("checkOfficeOpen/{officeid}")
-	public ResponseEntity <String> isOfficeOpen(@PathVariable("{officeid}") int officeid, BindingResult result) throws OutletClosedException {
+	public ResponseEntity <String> isOfficeOpen(@PathVariable("officeid") int officeid, BindingResult result) throws OutletClosedException {
 		
 		if (result.hasErrors()) {
 			throw new OutletClosedException(GlobalExceptionHandler.messageFrom(result));
@@ -121,7 +121,7 @@ public class OfficeOutletRestController {
 	}
 	
 	@GetMapping("/checkOfficeClosed/{officeid}")
-	public ResponseEntity <String> isOfficeClosed(@PathVariable("{officeid}") int officeid, BindingResult result) throws OutletClosedException {
+	public ResponseEntity <String> isOfficeClosed(@PathVariable("officeid") int officeid, BindingResult result) throws OutletClosedException {
 		
 		if (result.hasErrors()) {
 			throw new OutletClosedException(GlobalExceptionHandler.messageFrom(result));

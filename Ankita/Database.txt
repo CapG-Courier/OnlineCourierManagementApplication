@@ -1,3 +1,10 @@
+We need to change the database design for courierStatus.
+Create a new col. in courier table with varchar data type for enum Status.
+
+
+
+
+
 
 CREATE TYPE Address AS ( 
 street varchar(20),  
@@ -326,11 +333,11 @@ CREATE TABLE officeoutlettest (
     closingTime time 
 );
 
-INSERT INTO officeoutlettest(street,city,state,country,zip,openingTime,closingTime)
+INSERT INTO courier_office_outlet(city,country,state,street,zip,openingTime,closingTime)
 VALUES
-('Street Z','Mumbai','Maharashtra','India',600620,'08:30:00','22:00:00'),
-('Street Y','Chennai','Tamil Nadu','India',600630,'08:00:00','22:00:00'),
-('Street W','Kolkata','West Bengal','India',600650,'08:00:00','22:30:00')
+('Mumbai','India','Maharashtra','Street Z',600620,'08:30:00','22:00:00'),
+('Chennai','India','Tamil Nadu','Street Y',600630,'08:00:00','22:00:00'),
+('Kolkata','India','West Bengal','Street W',600650,'08:00:00','22:30:00')
 ;
 
 
@@ -346,13 +353,16 @@ CREATE TABLE officestafftest (
     officeid int CONSTRAINT officestafftest_officeid_fk REFERENCES officeoutlettest(officeid)
 );
 
-INSERT INTO officestafftest(street,city,state,country,zip,name,role,officeid)
+INSERT INTO officemembers(city,country,state,street,zip,name,role,officeid)
 VALUES
-('Street Z','Mumbai','Maharashtra','India',600620,'Komal','Manager',1),
-('Street Y','Chennai','Tamil Nadu','India',600630,'Shruthi','Staff',2),
-('Street X','Mumbai','Maharashtra','India',600620,'Amit Prasad','Staff',1),
-('Street W','Kolkata','West Bengal','India',600650,'Lovely','Manager',3),
-('Street V','Kolkata','West Bengal','India',600650,'Sammy','Staff',3),
-('Street U','Chennai','Tamil Nadu','India',600630,'Vishal','Manager',2)
+('Mumbai','India','Maharashtra','Street Z',600620,'Komal','Manager',1),
+('Chennai','India','Tamil Nadu','Street Y',600630,'Shruthi','Staff',2),
+('Mumbai','India','Maharashtra','Street X',600620,'Amit Prasad','Staff',1),
+('Kolkata','India','West Bengal','Street W',600650,'Lovely','Manager',3),
+('Kolkata','India','West Bengal','Street V',600650,'Sammy','Staff',3),
+('Chennai','India','Tamil Nadu','Street U',600630,'Vishal','Manager',2)
 ;
+
+
+
 

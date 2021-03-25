@@ -97,7 +97,9 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		} else {
 			
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
-			if((office.getOpeningTime().equals(LocalTime.now()) || office.getOpeningTime().isBefore(LocalTime.now())) && office.getClosingTime().isAfter(LocalTime.now())) {
+			LocalTime open = LocalTime.parse(office.getOpeningTime());
+			LocalTime close = LocalTime.parse(office.getClosingTime());
+			if((open.equals(LocalTime.now()) || open.isBefore(LocalTime.now())) && close.isAfter(LocalTime.now())) {
 				
 				return true;
 				
@@ -116,7 +118,9 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		} else {
 			
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
-			if((office.getClosingTime().equals(LocalTime.now()) || office.getClosingTime().isBefore(LocalTime.now())) && office.getOpeningTime().isAfter(LocalTime.now())) {
+			LocalTime open = LocalTime.parse(office.getOpeningTime());
+			LocalTime close = LocalTime.parse(office.getClosingTime());
+			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
 				
 				return true;
 			} else {
@@ -126,6 +130,7 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 			}
 		}
 	}
+
 
 	
 

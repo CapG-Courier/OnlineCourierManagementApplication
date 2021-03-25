@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.cg.ocma.entities.Complaint;
 import com.cg.ocma.entities.Courier;
 import com.cg.ocma.entities.CourierOfficeOutlet;
+import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.Customer;
 import com.cg.ocma.entities.OfficeStaffMembers;
 import com.cg.ocma.model.ComplaintModel;
@@ -52,7 +53,7 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courier.getStatus(),
+					courier.getStatus().toString(),
 					courier.getCustomer());
 		
 	}
@@ -65,7 +66,8 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courier.getCustomer());
+					courier.getCustomer(),
+					CourierStatus.valueOf(courier.getStatus()));
 		
 	}
 	
@@ -120,8 +122,7 @@ public class EMParser {
 			new OfficeStaffMembersModel(staff.getEmpid(),
 					staff.getName(),
 					staff.getRole(),
-					staff.getOffice(),
-					staff.getAddress());
+					staff.getOffice());
 	}
 	
 	public OfficeStaffMembers parse(OfficeStaffMembersModel staff) {
@@ -131,8 +132,7 @@ public class EMParser {
 			new OfficeStaffMembers(staff.getEmpid(),
 					staff.getName(),
 					staff.getRole(),
-					staff.getOffice(),
-					staff.getAddress());
+					staff.getOffice());
 	}
 	
 }

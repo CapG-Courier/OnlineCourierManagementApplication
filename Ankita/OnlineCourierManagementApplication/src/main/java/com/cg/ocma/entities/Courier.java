@@ -91,6 +91,18 @@ public class Courier {
 		this.status = status;
 	}
 
+	
+
+	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,Customer customer, CourierStatus status) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+		this.customer = customer;
+		this.status = status;
+	}
+
 
 	public int getCourierId() {
 		return courierId;

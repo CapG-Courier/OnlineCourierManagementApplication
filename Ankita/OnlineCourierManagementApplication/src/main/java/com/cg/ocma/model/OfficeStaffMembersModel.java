@@ -20,24 +20,19 @@ public class OfficeStaffMembersModel {
 	
 	private CourierOfficeOutlet office;
 	
-	private Address address;
-
 	public OfficeStaffMembersModel() {
 		
 	}
 
-	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office, Address address) {
+	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office) {
 		super();
 		this.empid = empid;
 		this.name = name;
 		this.role = role;
 		this.office = office;
-		this.address = address;
 	}
 
-	public OfficeStaffMembersModel(int empid,
-			@NotEmpty(message = "Employee name cannot be empty") @NotNull(message = "Employee name cannot be omitted") String name,
-			@NotEmpty(message = "Employee role cannot be empty") @NotNull(message = "Employee role cannot be omitted") String role) {
+	public OfficeStaffMembersModel(int empid, String name, String role) {
 		super();
 		this.empid = empid;
 		this.name = name;
@@ -72,19 +67,10 @@ public class OfficeStaffMembersModel {
 		this.office = office;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + empid;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((office == null) ? 0 : office.hashCode());
@@ -101,11 +87,6 @@ public class OfficeStaffMembersModel {
 		if (getClass() != obj.getClass())
 			return false;
 		OfficeStaffMembersModel other = (OfficeStaffMembersModel) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
 		if (empid != other.empid)
 			return false;
 		if (name == null) {
@@ -128,10 +109,8 @@ public class OfficeStaffMembersModel {
 
 	@Override
 	public String toString() {
-		return "CourierStaffMembersModel [empid=" + empid + ", name=" + name + ", role=" + role + ", office=" + office
-				+ ", address=" + address + "]";
+		return "OfficeStaffMembersModel [empid=" + empid + ", name=" + name + ", role=" + role + ", office=" + office
+				+ "]";
 	}
-	
-	
 
 }

@@ -1,7 +1,5 @@
 package com.cg.ocma.model;
 
-import java.time.LocalTime;
-
 import com.cg.ocma.entities.Address;
 
 public class CourierOfficeOutletModel {
@@ -10,15 +8,15 @@ public class CourierOfficeOutletModel {
 	
 	private Address address;
 	
-	private LocalTime openingTime;
+	private String openingTime;
 	
-	private LocalTime closingTime;
+	private String closingTime;
 
 	public CourierOfficeOutletModel() {
 		 
 	}
 
-	public CourierOfficeOutletModel(int officeid, Address address, LocalTime openingTime, LocalTime closingTime) {
+	public CourierOfficeOutletModel(int officeid, Address address, String openingTime, String closingTime) {
 		super();
 		this.officeid = officeid;
 		this.address = address;
@@ -26,7 +24,7 @@ public class CourierOfficeOutletModel {
 		this.closingTime = closingTime;
 	}
 
-	public CourierOfficeOutletModel(int officeid, LocalTime openingTime, LocalTime closingTime) {
+	public CourierOfficeOutletModel(int officeid, String openingTime, String closingTime) {
 		super();
 		this.officeid = officeid;
 		this.openingTime = openingTime;
@@ -49,19 +47,19 @@ public class CourierOfficeOutletModel {
 		this.address = address;
 	}
 
-	public LocalTime getOpeningTime() {
+	public String getOpeningTime() {
 		return openingTime;
 	}
 
-	public void setOpeningTime(LocalTime openingTime) {
+	public void setOpeningTime(String openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public LocalTime getClosingTime() {
+	public String getClosingTime() {
 		return closingTime;
 	}
 
-	public void setClosingTime(LocalTime closingTime) {
+	public void setClosingTime(String closingTime) {
 		this.closingTime = closingTime;
 	}
 

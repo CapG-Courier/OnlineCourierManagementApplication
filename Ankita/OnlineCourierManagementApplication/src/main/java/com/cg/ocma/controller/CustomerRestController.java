@@ -67,18 +67,12 @@ public class CustomerRestController {
 		
 	}
 	
-	@GetMapping("/{customerid}/{consignmentno}")
-	public ResponseEntity <String> checkCourierStatusAction(@PathVariable("{consignmentno}") int consignmentno, BindingResult result) throws CourierNotFoundException {
-		
-		if (result.hasErrors()) {
-			throw new CourierNotFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
+	@GetMapping("/{customerid}/checkStatus/{consignmentno}")
+	public ResponseEntity <String> checkCourierStatusAction(@PathVariable("consignmentno") int consignmentno) throws CourierNotFoundException {
+
 			String status = customerService.checkOnlineTrackingStatus(consignmentno);
 			ResponseEntity <String> response = new ResponseEntity <> ("The status of the courier is: " + status, HttpStatus.OK);
 			return response;
-			
-		}
 	}
 	
 	@PostMapping("/{customerid}/registerComplaint")

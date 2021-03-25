@@ -3,8 +3,6 @@ package com.cg.ocma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
@@ -51,8 +49,6 @@ public class CustomerServiceImpl implements ICustomerService {
 				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
 			} else {
 				parser.parse(courierRepo.save(parser.parse(courier)));
-				(courierRepo.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INITIATED);
-				//parser.parse(courierRepo.findById(courier.getCourierId()).orElse(null)).setStatus("INITIATED");
 			}
 		} 
 		return courier.getConsignmentNo();

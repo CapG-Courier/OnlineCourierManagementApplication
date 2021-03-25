@@ -3,7 +3,6 @@ package com.cg.ocma.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +34,8 @@ public class OfficeOutletServiceImplTest {
 	@DisplayName("OfficeOutletServiceImpl:: addNewOffice should return the new office id")
 	void addNewOffice() throws DuplicateOfficeOutletFoundException {
 		int expected = 2;
-		CourierOfficeOutlet testdata = new CourierOfficeOutlet(2,LocalTime.parse("08:30:00"),LocalTime.parse("22:00:00"));
-		CourierOfficeOutletModel check = new CourierOfficeOutletModel(2,LocalTime.parse("08:30:00"),LocalTime.parse("22:00:00"));
+		CourierOfficeOutlet testdata = new CourierOfficeOutlet(2,"08:30:00","22:00:00");
+		CourierOfficeOutletModel check = new CourierOfficeOutletModel(2,"08:30:00","22:00:00");
 		Mockito.when(officeRepo.save(testdata)).thenReturn(testdata);
 		int actual = ofImpl.addNewOffice(check);
 		assertEquals(expected, actual);
@@ -57,8 +56,8 @@ public class OfficeOutletServiceImplTest {
 		int officeid = 6;
 		Mockito.when(officeRepo.existsById(officeid)).thenReturn(true);
 		
-		CourierOfficeOutlet testdata = new CourierOfficeOutlet(6, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00"));
-		CourierOfficeOutletModel expected = new CourierOfficeOutletModel(6, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00"));
+		CourierOfficeOutlet testdata = new CourierOfficeOutlet(6, "08:30:00", "22:00:00");
+		CourierOfficeOutletModel expected = new CourierOfficeOutletModel(6, "08:30:00", "22:00:00");
 		Mockito.when(officeRepo.findById(officeid)).thenReturn(Optional.of(testdata));
 		
 		CourierOfficeOutletModel actual = ofImpl.getOfficeInfo(officeid);
@@ -72,16 +71,16 @@ public class OfficeOutletServiceImplTest {
 		Mockito.when(officeRepo.count()).thenReturn(1L);
 		
 		List<CourierOfficeOutlet> testdata = Arrays.asList(new CourierOfficeOutlet[] {
-				new CourierOfficeOutlet(6, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00")),
-				new CourierOfficeOutlet(7, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00"))
+				new CourierOfficeOutlet(6, "08:30:00", "22:00:00"),
+				new CourierOfficeOutlet(7, "08:30:00","22:00:00")
 			});
 		
 		Mockito.when(officeRepo.findAll()).thenReturn(testdata);
 		
 		List<CourierOfficeOutletModel> expected = Arrays.asList(new CourierOfficeOutletModel[] {
-				new CourierOfficeOutletModel(6, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00")),
-				new CourierOfficeOutletModel(7, LocalTime.parse("08:30:00"), LocalTime.parse("22:00:00"))
-			});
+				new CourierOfficeOutletModel(6, "08:30:00", "22:00:00"),
+				new CourierOfficeOutletModel(7, "08:30:00","22:00:00")
+		});
 		
 		List <CourierOfficeOutletModel> actual = ofImpl.getAllOfficesData();
 		assertEquals(expected, actual);

@@ -11,7 +11,6 @@ public class CustomerModel {
 	
 	private int customerid;
 	
-	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
 	private int aadharno;
 	
@@ -23,9 +22,7 @@ public class CustomerModel {
 	@NotNull(message="This field cannot be omitted")
 	private String lastname;
 	
-	@Pattern(regexp="[1-9][0-9]{9}", message="Mobile number is expected to be 10 digits and should not start with 0")
-	@NotEmpty(message="This field cannot be empty")
-    @NotNull(message="Mobile number cannot be omitted")
+	@NotNull(message="Mobile number cannot be omitted")
 	private int mobileno;
 	
 	private Address addr;

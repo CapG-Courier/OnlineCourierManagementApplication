@@ -3,7 +3,6 @@ package com.cg.ocma.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="complaint")
@@ -28,17 +25,13 @@ public class Complaint {
 	@GeneratedValue(generator = "mySeqGen")
 	private int consignmentNo;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
 	@Column(name = "shortdesc")
 	private String shortDescription;
 	
 	@Column(name = "detaildesc")
 	private String detailDescription;
 	
-	//@ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-	//@JoinColumn(name = "customerid")
-	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "customerid")
 	private Customer customer;
 

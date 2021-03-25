@@ -39,8 +39,11 @@ public class Customer {
 	@Embedded
 	private BankAccount acct;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List <Complaint> complaints;
+	
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List <Courier> couriers;
 	
 	public Customer() {
 		

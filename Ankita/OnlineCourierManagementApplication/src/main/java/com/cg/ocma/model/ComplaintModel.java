@@ -9,7 +9,6 @@ public class ComplaintModel {
 	
 	private int complaintId;
 	
-	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
 	private int consignmentNo;
 	

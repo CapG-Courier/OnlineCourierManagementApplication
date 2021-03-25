@@ -1,6 +1,6 @@
 package com.cg.ocma.entities;
 
-import java.time.LocalTime;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,12 +27,12 @@ public class CourierOfficeOutlet {
 	private Address address;
 	
 	@Column(name = "openingtime")	
-	private LocalTime openingTime;
+	private String openingTime;
 	
 	@Column(name = "closingtime")
-	private LocalTime closingTime;
+	private String closingTime;
 	
-	@OneToMany(mappedBy = "office", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "office", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List <OfficeStaffMembers> officeStaff;
 	
 	public CourierOfficeOutlet() {
@@ -41,7 +41,7 @@ public class CourierOfficeOutlet {
 			
 	}
 
-	public CourierOfficeOutlet(int officeid, Address address, LocalTime openingTime, LocalTime closingTime) {
+	public CourierOfficeOutlet(int officeid, Address address, String openingTime, String closingTime) {
 		super();
 		this.officeid = officeid;
 		this.address = address;
@@ -49,7 +49,7 @@ public class CourierOfficeOutlet {
 		this.closingTime = closingTime;
 	}
 
-	public CourierOfficeOutlet(int officeid, LocalTime openingTime, LocalTime closingTime) {
+	public CourierOfficeOutlet(int officeid, String openingTime, String closingTime) {
 		super();
 		this.officeid = officeid;
 		this.openingTime = openingTime;
@@ -73,32 +73,22 @@ public class CourierOfficeOutlet {
 		this.officeid = officeid;
 	}
 	
-	public Address getAddress_time() {
-		
-		return address;
-	}
-	
-	public void setAddress_time(Address address) {
-		
-		this.address = address;
-	}
-	
-	public LocalTime getOpeningTime() {
+	public String getOpeningTime() {
 		
 		return openingTime;
 	}
 	
-	public void setOpeningTime(LocalTime openingTime) {
+	public void setOpeningTime(String openingTime) {
 		
 		this.openingTime = openingTime;
 	}
 	
-	public LocalTime getClosingTime() {
+	public String getClosingTime() {
 		
 		return closingTime;
 	}
 	
-	public void setClosingTime(LocalTime closingTime) {
+	public void setClosingTime(String closingTime) {
 		
 		this.closingTime = closingTime;
 	}
