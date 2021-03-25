@@ -23,7 +23,6 @@ import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.OfficeStaffMembers;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.CustomerNotFoundException;
 import com.cg.ocma.exception.DuplicateStaffMember;
 import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
@@ -114,6 +113,29 @@ public class ManagerServiceImplTest {
 	}
 	
 	@Test
+	@DisplayName("ManagerServiceImpl:: getStaffMember should throws an exception if staff does not exsit")
+	void getStaffMemberCheck() throws StaffMemberNotFoundException{
+		
+		OfficeStaffMembersModel check = new OfficeStaffMembersModel(1,"Sid","Manager");
+		Mockito.when(managerRepo.findById(check.getEmpid())).thenReturn(null);
+		assertThrows(StaffMemberNotFoundException.class, () -> {
+			msImpl.getStaffMember(check.getEmpid());
+		});
+	}
+
+	@Test
+	@DisplayName("ManagerServiceImpl:: getAllStaffMember should throws an exception if office does not exsit")
+	void getAllStaffMemberCheck() throws OutletNotFoundException{
+		
+		int officeid=1;
+//		Mockito.when(managerRepo.findAllByOfficeId(officeid)).thenReturn(null);
+		assertThrows(OutletNotFoundException.class, () -> {
+			msImpl.getAllStaffMembers(officeid);
+		});
+	}
+	
+	
+	@Test
 	@DisplayName("ManagerServiceImpl:: getAllStaffMember should return the all staff member with specified office id")
 	void getAllStaffMembers() throws OutletNotFoundException {
 		
@@ -152,6 +174,18 @@ public class ManagerServiceImplTest {
 		assertEquals(expected, actual);
 	}
 	
+	@Test
+	@DisplayName("CustomerServiceImpl:: checkOnlineTrackingStatusCheck should give an exception when the Courier is not found")
+	void getCourierStatusCheck() throws CourierNotFoundException {
+		
+		//Courier testdata = new Courier(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
+		int courierid = 1;
+		Mockito.when(courierRepo.existsById(courierid)).thenReturn(false);
+		assertThrows(CourierNotFoundException.class, () -> {
+			msImpl.getCourierStatus(courierid);
+		});
+		
+	}
 
 	@Test
 	@DisplayName("ManagerServiceImpl:: getRegistedComplaint should return the complaint of specified complaint id")
@@ -169,6 +203,20 @@ public class ManagerServiceImplTest {
 		assertEquals(expected, actual);
 		
 	}
+	
+
+	@Test
+	@DisplayName("ManagerServiceImpl:: getRegisteredComplaint should throws an exception if complaint does not exsit")
+	void getRegistedComplaintCheck() throws DuplicateCustomerFoundException{
+		
+		//OfficeStaffMembersModel check = new OfficeStaffMembersModel(1,"Sid","Manager");
+		int customerid=1;
+	//	Mockito.when(managerRepo.existsById(customerid)).thenReturn(false);
+		assertThrows(DuplicateCustomerFoundException.class, () -> {
+			msImpl.getRegistedComplaint(customerid);
+		});
+	}
+
 	
 	/*@Test
 	@DisplayName("ManagerServiceImpl:: getAllComplaints should return the complaint of specified customer id")

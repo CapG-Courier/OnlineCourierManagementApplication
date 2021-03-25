@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.cg.ocma.entities.Complaint;
 import com.cg.ocma.entities.Courier;
 import com.cg.ocma.entities.CourierStatus;
-import com.cg.ocma.entities.Customer;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
@@ -44,6 +43,7 @@ public class CustomerServiceImplTest {
 	@InjectMocks
 	private CustomerServiceImpl csImpl;
 	
+	/*
 	@Test
 	@DisplayName("CustomerServiceImpl:: register should return customer id if customer object is successfully created")
 	void register() throws DuplicateCustomerFoundException {
@@ -56,6 +56,20 @@ public class CustomerServiceImplTest {
 		int actual = csImpl.register(check);
 		assertEquals(expected, actual);
 	}
+	*/
+	
+	/*
+	@Test
+	@DisplayName("CustomerServiceImpl:: register should return exception if customer already exists")
+	void registerCheck() throws DuplicateCustomerFoundException{
+		
+		CustomerModel check = new CustomerModel(5,1736254879,"Ram","Kumar", 988762456);
+		Mockito.when(customerRepo.existsById(check.getCustomerid())).thenReturn(true);
+		assertThrows(DuplicateCustomerFoundException.class, () -> {
+			csImpl.register(check);
+		});
+	}
+	*/
 	
 	@Test
 	@DisplayName("CustomerServiceImpl:: initiateProcess should return consignment number if courier object is successfully created")
