@@ -76,52 +76,6 @@ public class CourierOfficeOutletEntity {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
-		result = prime * result + ((closingTime == null) ? 0 : closingTime.hashCode());
-		result = prime * result + ((officeStaff == null) ? 0 : officeStaff.hashCode());
-		result = prime * result + officeid;
-		result = prime * result + ((openingTime == null) ? 0 : openingTime.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CourierOfficeOutletEntity other = (CourierOfficeOutletEntity) obj;
-		if (addr == null) {
-			if (other.addr != null)
-				return false;
-		} else if (!addr.equals(other.addr))
-			return false;
-		if (closingTime == null) {
-			if (other.closingTime != null)
-				return false;
-		} else if (!closingTime.equals(other.closingTime))
-			return false;
-		if (officeStaff == null) {
-			if (other.officeStaff != null)
-				return false;
-		} else if (!officeStaff.equals(other.officeStaff))
-			return false;
-		if (officeid != other.officeid)
-			return false;
-		if (openingTime == null) {
-			if (other.openingTime != null)
-				return false;
-		} else if (!openingTime.equals(other.openingTime))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		return "CourierOfficeOutletEntity [officeid=" + officeid + ", addr=" + addr + ", openingTime=" + openingTime
 				+ ", closingTime=" + closingTime + ", officeStaff=" + officeStaff + "]";

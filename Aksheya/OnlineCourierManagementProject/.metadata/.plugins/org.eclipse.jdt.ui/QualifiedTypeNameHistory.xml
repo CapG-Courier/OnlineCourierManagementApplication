@@ -8,4 +8,6 @@
     <fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
     <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
+    <fullyQualifiedTypeName name="com.cg.ocma.exception.DuplicateAddressFoundException"/>
+    <fullyQualifiedTypeName name="com.cg.ocma.repository.CustomerRepo"/>
 </qualifiedTypeNameHistroy>

@@ -88,53 +88,7 @@ public class CustomerModel {
 	public void setAcct(BankAccountEntity acct) {
 		this.acct = acct;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (aadharno ^ (aadharno >>> 32));
-		result = prime * result + ((acct == null) ? 0 : acct.hashCode());
-		result = prime * result + customerid;
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + (int) (mobileno ^ (mobileno >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CustomerModel other = (CustomerModel) obj;
-		if (aadharno != other.aadharno)
-			return false;
-		if (acct == null) {
-			if (other.acct != null)
-				return false;
-		} else if (!acct.equals(other.acct))
-			return false;
-		if (customerid != other.customerid)
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (mobileno != other.mobileno)
-			return false;
-		return true;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "CustomerModel [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname

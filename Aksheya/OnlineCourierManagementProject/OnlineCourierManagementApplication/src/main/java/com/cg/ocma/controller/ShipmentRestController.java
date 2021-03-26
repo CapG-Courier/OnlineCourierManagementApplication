@@ -18,6 +18,8 @@ import com.cg.ocma.service.IShipmentService;
 @CrossOrigin
 public class ShipmentRestController {
 	
+	private static final String CHECK = "The courier with id ";
+	
 	@Autowired
 	private IShipmentService shipmentService;
 	
@@ -27,12 +29,12 @@ public class ShipmentRestController {
 		boolean flag = shipmentService.initiateShipmentTransaction(courierid);
 		if(flag) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully initiated the shipment process for the courier with id " + courierid, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("You have successfully initiated the shipment process for the courier with id " + courierid, HttpStatus.OK);
+
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
-			return response;
+			return new ResponseEntity <> (CHECK + courierid + " not found", HttpStatus.NOT_FOUND);
+			
 		}
 		
 	}
@@ -41,8 +43,8 @@ public class ShipmentRestController {
 	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
 		String status = shipmentService.checkShipmentStatus(courierid);
-		ResponseEntity <String> response = new ResponseEntity <> ("The status of the courier with courier id " + courierid + " is: " + status, HttpStatus.OK);
-		return response;
+		return new ResponseEntity <> ("The status of the courier with courier id " + courierid + " is: " + status, HttpStatus.OK);
+		
 	}
 	
 	@PatchMapping("/{courierid}/close")
@@ -51,12 +53,12 @@ public class ShipmentRestController {
 		boolean flag = shipmentService.closeShipmentTransaction(courierid);
 		if(flag) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully closed the shipment process for the courier with id " + courierid, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("You have successfully closed the shipment process for the courier with id " + courierid, HttpStatus.OK);
+		
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
-			return response;
+			return new ResponseEntity <> (CHECK + courierid + " not found", HttpStatus.NOT_FOUND);
+			
 		}
 		
 	}
@@ -67,12 +69,12 @@ public class ShipmentRestController {
 		boolean flag = shipmentService.rejectShipmentTransaction(courierid);
 		if(flag) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully rejected the shipment process for the courier with id " + courierid, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("You have successfully rejected the shipment process for the courier with id " + courierid, HttpStatus.OK);
+			
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier with id " + courierid + " not found", HttpStatus.NOT_FOUND);
-			return response;
+			return new ResponseEntity <> (CHECK + courierid + " not found", HttpStatus.NOT_FOUND);
+			
 		}
 		
 	}

@@ -29,7 +29,7 @@ public class OfficeOutletServiceImplTest {
 	@InjectMocks
 	private OfficeOutletServiceImpl ofImpl;
 	
-	/*@Test
+	@Test
 	@DisplayName("OfficeOutletServiceImpl:: addNewOffice should return the new office id")
 	void addNewOffice() throws DuplicateOfficeOutletFoundException {
 		int expected = 2;
@@ -38,7 +38,7 @@ public class OfficeOutletServiceImplTest {
 		Mockito.when(officeRepo.save(testdata)).thenReturn(testdata);
 		int actual = ofImpl.addNewOffice(check);
 		assertEquals(expected, actual);
-	}*/
+	}
 	
 	@Test
 	@DisplayName("OfficeOutletServiceImpl:: removeNewOffice should return true if the office object is successfully deleted")
