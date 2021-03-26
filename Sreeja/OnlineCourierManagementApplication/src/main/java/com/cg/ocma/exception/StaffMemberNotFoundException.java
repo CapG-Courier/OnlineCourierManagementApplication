@@ -1,4 +1,4 @@
-package com.cg.mts.exception;
+package com.cg.ocma.exception;
 public class StaffMemberNotFoundException extends Exception {
 private static final long serialVersionUID=1L;
 	
@@ -8,5 +8,3 @@ private static final long serialVersionUID=1L;
 	
 
 }
-
-

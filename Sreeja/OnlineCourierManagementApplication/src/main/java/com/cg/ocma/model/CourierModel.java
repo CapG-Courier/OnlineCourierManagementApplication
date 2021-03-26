@@ -1,41 +1,37 @@
-package com.cg.mts.entities;
+package com.cg.ocma.model;
+
 import java.time.LocalDate;
+import com.cg.ocma.entities.CustomerEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class CourierModel {
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
-@Entity
-@Table(name="courier")
-public class Courier {
-	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courierId;
 	
-	@Column(name = "c_no")
 	private int consignmentNo;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate initiatedDate;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate deliveredDate;
 	
+	private CustomerEntity customer;
+	
+	private String status;
 
-	public Courier() {
+	public CourierModel() {
 		
 	}
 
-	
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, CustomerEntity customer) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+		this.status = status;
+		this.customer = customer;
+	}
+
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -43,6 +39,12 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 
+	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+	}
 
 	public int getCourierId() {
 		return courierId;
@@ -72,6 +74,21 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
 
 	@Override
 	public int hashCode() {
@@ -79,11 +96,11 @@ public class Courier {
 		int result = 1;
 		result = prime * result + consignmentNo;
 		result = prime * result + courierId;
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((deliveredDate == null) ? 0 : deliveredDate.hashCode());
 		result = prime * result + ((initiatedDate == null) ? 0 : initiatedDate.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -93,10 +110,15 @@ public class Courier {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Courier other = (Courier) obj;
+		CourierModel other = (CourierModel) obj;
 		if (consignmentNo != other.consignmentNo)
 			return false;
 		if (courierId != other.courierId)
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
 			return false;
 		if (deliveredDate == null) {
 			if (other.deliveredDate != null)
@@ -111,13 +133,12 @@ public class Courier {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Courier [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
-				+ initiatedDate + ", deliveredDate=" + deliveredDate + "]";
+		return "CourierModel [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
+				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + "]";
 	}
 	
 	
-
+	
 }
