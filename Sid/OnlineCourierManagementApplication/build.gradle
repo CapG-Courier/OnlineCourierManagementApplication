@@ -5,7 +5,7 @@ plugins {
 	id 'war'
 }
 
-group = 'com.cg.mts'
+group = 'com.cg.ocma'
 version = '1.0'
 sourceCompatibility = '1.8'
 
@@ -23,8 +23,7 @@ dependencies {
 	
 	implementation 'javax.servlet:jstl:1.2'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    implementation 'org.springframework.boot:spring-boot-starter-validation' 
-	
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 test {

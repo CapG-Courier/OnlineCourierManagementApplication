@@ -1,5 +1,4 @@
-package com.cg.mts.exception;
-
+package com.cg.ocma.exception;
 public class OutletNotFoundException extends Exception{
 
 	private static final long serialVersionUID = 1L;
