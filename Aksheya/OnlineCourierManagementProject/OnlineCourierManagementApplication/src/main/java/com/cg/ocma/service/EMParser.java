@@ -2,12 +2,14 @@ package com.cg.ocma.service;
 
 import org.springframework.stereotype.Service;
 
+import com.cg.ocma.entities.AddressEntity;
 import com.cg.ocma.entities.ComplaintEntity;
 import com.cg.ocma.entities.CourierEntity;
 import com.cg.ocma.entities.CourierOfficeOutletEntity;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.CustomerEntity;
 import com.cg.ocma.entities.OfficeStaffMembersEntity;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
@@ -26,7 +28,6 @@ public class EMParser {
 					customer.getFirstname(),
 					customer.getLastname(),
 					customer.getMobileno(),
-					customer.getAddr(),
 					customer.getAcct());
 		
 	}
@@ -39,10 +40,68 @@ public class EMParser {
 					customer.getAadharno(),
 					customer.getFirstname(),
 					customer.getLastname(),
-					customer.getAddr(),
 					customer.getMobileno(),
 					customer.getAcct());
 		
+	}
+	
+	public AddressEntity parse(AddressModel address) {
+		
+		return address==null?null:
+			
+			new AddressEntity(address.getAddressid(),
+					address.getHouseNo(),
+					address.getStreet(),
+					address.getCity(),
+					address.getState(),
+					address.getCountry(),
+					address.getZip(),
+					address.getCustomer());
+		
+	}
+	
+	public AddressModel parse(AddressEntity address) {
+		
+		return address==null?null:
+			
+			new AddressModel(address.getAddressid(),
+					address.getHouseNo(),
+					address.getStreet(),
+					address.getCity(),
+					address.getState(),
+					address.getCountry(),
+					address.getZip(),
+					address.getCustomer());
+		
+	}
+	
+	public AddressEntity parseOffice(AddressModel address) {
+		
+		return address==null?null:
+			
+			new AddressEntity(address.getAddressid(),
+					address.getHouseNo(),
+					address.getStreet(),
+					address.getCity(),
+					address.getState(),
+					address.getCountry(),
+					address.getZip(),
+					address.getOffice());
+		
+	}
+	
+	public AddressModel parseOffice(AddressEntity address) {
+		
+		return address==null?null:
+			
+			new AddressModel(address.getAddressid(),
+					address.getHouseNo(),
+					address.getStreet(),
+					address.getCity(),
+					address.getState(),
+					address.getCountry(),
+					address.getZip(),
+					address.getOffice());
 	}
 	
 	public CourierModel parse(CourierEntity courier) {
@@ -100,7 +159,6 @@ public class EMParser {
 		return office==null?null:
 			
 			new CourierOfficeOutletModel(office.getOfficeid(),
-					office.getAddress(),
 					office.getOpeningTime(),
 					office.getClosingTime());
 	}
@@ -110,7 +168,6 @@ public class EMParser {
 		return office==null?null:
 			
 			new CourierOfficeOutletEntity(office.getOfficeid(),
-					office.getAddress(),
 					office.getOpeningTime(),
 					office.getClosingTime());
 	}

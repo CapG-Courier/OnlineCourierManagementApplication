@@ -8,11 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.CustomerNotFoundException;
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
+import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
 import com.cg.ocma.exception.OutletNotFoundException;
@@ -26,7 +27,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<Object>(exp.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(value = {DuplicateComplaintFoundException.class,DuplicateCourierFoundException.class,DuplicateOfficeOutletFoundException.class})
+	@ExceptionHandler(value = {DuplicateComplaintFoundException.class,DuplicateCourierFoundException.class,DuplicateOfficeOutletFoundException.class, DuplicateAddressFoundException.class})
 	public ResponseEntity<Object> handleDuplicateExceptions(Exception exp){
 		return new ResponseEntity<Object>(exp.getMessage(), HttpStatus.CONFLICT);
 	}

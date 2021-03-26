@@ -1,6 +1,10 @@
 package com.cg.ocma.model;
 
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import com.cg.ocma.entities.CustomerEntity;
 
 public class CourierModel {
@@ -9,8 +13,10 @@ public class CourierModel {
 	
 	private int consignmentNo;
 	
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate initiatedDate;
 	
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate deliveredDate;
 	
 	private CustomerEntity customer;

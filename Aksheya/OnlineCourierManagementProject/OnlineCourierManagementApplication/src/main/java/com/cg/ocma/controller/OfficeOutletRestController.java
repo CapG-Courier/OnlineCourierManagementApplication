@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
 import com.cg.ocma.exception.OutletNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
 import com.cg.ocma.service.IOfficeOutletService;
 
@@ -40,6 +42,21 @@ public class OfficeOutletRestController {
 			
 			int officeid = officeService.addNewOffice(office);
 			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully added a new office with the id " + officeid, HttpStatus.CREATED);
+			return response;
+			
+		}
+		
+	}
+	
+	@PostMapping("/addOffice/registerAddress")
+	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateAddressFoundException{
+		
+		if (result.hasErrors()) {
+			throw new DuplicateAddressFoundException(GlobalExceptionHandler.messageFrom(result));
+		} else {
+			
+			int addressid = officeService.registerOfficeAddress(address);
+			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully registered the office address with the id " + addressid, HttpStatus.CREATED);
 			return response;
 			
 		}

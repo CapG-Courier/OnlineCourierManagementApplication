@@ -1,41 +1,84 @@
 package com.cg.ocma.entities;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-@Embeddable
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "address")
 public class AddressEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "addressid")
+	private int addressid;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "houseno")
+	private String houseNo;
+	
 	@Column(name = "street")
 	private String street;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
 	@Column(name = "city")
 	private String city;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
 	@Column(name = "state")
 	private String state;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
 	@Column(name = "country")
 	private String country;
 	
 	@Column(name = "zip")
 	private int zip;
 	
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "customerid")
+	private CustomerEntity customer;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "officeid")
+	private CourierOfficeOutletEntity office;
+	
 	public AddressEntity() {
+		
+		/*No implementation*/
 		
 	}
 	
-	public AddressEntity(String street, String city, String state, String country, int zip) {
+	public AddressEntity(int addressid, String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
 		super();
+		this.addressid = addressid;
+		this.houseNo = houseNo;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zip = zip;
+		this.office = office;
+	}
+
+	public AddressEntity(int addressid, String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
+		super();
+		this.addressid = addressid;
+		this.houseNo = houseNo;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zip = zip;
+		this.customer = customer;
+	}
+
+	public AddressEntity(int addressid, String houseNo, String street, String city, String state, String country, int zip) {
+		super();
+		this.addressid = addressid;
+		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;
 		this.state = state;
@@ -43,6 +86,14 @@ public class AddressEntity {
 		this.zip = zip;
 	}
 
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
+	
 	public String getStreet() {
 		return street;
 	}
@@ -83,12 +134,40 @@ public class AddressEntity {
 		this.zip = zip;
 	}
 
+	public int getAddressid() {
+		return addressid;
+	}
+
+	public void setAddressid(int addressid) {
+		this.addressid = addressid;
+	}
+
+	public String getHouseNo() {
+		return houseNo;
+	}
+
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
+	}
+
+	public CourierOfficeOutletEntity getOffice() {
+		return office;
+	}
+
+	public void setOffice(CourierOfficeOutletEntity office) {
+		this.office = office;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + addressid;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((houseNo == null) ? 0 : houseNo.hashCode());
+		result = prime * result + ((office == null) ? 0 : office.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + zip;
@@ -104,6 +183,8 @@ public class AddressEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		AddressEntity other = (AddressEntity) obj;
+		if (addressid != other.addressid)
+			return false;
 		if (city == null) {
 			if (other.city != null)
 				return false;
@@ -113,6 +194,21 @@ public class AddressEntity {
 			if (other.country != null)
 				return false;
 		} else if (!country.equals(other.country))
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (houseNo == null) {
+			if (other.houseNo != null)
+				return false;
+		} else if (!houseNo.equals(other.houseNo))
+			return false;
+		if (office == null) {
+			if (other.office != null)
+				return false;
+		} else if (!office.equals(other.office))
 			return false;
 		if (state == null) {
 			if (other.state != null)
@@ -131,8 +227,8 @@ public class AddressEntity {
 
 	@Override
 	public String toString() {
-		return "Address [street=" + street + ", city=" + city + ", state=" + state + ", country=" + country + ", zip="
-				+ zip + "]";
+		return "AddressEntity [addressid=" + addressid + ", houseNo=" + houseNo + ", street=" + street + ", city="
+				+ city + ", state=" + state + ", country=" + country + ", zip=" + zip + ", customer=" + customer
+				+ ", office=" + office + "]";
 	}
-	
 }

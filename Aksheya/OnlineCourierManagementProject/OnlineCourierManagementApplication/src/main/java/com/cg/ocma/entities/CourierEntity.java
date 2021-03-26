@@ -15,9 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 @Entity
 @Table(name="courier")
 public class CourierEntity {
@@ -27,14 +24,12 @@ public class CourierEntity {
 	@Column(name = "courierid")
 	private int courierId;
 	
-	@Column(name = "consignmentno")
+	@Column(unique = true, name = "consignmentno")
 	private int consignmentNo;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "intitateddate")
 	private LocalDate initiatedDate;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "delivereddate")
 	private LocalDate deliveredDate;
 	

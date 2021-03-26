@@ -36,7 +36,7 @@ public class ShipmentServiceImpl implements IShipmentService {
 			
 		} else{
 
-			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.INITIATED);
+			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.INTRANSIT);
 			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
 			

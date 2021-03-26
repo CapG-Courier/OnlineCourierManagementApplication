@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,7 @@ public class CustomerEntity {
 	private int customerid;
 	
 	@Column(name = "aadharno")
-	private int aadharno;
+	private long aadharno;
 	
 	@Column(name = "firstname", length = 20)
 	private String firstname;
@@ -30,11 +31,11 @@ public class CustomerEntity {
 	@Column(name = "lastname", length = 20)
 	private String lastname;
 	
-	@Embedded
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private AddressEntity addr;
 	
 	@Column(name = "mobileno")
-	private int mobileno;
+	private long mobileno;
 	
 	@Embedded
 	private BankAccountEntity acct;
@@ -51,18 +52,17 @@ public class CustomerEntity {
 		
 	}
 
-	public CustomerEntity(int customerid, int aadharno, String firstname, String lastname, AddressEntity addr, int mobileno, BankAccountEntity acct) {
+	public CustomerEntity(int customerid, long aadharno, String firstname, String lastname, long mobileno, BankAccountEntity acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.addr = addr;
 		this.mobileno = mobileno;
 		this.acct = acct;
 	}
 
-	public CustomerEntity(int customerid, int aadharno, String firstname, String lastname, int mobileno) {
+	public CustomerEntity(int customerid, long aadharno, String firstname, String lastname, long mobileno) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
@@ -71,11 +71,11 @@ public class CustomerEntity {
 		this.mobileno = mobileno;
 	}
 
-	public int getAadharno() {
+	public long getAadharno() {
 		return aadharno;
 	}
 
-	public void setAadharno(int aadharno) {
+	public void setAadharno(long aadharno) {
 		this.aadharno = aadharno;
 	}
 
@@ -95,19 +95,11 @@ public class CustomerEntity {
 		this.lastname = lastname;
 	}
 
-	public AddressEntity getAddr() {
-		return addr;
-	}
-
-	public void setAddr(AddressEntity addr) {
-		this.addr = addr;
-	}
-
-	public int getMobileno() {
+	public long getMobileno() {
 		return mobileno;
 	}
 
-	public void setMobileno(int mobileno) {
+	public void setMobileno(long mobileno) {
 		this.mobileno = mobileno;
 	}
 
@@ -127,13 +119,15 @@ public class CustomerEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + aadharno;
+		result = prime * result + (int) (aadharno ^ (aadharno >>> 32));
 		result = prime * result + ((acct == null) ? 0 : acct.hashCode());
 		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
+		result = prime * result + ((complaints == null) ? 0 : complaints.hashCode());
+		result = prime * result + ((couriers == null) ? 0 : couriers.hashCode());
 		result = prime * result + customerid;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + mobileno;
+		result = prime * result + (int) (mobileno ^ (mobileno >>> 32));
 		return result;
 	}
 
@@ -158,6 +152,16 @@ public class CustomerEntity {
 				return false;
 		} else if (!addr.equals(other.addr))
 			return false;
+		if (complaints == null) {
+			if (other.complaints != null)
+				return false;
+		} else if (!complaints.equals(other.complaints))
+			return false;
+		if (couriers == null) {
+			if (other.couriers != null)
+				return false;
+		} else if (!couriers.equals(other.couriers))
+			return false;
 		if (customerid != other.customerid)
 			return false;
 		if (firstname == null) {
@@ -177,9 +181,9 @@ public class CustomerEntity {
 
 	@Override
 	public String toString() {
-		return "Customer [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct + "]";
+		return "CustomerEntity [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct
+				+ ", complaints=" + complaints + ", couriers=" + couriers + "]";
 	}
 
-	
 }

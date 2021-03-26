@@ -41,33 +41,6 @@ public class CustomerServiceImplTest {
 	@InjectMocks
 	private CustomerServiceImpl csImpl;
 	
-	/*
-	@Test
-	@DisplayName("CustomerServiceImpl:: register should return customer id if customer object is successfully created")
-	void register() throws DuplicateCustomerFoundException {
-		int expected = 5;
-		int customerid = 5;
-		Customer testdata = new Customer(5,1736254879,"Ram","Kumar", 988762456);
-		CustomerModel check = new CustomerModel(5,1736254879,"Ram","Kumar", 988762456);
-		Mockito.when(customerRepo.existsById(customerid)).thenReturn(false);
-		Mockito.when(customerRepo.save(testdata)).thenReturn(testdata);
-		int actual = csImpl.register(check);
-		assertEquals(expected, actual);
-	}
-	*/
-	
-	/*
-	@Test
-	@DisplayName("CustomerServiceImpl:: register should return exception if customer already exists")
-	void registerCheck() throws DuplicateCustomerFoundException{
-		
-		CustomerModel check = new CustomerModel(5,1736254879,"Ram","Kumar", 988762456);
-		Mockito.when(customerRepo.existsById(check.getCustomerid())).thenReturn(true);
-		assertThrows(DuplicateCustomerFoundException.class, () -> {
-			csImpl.register(check);
-		});
-	}
-	*/
 	
 	@Test
 	@DisplayName("CustomerServiceImpl:: initiateProcess should return consignment number if courier object is successfully created")
