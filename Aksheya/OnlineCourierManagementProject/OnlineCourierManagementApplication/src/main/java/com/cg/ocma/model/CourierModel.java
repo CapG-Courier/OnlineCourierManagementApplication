@@ -1,7 +1,7 @@
 package com.cg.ocma.model;
 
 import java.time.LocalDate;
-import com.cg.ocma.entities.Customer;
+import com.cg.ocma.entities.CustomerEntity;
 
 public class CourierModel {
 
@@ -13,7 +13,7 @@ public class CourierModel {
 	
 	private LocalDate deliveredDate;
 	
-	private Customer customer;
+	private CustomerEntity customer;
 	
 	private String status;
 
@@ -21,7 +21,7 @@ public class CourierModel {
 		
 	}
 
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, Customer customer) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, CustomerEntity customer) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -82,11 +82,11 @@ public class CourierModel {
 		this.status = status;
 	}
 
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
 

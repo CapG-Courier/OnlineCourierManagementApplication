@@ -1,12 +1,12 @@
 package com.cg.ocma.model;
 
-import com.cg.ocma.entities.Address;
+import com.cg.ocma.entities.AddressEntity;
 
 public class CourierOfficeOutletModel {
 	
 	private int officeid;
 	
-	private Address address;
+	private AddressEntity address;
 	
 	private String openingTime;
 	
@@ -18,7 +18,7 @@ public class CourierOfficeOutletModel {
 		 
 	}
 
-	public CourierOfficeOutletModel(int officeid, Address address, String openingTime, String closingTime) {
+	public CourierOfficeOutletModel(int officeid, AddressEntity address, String openingTime, String closingTime) {
 		super();
 		this.officeid = officeid;
 		this.address = address;
@@ -41,11 +41,11 @@ public class CourierOfficeOutletModel {
 		this.officeid = officeid;
 	}
 
-	public Address getAddress() {
+	public AddressEntity getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(AddressEntity address) {
 		this.address = address;
 	}
 

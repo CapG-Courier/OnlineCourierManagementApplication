@@ -2,9 +2,7 @@ package com.cg.ocma.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import com.cg.ocma.entities.Address;
-import com.cg.ocma.entities.CourierOfficeOutlet;
+import com.cg.ocma.entities.CourierOfficeOutletEntity;
 
 public class OfficeStaffMembersModel {
 	
@@ -18,7 +16,7 @@ public class OfficeStaffMembersModel {
 	@NotNull(message="Employee role cannot be omitted")
 	private String role;
 	
-	private CourierOfficeOutlet office;
+	private CourierOfficeOutletEntity office;
 
 	public OfficeStaffMembersModel() {
 		
@@ -26,7 +24,7 @@ public class OfficeStaffMembersModel {
 		
 	}
 
-	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office) {
+	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutletEntity office) {
 		super();
 		this.empid = empid;
 		this.name = name;
@@ -61,11 +59,11 @@ public class OfficeStaffMembersModel {
 		this.role = role;
 	}
 
-	public CourierOfficeOutlet getOffice() {
+	public CourierOfficeOutletEntity getOffice() {
 		return office;
 	}
 
-	public void setOffice(CourierOfficeOutlet office) {
+	public void setOffice(CourierOfficeOutletEntity office) {
 		this.office = office;
 	}
 

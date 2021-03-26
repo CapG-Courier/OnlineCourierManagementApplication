@@ -3,7 +3,7 @@ package com.cg.ocma.model;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.cg.ocma.entities.Customer;
+import com.cg.ocma.entities.CustomerEntity;
 
 public class ComplaintModel {
 	
@@ -19,13 +19,13 @@ public class ComplaintModel {
 	
 	private String detailDescription;
 	
-	private Customer customer;
+	private CustomerEntity customer;
 
 	public ComplaintModel() {
 		
 	}
 
-	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, Customer customer) {
+	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -75,11 +75,11 @@ public class ComplaintModel {
 		this.detailDescription = detailDescription;
 	}
 
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
 

@@ -4,8 +4,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.cg.ocma.entities.Address;
-import com.cg.ocma.entities.BankAccount;
+import com.cg.ocma.entities.AddressEntity;
+import com.cg.ocma.entities.BankAccountEntity;
 
 public class CustomerModel {
 	
@@ -28,15 +28,15 @@ public class CustomerModel {
     @NotNull(message="Mobile number cannot be omitted")
 	private int mobileno;
 	
-	private Address addr;
+	private AddressEntity addr;
 
-	private BankAccount acct;
+	private BankAccountEntity acct;
 
 	public CustomerModel() {
 		 
 	}
 
-	public CustomerModel(int customerid,int aadharno, String firstname, String lastname, int mobileno,Address addr, BankAccount acct) {
+	public CustomerModel(int customerid,int aadharno, String firstname, String lastname, int mobileno,AddressEntity addr, BankAccountEntity acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
@@ -96,19 +96,19 @@ public class CustomerModel {
 		this.mobileno = mobileno;
 	}
 
-	public Address getAddr() {
+	public AddressEntity getAddr() {
 		return addr;
 	}
 
-	public void setAddr(Address addr) {
+	public void setAddr(AddressEntity addr) {
 		this.addr = addr;
 	}
 
-	public BankAccount getAcct() {
+	public BankAccountEntity getAcct() {
 		return acct;
 	}
 
-	public void setAcct(BankAccount acct) {
+	public void setAcct(BankAccountEntity acct) {
 		this.acct = acct;
 	}
 
