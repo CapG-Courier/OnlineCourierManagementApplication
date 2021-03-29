@@ -1,4 +1,4 @@
-	package com.cg.ocma.model;
+package com.cg.ocma.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

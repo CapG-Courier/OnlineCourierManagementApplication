@@ -36,7 +36,6 @@ INDEX VERSION 1.131+D:\Old C user datas\Desktop\OnlineCourierManagementProject\.
 3952706982.index
 3851077066.index
 3307246987.index
-3838797101.index
 736416270.index
 200857872.index
 342403869.index

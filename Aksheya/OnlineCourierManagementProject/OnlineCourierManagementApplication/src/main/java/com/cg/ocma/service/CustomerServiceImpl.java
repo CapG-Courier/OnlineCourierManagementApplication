@@ -56,7 +56,6 @@ public class CustomerServiceImpl implements ICustomerService {
 				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
 			} else {
 				parser.parse(courierRepo.save(parser.parse(courier)));
-				//(courierRepo.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INITIATED);
 			}
 		} 
 		return courier.getConsignmentNo();
