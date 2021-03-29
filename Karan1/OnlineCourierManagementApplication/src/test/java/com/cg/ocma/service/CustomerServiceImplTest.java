@@ -14,16 +14,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cg.ocma.entities.Complaint;
-import com.cg.ocma.entities.Courier;
+import com.cg.ocma.entities.ComplaintEntity;
+import com.cg.ocma.entities.CourierEntity;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
-import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
@@ -75,7 +73,7 @@ public class CustomerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: initiateProcess should return consignment number if courier object is successfully created")
 	void initiateProcess() throws DuplicateCourierFoundException {
 		int expected = 5000;
-		Courier testdata = new Courier(1,5000,LocalDate.parse("2020-11-03"));
+		CourierEntity testdata = new CourierEntity(1,5000,LocalDate.parse("2020-11-03"));
 		CourierModel model = new CourierModel(1,5000,LocalDate.parse("2020-11-03"));
 		Mockito.when(courierRepo.existsById(testdata.getCourierId())).thenReturn(false);
 		Mockito.when(courierRepo.save(testdata)).thenReturn(testdata);
@@ -100,7 +98,7 @@ public class CustomerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: checkOnlineTrackingStatus should return the status of the courier")
 	void checkOnlineTrackingStatus() throws CourierNotFoundException{
 		String expected="INITIATED";
-		Courier testdata = new Courier(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
+		CourierEntity testdata = new CourierEntity(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
 		int consignmentno = 5123;
 		Mockito.when(courierRepo.findByConsignmentNo(consignmentno)).thenReturn(testdata);
 		String actual = csImpl.checkOnlineTrackingStatus(consignmentno);
@@ -111,7 +109,7 @@ public class CustomerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: checkOnlineTrackingStatusCheck should give an exception when the Courier is not found")
 	void checkOnlineTrackingStatusCheck() throws CourierNotFoundException {
 		
-		Courier testdata = new Courier(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
+		CourierEntity testdata = new CourierEntity(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
 		int consignmentno = 5123;
 		Mockito.when(courierRepo.existsByConsignmentNo(testdata.getConsignmentNo())).thenReturn(false);
 		assertThrows(CourierNotFoundException.class, () -> {
@@ -135,7 +133,7 @@ public class CustomerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: register complaint should return the complaint id")
 	void registerComplaint() throws DuplicateComplaintFoundException {
 		int expected = 7;
-		Complaint testdata = new Complaint(7,5123, "Courier was lost", "The courier was lost during transfer");
+		ComplaintEntity testdata = new ComplaintEntity(7,5123, "Courier was lost", "The courier was lost during transfer");
 		ComplaintModel model = new ComplaintModel(7,5123, "Courier was lost", "The courier was lost during transfer");
 		Mockito.when(complaintRepo.existsById(testdata.getComplaintId())).thenReturn(false);
 		Mockito.when(complaintRepo.save(testdata)).thenReturn(testdata);
