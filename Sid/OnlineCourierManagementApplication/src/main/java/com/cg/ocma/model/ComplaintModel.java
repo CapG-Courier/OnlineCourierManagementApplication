@@ -3,7 +3,7 @@ package com.cg.ocma.model;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.cg.ocma.entities.Customer;
+import com.cg.ocma.entities.CustomerEntity;
 
 public class ComplaintModel {
 	
@@ -19,13 +19,13 @@ public class ComplaintModel {
 	
 	private String detailDescription;
 	
-	private Customer customer;
+	private CustomerEntity customer;
 
 	public ComplaintModel() {
 		
 	}
 
-	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, Customer customer) {
+	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -75,55 +75,12 @@ public class ComplaintModel {
 		this.detailDescription = detailDescription;
 	}
 
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + complaintId;
-		result = prime * result + consignmentNo;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((detailDescription == null) ? 0 : detailDescription.hashCode());
-		result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ComplaintModel other = (ComplaintModel) obj;
-		if (complaintId != other.complaintId)
-			return false;
-		if (consignmentNo != other.consignmentNo)
-			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
-		if (detailDescription == null) {
-			if (other.detailDescription != null)
-				return false;
-		} else if (!detailDescription.equals(other.detailDescription))
-			return false;
-		if (shortDescription == null) {
-			if (other.shortDescription != null)
-				return false;
-		} else if (!shortDescription.equals(other.shortDescription))
-			return false;
-		return true;
 	}
 
 	@Override

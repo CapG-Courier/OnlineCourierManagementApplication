@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
 import com.cg.ocma.exception.OutletNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
 import com.cg.ocma.service.IOfficeOutletService;
 
@@ -27,6 +29,8 @@ import com.cg.ocma.service.IOfficeOutletService;
 @RequestMapping("/home/{managerid}/office")
 @CrossOrigin
 public class OfficeOutletRestController {
+	
+	private static final String CHECK = "The courier office outlet with id ";
 	
 	@Autowired
 	private IOfficeOutletService officeService;
@@ -39,8 +43,22 @@ public class OfficeOutletRestController {
 		} else {
 			
 			int officeid = officeService.addNewOffice(office);
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully added a new office with the id " + officeid, HttpStatus.CREATED);
-			return response;
+			return new ResponseEntity <> ("You have successfully added a new office with the id " + officeid, HttpStatus.CREATED);
+
+			
+		}
+		
+	}
+	
+	@PostMapping("/addOffice/registerAddress")
+	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateAddressFoundException{
+		
+		if (result.hasErrors()) {
+			throw new DuplicateAddressFoundException(GlobalExceptionHandler.messageFrom(result));
+		} else {
+			
+			int addressid = officeService.registerOfficeAddress(address);
+			return new ResponseEntity <> ("You have successfully registered the office address with the id " + addressid, HttpStatus.CREATED);
 			
 		}
 		
@@ -52,29 +70,25 @@ public class OfficeOutletRestController {
 		boolean check = officeService.removeNewOffice(officeid);
 		if(check) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully removed office with the id " + officeid, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("You have successfully removed office with the id " + officeid, HttpStatus.OK);
 			
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("Office with the id " + officeid + " was not found", HttpStatus.NOT_FOUND);
-			return response;
+			return new ResponseEntity <> ("Office with the id " + officeid + " was not found", HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@GetMapping("/getOffice/officeid={officeid}")
 	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("officeid") int officeid) throws OutletNotFoundException{
 		
-		ResponseEntity <CourierOfficeOutletModel> response = new ResponseEntity <> (officeService.getOfficeInfo(officeid), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (officeService.getOfficeInfo(officeid), HttpStatus.FOUND);
 		
 	}
 	
 	@GetMapping("/getAllOffice")
 	public ResponseEntity <List<CourierOfficeOutletModel>> getAllOfficesData() throws OutletNotFoundException{
 		
-		ResponseEntity <List<CourierOfficeOutletModel>> response = new ResponseEntity <> (officeService.getAllOfficesData(), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (officeService.getAllOfficesData(), HttpStatus.FOUND);
 		
 	}
 	
@@ -84,12 +98,10 @@ public class OfficeOutletRestController {
 		boolean status = officeService.isOfficeOpen(officeid);
 		if(status) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier office outlet with id " + officeid + " is open: ", HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> (CHECK + officeid + " is open: ", HttpStatus.OK);
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier office outlet with id " + officeid + " is closed: ", HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> (CHECK + officeid + " is closed: ", HttpStatus.OK);
 		}
 	}
 	
@@ -99,12 +111,12 @@ public class OfficeOutletRestController {
 		boolean status = officeService.isOfficeClosed(officeid);
 		if(status) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier office outlet with id " + officeid + " is closed: ", HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> (CHECK + officeid + " is closed: ", HttpStatus.OK);
+			
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier office outlet with id " + officeid + " is opened: ", HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> (CHECK + officeid + " is opened: ", HttpStatus.OK);
+	
 		}
 	}
 

@@ -2,12 +2,10 @@ package com.cg.ocma.entities;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,44 +13,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 @Entity
 @Table(name="courier")
-public class Courier {
+public class CourierEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "courierid")
 	private int courierId;
 	
-	@Column(name = "consignmentno")
+	@Column(unique = true, name = "consignmentno")
 	private int consignmentNo;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "intitateddate")
 	private LocalDate initiatedDate;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "delivereddate")
 	private LocalDate deliveredDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "customerid")
-	private Customer customer;
+	private CustomerEntity customer;
 	
 	@Enumerated(EnumType.STRING)
 	private CourierStatus status;
 
-	public Courier() {
+	public CourierEntity() {
 		
 		/*No implementation*/
 		
 	}
 	
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
-			Customer customer, CourierStatus status) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
+			CustomerEntity customer, CourierStatus status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -62,7 +55,7 @@ public class Courier {
 		this.status = status;
 	}
 
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, Customer customer) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -72,7 +65,7 @@ public class Courier {
 	}
 
 
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -80,20 +73,20 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 
-	public Courier(LocalDate initiatedDate) {
+	public CourierEntity(LocalDate initiatedDate) {
 		super();
 		this.initiatedDate = initiatedDate;
 	}
 	
 
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 	}
 
-	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CourierStatus status) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CourierStatus status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -131,11 +124,11 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 	
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 	
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
 
@@ -146,52 +139,6 @@ public class Courier {
 	public void setStatus(CourierStatus status) {
 		this.status = status;
 	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + consignmentNo;
-		result = prime * result + courierId;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((deliveredDate == null) ? 0 : deliveredDate.hashCode());
-		result = prime * result + ((initiatedDate == null) ? 0 : initiatedDate.hashCode());
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Courier other = (Courier) obj;
-		if (consignmentNo != other.consignmentNo)
-			return false;
-		if (courierId != other.courierId)
-			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
-		if (deliveredDate == null) {
-			if (other.deliveredDate != null)
-				return false;
-		} else if (!deliveredDate.equals(other.deliveredDate))
-			return false;
-		if (initiatedDate == null) {
-			if (other.initiatedDate != null)
-				return false;
-		} else if (!initiatedDate.equals(other.initiatedDate))
-			return false;
-		return true;
-	}
-
 
 	@Override
 	public String toString() {

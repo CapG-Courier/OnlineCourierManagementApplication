@@ -37,7 +37,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		
 		if(customerRepo.existsById(customerid)) {
 			
-			if(customerRepo.findById(customerid).orElse(null).getAcct().accountno > 0) {
+			if(customerRepo.findById(customerid).orElse(null).getAcct() != null) {
 				flag = true;
 				
 			}else {

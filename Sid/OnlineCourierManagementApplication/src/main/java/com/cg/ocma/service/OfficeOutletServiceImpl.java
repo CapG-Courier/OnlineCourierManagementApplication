@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
 import com.cg.ocma.exception.OutletNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
+import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.OfficeOutletRepo;
 
 @Service
@@ -19,6 +22,9 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	
 	@Autowired
 	private OfficeOutletRepo officeRepo;
+	
+	@Autowired
+	private AddressRepo addressRepo;
 	
 	@Autowired
 	private EMParser parser;
@@ -40,13 +46,30 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		
 		if(officeoutlet != null) {
 			if(officeRepo.existsById(officeoutlet.getOfficeid())) {
+				
 				throw new DuplicateOfficeOutletFoundException("Office Outlet with id " + officeoutlet.getOfficeid() + " already exists!");
 			} else {
+				
 				parser.parse(officeRepo.save(parser.parse(officeoutlet)));
 			}
 		} 
 		return officeoutlet.getOfficeid();
 		
+	}
+	
+	@Transactional
+	@Override
+	public int registerOfficeAddress(AddressModel address) throws DuplicateAddressFoundException{
+		if(address != null) {
+			if(addressRepo.existsById(address.getAddressid())) {
+				
+				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + " already exists!");
+			} else {
+				
+				parser.parseOffice(addressRepo.save(parser.parseOffice(address)));
+			}
+		}
+		return address.getAddressid();
 	}
 
 	@Transactional

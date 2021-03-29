@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cg.ocma.entities.CourierOfficeOutlet;
+import com.cg.ocma.entities.CourierOfficeOutletEntity;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.model.CourierOfficeOutletModel;
@@ -33,7 +33,7 @@ public class OfficeOutletServiceImplTest {
 	@DisplayName("OfficeOutletServiceImpl:: addNewOffice should return the new office id")
 	void addNewOffice() throws DuplicateOfficeOutletFoundException {
 		int expected = 2;
-		CourierOfficeOutlet testdata = new CourierOfficeOutlet(2,"08:30:00","22:00:00");
+		CourierOfficeOutletEntity testdata = new CourierOfficeOutletEntity(2,"08:30:00","22:00:00");
 		CourierOfficeOutletModel check = new CourierOfficeOutletModel(2,"08:30:00","22:00:00");
 		Mockito.when(officeRepo.save(testdata)).thenReturn(testdata);
 		int actual = ofImpl.addNewOffice(check);
@@ -55,7 +55,7 @@ public class OfficeOutletServiceImplTest {
 		int officeid = 6;
 		Mockito.when(officeRepo.existsById(officeid)).thenReturn(true);
 		
-		CourierOfficeOutlet testdata = new CourierOfficeOutlet(6, "08:30:00", "22:00:00");
+		CourierOfficeOutletEntity testdata = new CourierOfficeOutletEntity(6, "08:30:00", "22:00:00");
 		CourierOfficeOutletModel expected = new CourierOfficeOutletModel(6, "08:30:00", "22:00:00");
 		Mockito.when(officeRepo.findById(officeid)).thenReturn(Optional.of(testdata));
 		
@@ -69,9 +69,9 @@ public class OfficeOutletServiceImplTest {
 		
 		Mockito.when(officeRepo.count()).thenReturn(1L);
 		
-		List<CourierOfficeOutlet> testdata = Arrays.asList(new CourierOfficeOutlet[] {
-				new CourierOfficeOutlet(6, "08:30:00", "22:00:00"),
-				new CourierOfficeOutlet(7, "08:30:00", "22:00:00")
+		List<CourierOfficeOutletEntity> testdata = Arrays.asList(new CourierOfficeOutletEntity[] {
+				new CourierOfficeOutletEntity(6, "08:30:00", "22:00:00"),
+				new CourierOfficeOutletEntity(7, "08:30:00", "22:00:00")
 			});
 		
 		Mockito.when(officeRepo.findAll()).thenReturn(testdata);

@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ocma.exception.AddressNotFoundException;
 import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.exception.DuplicateStaffMember;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.service.IManagerService;
@@ -48,8 +50,7 @@ public class ManagerRestController {
 		} else {
 			
 			int empid = managerService.addStaffMember(staff);
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully added staff member with the id " + empid, HttpStatus.CREATED);
-			return response;
+			return new ResponseEntity <> ("You have successfully added staff member with the id " + empid, HttpStatus.CREATED);
 			
 		}
 		
@@ -61,13 +62,11 @@ public class ManagerRestController {
 		boolean check = managerService.removeStaffMember(empid);
 		if(check) {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully removed staff member with the id " + empid, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("You have successfully removed staff member with the id " + empid, HttpStatus.OK);
 			
 		} else {
 			
-			ResponseEntity <String> response = new ResponseEntity <> ("Staff Member with the id " + empid + " was not found", HttpStatus.NOT_FOUND);
-			return response;
+			return new ResponseEntity <> ("Staff Member with the id " + empid + " was not found", HttpStatus.NOT_FOUND);
 			
 		}
 		
@@ -76,16 +75,14 @@ public class ManagerRestController {
 	@GetMapping("/{managerid}/getStaff/{empid}")
 	public ResponseEntity <OfficeStaffMembersModel> getStaffAction(@PathVariable("empid") int empid) throws StaffMemberNotFoundException{
 		
-		ResponseEntity <OfficeStaffMembersModel> response = new ResponseEntity <> (managerService.getStaffMember(empid), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (managerService.getStaffMember(empid), HttpStatus.FOUND);
 		
 	}
 	
 	@GetMapping("/{managerid}/getAllStaff")
 	public ResponseEntity <List<OfficeStaffMembersModel>> getAllStaffAction() throws StaffMemberNotFoundException{
 		
-		ResponseEntity <List<OfficeStaffMembersModel>> response = new ResponseEntity <> (managerService.getAllStaffMembers(), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (managerService.getAllStaffMembers(), HttpStatus.FOUND);
 		
 	}
 	
@@ -93,22 +90,28 @@ public class ManagerRestController {
 	public ResponseEntity <String> checkCourierStatusAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
 		
 		String status = managerService.getCourierStatus(courierid);
-		ResponseEntity <String> response = new ResponseEntity <> ("The status of the courier is: " + status, HttpStatus.OK);
-		return response;
+		return new ResponseEntity <> ("The status of the courier is: " + status, HttpStatus.OK);
+		
 	}
 	
 	@GetMapping("/{managerid}/complaintid={complaintid}")
 	public ResponseEntity <ComplaintModel> getComplaintAction(@PathVariable("complaintid") int complaintid) throws DuplicateCustomerFoundException {
 		
-		ResponseEntity <ComplaintModel> response = new ResponseEntity <> (managerService.getRegistedComplaint(complaintid), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (managerService.getRegistedComplaint(complaintid), HttpStatus.FOUND);
+
 	}
 	
 	@GetMapping("/{managerid}/getComplaints")
 	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction() throws ComplaintNotFoundException {
 		
-		ResponseEntity <List<ComplaintModel>> response = new ResponseEntity <> (managerService.getAllComplaints(), HttpStatus.FOUND);
-		return response;
+		return new ResponseEntity <> (managerService.getAllComplaints(), HttpStatus.FOUND);
+	}
+	
+	@GetMapping("/{managerid}/addressid={addressid}")
+	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("addressid") int addressid) throws AddressNotFoundException{
+		
+		return new ResponseEntity <> (managerService.findCustomerAddress(addressid), HttpStatus.FOUND);
+		
 	}
 	
 }

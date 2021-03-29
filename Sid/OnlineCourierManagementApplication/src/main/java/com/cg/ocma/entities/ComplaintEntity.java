@@ -1,6 +1,5 @@
 package com.cg.ocma.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="complaint")
-public class Complaint {
+public class ComplaintEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +30,17 @@ public class Complaint {
 	@Column(name = "detaildesc")
 	private String detailDescription;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "customerid")
-	private Customer customer;
+	private CustomerEntity customer;
 
-	public Complaint() {
+	public ComplaintEntity() {
 		
 		/*No implementation*/
 		
 	}
 
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription, Customer customer) {
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -51,7 +50,7 @@ public class Complaint {
 	}
 
 	
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, Customer customer) {
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -59,7 +58,7 @@ public class Complaint {
 		this.customer = customer;
 	}
 
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -96,55 +95,12 @@ public class Complaint {
 		this.detailDescription = detailDescription;
 	}
 
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + complaintId;
-		result = prime * result + consignmentNo;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((detailDescription == null) ? 0 : detailDescription.hashCode());
-		result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Complaint other = (Complaint) obj;
-		if (complaintId != other.complaintId)
-			return false;
-		if (consignmentNo != other.consignmentNo)
-			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
-		if (detailDescription == null) {
-			if (other.detailDescription != null)
-				return false;
-		} else if (!detailDescription.equals(other.detailDescription))
-			return false;
-		if (shortDescription == null) {
-			if (other.shortDescription != null)
-				return false;
-		} else if (!shortDescription.equals(other.shortDescription))
-			return false;
-		return true;
 	}
 
 	@Override

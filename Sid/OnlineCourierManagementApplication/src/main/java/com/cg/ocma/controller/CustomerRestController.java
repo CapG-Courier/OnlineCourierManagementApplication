@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.CustomerModel;
@@ -45,8 +47,21 @@ public class CustomerRestController {
 		} else {
 			
 			int customerid = customerService.register(customer);
-			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully registered with the id " + customerid, HttpStatus.CREATED);
-			return response;
+			return new ResponseEntity <> ("You have successfully registered with the id " + customerid, HttpStatus.CREATED);
+			
+		}
+		
+	}
+	
+	@PostMapping("/registerAddress")
+	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateAddressFoundException{
+		
+		if (result.hasErrors()) {
+			throw new DuplicateAddressFoundException(GlobalExceptionHandler.messageFrom(result));
+		} else {
+			
+			int addressid = customerService.registerAddress(address);
+			return new ResponseEntity <> ("You have successfully registered your address with the id " + addressid, HttpStatus.CREATED);
 			
 		}
 		
@@ -60,8 +75,7 @@ public class CustomerRestController {
 		} else {
 			
 			int consignmentid = customerService.initiateProcess(courier);
-			ResponseEntity <String> response = new ResponseEntity <> ("The courier has been registered with consignment id " + consignmentid, HttpStatus.CREATED);
-			return response;
+			return new ResponseEntity <> ("The courier has been registered with consignment id " + consignmentid, HttpStatus.CREATED);
 			
 		}
 		
@@ -71,8 +85,7 @@ public class CustomerRestController {
 	public ResponseEntity <String> checkCourierStatusAction(@PathVariable("consignmentno") int consignmentno) throws CourierNotFoundException {
 			
 			String status = customerService.checkOnlineTrackingStatus(consignmentno);
-			ResponseEntity <String> response = new ResponseEntity <> ("The status of the courier is: " + status, HttpStatus.OK);
-			return response;
+			return new ResponseEntity <> ("The status of the courier is: " + status, HttpStatus.OK);
 		
 	}
 	
@@ -84,8 +97,7 @@ public class CustomerRestController {
 		} else {
 			
 			int complaintid = customerService.registerComplaint(complaint);
-			ResponseEntity <String> response = new ResponseEntity <> ("The complaint has been registered with complaint id " + complaintid, HttpStatus.CREATED);
-			return response;
+			return new ResponseEntity <> ("The complaint has been registered with complaint id " + complaintid, HttpStatus.CREATED);
 			
 		}
 		

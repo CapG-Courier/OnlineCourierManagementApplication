@@ -17,10 +17,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cg.ocma.entities.Complaint;
-import com.cg.ocma.entities.Courier;
+import com.cg.ocma.entities.ComplaintEntity;
+import com.cg.ocma.entities.CourierEntity;
 import com.cg.ocma.entities.CourierStatus;
-import com.cg.ocma.entities.OfficeStaffMembers;
+import com.cg.ocma.entities.OfficeStaffMembersEntity;
 import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
@@ -60,7 +60,7 @@ public class ManagerServiceImplTest {
 	@DisplayName("ManagerServiceImpl:: addStaffMember should return the staff members id")
 	void addStaffMember() throws DuplicateStaffMember {
 		int expected = 2;
-		OfficeStaffMembers testdata = new OfficeStaffMembers(2,"Karan","Manager");
+		OfficeStaffMembersEntity testdata = new OfficeStaffMembersEntity(2,"Karan","Manager");
 		OfficeStaffMembersModel model = new OfficeStaffMembersModel(2,"Karan","Manager");
 		Mockito.when(managerRepo.existsById(testdata.getEmpid())).thenReturn(false);
 		Mockito.when(managerRepo.save(testdata)).thenReturn(testdata);
@@ -104,7 +104,7 @@ public class ManagerServiceImplTest {
 	@DisplayName("ManagerServiceImpl:: getStaffMember should return the staff member with specified id")
 	void getStaffMember() throws StaffMemberNotFoundException {
 		
-		OfficeStaffMembers testdata =  new OfficeStaffMembers(5,"Karan","Manager");
+		OfficeStaffMembersEntity testdata =  new OfficeStaffMembersEntity(5,"Karan","Manager");
 		OfficeStaffMembersModel expected = new OfficeStaffMembersModel(5,"Karan","Manager");
 		Mockito.when(managerRepo.findById(testdata.getEmpid())).thenReturn(Optional.of(testdata));
 		OfficeStaffMembersModel actual = msImpl.getStaffMember(testdata.getEmpid());
@@ -139,9 +139,9 @@ public class ManagerServiceImplTest {
 		
 		Mockito.when(officeRepo.count()).thenReturn(9L);
 
-		List<OfficeStaffMembers> testdata = Arrays.asList(new OfficeStaffMembers[] {
-				new OfficeStaffMembers(7,"Ram","Staff"),
-				new OfficeStaffMembers(8,"Ramu", "Manager")
+		List<OfficeStaffMembersEntity> testdata = Arrays.asList(new OfficeStaffMembersEntity[] {
+				new OfficeStaffMembersEntity(7,"Ram","Staff"),
+				new OfficeStaffMembersEntity(8,"Ramu", "Manager")
 			});
 		
 		List<OfficeStaffMembersModel> expected = Arrays.asList(new OfficeStaffMembersModel[] {
@@ -161,7 +161,7 @@ public class ManagerServiceImplTest {
 		String expected = "INITIATED";
 		int courierid = 6;
 		
-		Courier testdata = new Courier(6, 5436, LocalDate.parse("2021-01-13"), LocalDate.parse("2021-01-22"), CourierStatus.INITIATED);
+		CourierEntity testdata = new CourierEntity(6, 5436, LocalDate.parse("2021-01-13"), LocalDate.parse("2021-01-22"), CourierStatus.INITIATED);
 		
 		Mockito.when(courierRepo.existsById(courierid)).thenReturn(true);
 		Mockito.when(courierRepo.findById(courierid)).thenReturn(Optional.of(testdata));
@@ -189,7 +189,7 @@ public class ManagerServiceImplTest {
 		
 		ComplaintModel expected = new ComplaintModel(7,5123, "Courier was lost", "The courier was lost during transfer");	
 		int complaintid = 7;
-		Complaint testdata = new Complaint(7,5123, "Courier was lost", "The courier was lost during transfer");
+		ComplaintEntity testdata = new ComplaintEntity(7,5123, "Courier was lost", "The courier was lost during transfer");
 		
 		Mockito.when(complaintRepo.existsById(complaintid)).thenReturn(true);
 		Mockito.when(complaintRepo.findById(complaintid)).thenReturn(Optional.of(testdata));
@@ -219,9 +219,9 @@ public class ManagerServiceImplTest {
 		
 		Mockito.when(complaintRepo.count()).thenReturn(9L);
 
-		List<Complaint> testdata = Arrays.asList(new Complaint[] {
-				new Complaint(7,5123, "Courier was lost", "The courier was lost during transfer"),
-				new Complaint(8,5124, "Courier was missing", "The courier was missing during transfer")
+		List<ComplaintEntity> testdata = Arrays.asList(new ComplaintEntity[] {
+				new ComplaintEntity(7,5123, "Courier was lost", "The courier was lost during transfer"),
+				new ComplaintEntity(8,5124, "Courier was missing", "The courier was missing during transfer")
 			});
 		
 		List<ComplaintModel> expected = Arrays.asList(new ComplaintModel[] {
