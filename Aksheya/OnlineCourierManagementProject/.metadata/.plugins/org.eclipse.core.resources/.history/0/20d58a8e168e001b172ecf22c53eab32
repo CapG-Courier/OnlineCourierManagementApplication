@@ -1,0 +1,241 @@
+	package com.cg.ocma.model;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import com.cg.ocma.entities.BankAccountEntity;
+
+public class CustomerModel {
+	
+	private int customerid;
+	
+	@NotNull(message="This field cannot be omitted")
+	private long aadharno;
+	
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	private String firstname;
+	
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	private String lastname;
+	
+    @NotNull(message="Mobile number cannot be omitted")
+	private long mobileno;
+    
+    @NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	@Column(name = "street")
+	private String street;
+	
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	@Column(name = "city")
+	private String city;
+	
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	@Column(name = "state")
+	private String state;
+	
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "zip")
+	private int zip;
+
+	private BankAccountEntity acct;
+
+	public CustomerModel() {
+		
+		/*No implementation*/
+		 
+	}
+
+	public CustomerModel(int customerid, long aadharno, String firstname, String lastname, long mobileno, String street,  String city, String state, String country, int zip, BankAccountEntity acct) {
+		super();
+		this.customerid = customerid;
+		this.aadharno = aadharno;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.mobileno = mobileno;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zip = zip;
+		this.acct = acct;
+	}
+
+	public int getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(int customerid) {
+		this.customerid = customerid;
+	}
+
+	public long getAadharno() {
+		return aadharno;
+	}
+
+	public void setAadharno(long aadharno) {
+		this.aadharno = aadharno;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public long getMobileno() {
+		return mobileno;
+	}
+
+	public void setMobileno(long mobileno) {
+		this.mobileno = mobileno;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getZip() {
+		return zip;
+	}
+
+	public void setZip(int zip) {
+		this.zip = zip;
+	}
+
+	public BankAccountEntity getAcct() {
+		return acct;
+	}
+
+	public void setAcct(BankAccountEntity acct) {
+		this.acct = acct;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (aadharno ^ (aadharno >>> 32));
+		result = prime * result + ((acct == null) ? 0 : acct.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + customerid;
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + (int) (mobileno ^ (mobileno >>> 32));
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
+		result = prime * result + zip;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CustomerModel other = (CustomerModel) obj;
+		if (aadharno != other.aadharno)
+			return false;
+		if (acct == null) {
+			if (other.acct != null)
+				return false;
+		} else if (!acct.equals(other.acct))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (customerid != other.customerid)
+			return false;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		if (mobileno != other.mobileno)
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
+		if (zip != other.zip)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerModel [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", mobileno=" + mobileno + ", street=" + street + ", city=" + city
+				+ ", state=" + state + ", country=" + country + ", zip=" + zip + ", acct=" + acct + "]";
+	}
+	
+	
+}
