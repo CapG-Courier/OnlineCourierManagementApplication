@@ -2,12 +2,10 @@ package com.cg.ocma.entities;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +31,7 @@ public class CourierEntity {
 	@Column(name = "delivereddate")
 	private LocalDate deliveredDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "customerid")
 	private CustomerEntity customer;
 	

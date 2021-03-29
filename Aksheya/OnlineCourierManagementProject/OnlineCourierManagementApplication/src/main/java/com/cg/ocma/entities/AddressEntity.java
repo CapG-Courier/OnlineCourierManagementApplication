@@ -1,6 +1,5 @@
 package com.cg.ocma.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,11 +36,11 @@ public class AddressEntity {
 	@Column(name = "zip")
 	private int zip;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	@JoinColumn(name = "customerid")
 	private CustomerEntity customer;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	@JoinColumn(name = "officeid")
 	private CourierOfficeOutletEntity office;
 	

@@ -1,5 +1,4 @@
 package com.cg.ocma.entities;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ public class OfficeStaffMembersEntity {
 	@Column(name = "role", length = 20)
 	private String role;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "officeid")
 	private CourierOfficeOutletEntity office;
 	
