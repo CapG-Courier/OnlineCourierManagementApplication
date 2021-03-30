@@ -44,8 +44,7 @@ public class CourierEntity {
 		
 	}
 	
-	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
-			CustomerEntity customer, CourierStatus status) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer, CourierStatus status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;

@@ -94,7 +94,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException{
 		
-		if(courierRepo.findByConsignmentNo(consignmentno) == null) {
+		if(courierRepo.existsByConsignmentNo(consignmentno) == false) {
 			throw new CourierNotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
 		} else {
 			return ((courierRepo.findByConsignmentNo(consignmentno)).getStatus()).toString();

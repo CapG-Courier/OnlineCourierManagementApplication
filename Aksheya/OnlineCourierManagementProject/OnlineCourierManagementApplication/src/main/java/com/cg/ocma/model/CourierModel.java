@@ -51,6 +51,15 @@ public class CourierModel {
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 	}
+	
+	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate, LocalDate deliveredDate, String status) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+		this.status = status;
+	}
 
 	public int getCourierId() {
 		return courierId;
