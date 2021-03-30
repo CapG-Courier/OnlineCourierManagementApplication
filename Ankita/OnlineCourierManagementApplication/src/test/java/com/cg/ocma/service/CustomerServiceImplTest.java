@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,16 +13,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cg.ocma.entities.Complaint;
 import com.cg.ocma.entities.Courier;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
-import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
@@ -42,47 +38,6 @@ public class CustomerServiceImplTest {
 	
 	@InjectMocks
 	private CustomerServiceImpl csImpl;
-	
-	/*
-	@Test
-	@DisplayName("CustomerServiceImpl:: register should return customer id if customer object is successfully created")
-	void register() throws DuplicateCustomerFoundException {
-		int expected = 5;
-		int customerid = 5;
-		Customer testdata = new Customer(5,1736254879,"Ram","Kumar", 988762456);
-		CustomerModel check = new CustomerModel(5,1736254879,"Ram","Kumar", 988762456);
-		Mockito.when(customerRepo.existsById(customerid)).thenReturn(false);
-		Mockito.when(customerRepo.save(testdata)).thenReturn(testdata);
-		int actual = csImpl.register(check);
-		assertEquals(expected, actual);
-	}
-	*/
-	
-	/*
-	@Test
-	@DisplayName("CustomerServiceImpl:: register should return exception if customer already exists")
-	void registerCheck() throws DuplicateCustomerFoundException{
-		
-		CustomerModel check = new CustomerModel(5,1736254879,"Ram","Kumar", 988762456);
-		Mockito.when(customerRepo.existsById(check.getCustomerid())).thenReturn(true);
-		assertThrows(DuplicateCustomerFoundException.class, () -> {
-			csImpl.register(check);
-		});
-	}
-	*/
-	
-	@Test
-	@DisplayName("CustomerServiceImpl:: initiateProcess should return consignment number if courier object is successfully created")
-	void initiateProcess() throws DuplicateCourierFoundException {
-		int expected = 5000;
-		Courier testdata = new Courier(1,5000,LocalDate.parse("2020-11-03"));
-		CourierModel model = new CourierModel(1,5000,LocalDate.parse("2020-11-03"));
-		Mockito.when(courierRepo.existsById(testdata.getCourierId())).thenReturn(false);
-		Mockito.when(courierRepo.save(testdata)).thenReturn(testdata);
-		Mockito.when(courierRepo.findById(testdata.getCourierId())).thenReturn(Optional.of(testdata));
-		int actual = csImpl.initiateProcess(model);
-		assertEquals(expected, actual);
-	}
 	
 	@Test
 	@DisplayName("CustomerServiceImpl:: initiateProcess should return exception if courier already exists")
@@ -111,9 +66,7 @@ public class CustomerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: checkOnlineTrackingStatusCheck should give an exception when the Courier is not found")
 	void checkOnlineTrackingStatusCheck() throws CourierNotFoundException {
 		
-		Courier testdata = new Courier(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
 		int consignmentno = 5123;
-		Mockito.when(courierRepo.existsByConsignmentNo(testdata.getConsignmentNo())).thenReturn(false);
 		assertThrows(CourierNotFoundException.class, () -> {
 			csImpl.checkOnlineTrackingStatus(consignmentno);
 		});
@@ -130,17 +83,4 @@ public class CustomerServiceImplTest {
 			csImpl.registerComplaint(model);
 		});
 	}
-	
-	@Test
-	@DisplayName("CustomerServiceImpl:: register complaint should return the complaint id")
-	void registerComplaint() throws DuplicateComplaintFoundException {
-		int expected = 7;
-		Complaint testdata = new Complaint(7,5123, "Courier was lost", "The courier was lost during transfer");
-		ComplaintModel model = new ComplaintModel(7,5123, "Courier was lost", "The courier was lost during transfer");
-		Mockito.when(complaintRepo.existsById(testdata.getComplaintId())).thenReturn(false);
-		Mockito.when(complaintRepo.save(testdata)).thenReturn(testdata);
-		int actual = csImpl.registerComplaint(model);
-		assertEquals(expected, actual);
-	}
-
 }

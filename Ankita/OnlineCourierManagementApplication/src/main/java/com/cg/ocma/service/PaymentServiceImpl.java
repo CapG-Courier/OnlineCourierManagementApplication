@@ -11,9 +11,6 @@ public class PaymentServiceImpl implements IPaymentService {
 	@Autowired
 	private CustomerRepo customerRepo;
 	
-	//@Autowired
-	//private EMParser parser;
-
 	public PaymentServiceImpl() {
 		/* No implementation */
 	}
@@ -21,7 +18,6 @@ public class PaymentServiceImpl implements IPaymentService {
 	public PaymentServiceImpl(CustomerRepo customerRepo) {
 		super();
 		this.customerRepo = customerRepo;
-		//this.parser=new EMParser();
 	}
 
 	@Override
@@ -37,7 +33,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		
 		if(customerRepo.existsById(customerid)) {
 			
-			if(customerRepo.findById(customerid).orElse(null).getAcct().accountno > 0) {
+			if(customerRepo.findById(customerid).orElse(null).getAcct() != null) {
 				flag = true;
 				
 			}else {

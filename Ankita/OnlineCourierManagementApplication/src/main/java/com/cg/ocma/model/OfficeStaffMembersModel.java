@@ -3,7 +3,6 @@ package com.cg.ocma.model;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.cg.ocma.entities.Address;
 import com.cg.ocma.entities.CourierOfficeOutlet;
 
 public class OfficeStaffMembersModel {

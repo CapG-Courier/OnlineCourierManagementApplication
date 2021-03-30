@@ -37,7 +37,9 @@ public class ManagerServiceImpl implements IManagerService {
 	@Autowired
 	private EMParser parser;
 	
-
+	private static final String staffWithId="Staff with id ";
+	private static final String doesNotExist=" does not exist!";
+	
 	public ManagerServiceImpl() {
 		/* No implementation */
 	}
@@ -57,7 +59,7 @@ public class ManagerServiceImpl implements IManagerService {
 	public int addStaffMember(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember {
 		if(staffmember != null) {
 			if(managerRepo.existsById(staffmember.getEmpid())) {
-				throw new DuplicateStaffMember("Staff with id " + staffmember.getEmpid() + " already exists!");
+				throw new DuplicateStaffMember(staffWithId + staffmember.getEmpid() + " already exists!");
 			} else {
 				parser.parse(managerRepo.save(parser.parse(staffmember)));
 			}
@@ -69,8 +71,8 @@ public class ManagerServiceImpl implements IManagerService {
 	@Override
 	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException{
 		boolean flag = false;
-		if(managerRepo.existsById(empid) == false) {
-			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");	
+		if(managerRepo.findById(empid)==null) {
+			throw new StaffMemberNotFoundException(staffWithId + empid + doesNotExist);	
 		} else {
 			managerRepo.deleteById(empid);
 			if(managerRepo.existsById(empid) == false) {
@@ -84,8 +86,8 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException {
-		if(managerRepo.existsById(empid) == false) {
-			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");
+		if(managerRepo.findById(empid)==null) {
+			throw new StaffMemberNotFoundException(staffWithId + empid + doesNotExist);
 		} else {
 			return parser.parse(managerRepo.findById(empid).get());
 		}
@@ -105,9 +107,9 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public String getCourierStatus(int courierid) throws CourierNotFoundException {
-		if(courierRepo.existsById(courierid) == false) {
+		if(!courierRepo.existsById(courierid)) {
 			
-			throw new CourierNotFoundException("Courier with id " + courierid + " doesn't exist!");
+			throw new CourierNotFoundException("Courier with id " + courierid + doesNotExist);
 		} else {
 			
 			return (courierRepo.findById(courierid).orElse(null)).getStatus().toString();
@@ -116,9 +118,9 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateCustomerFoundException {
-		if(complaintRepo.existsById(complaintid) == false) {
+		if(!complaintRepo.existsById(complaintid)) {
 			
-			throw new DuplicateCustomerFoundException("Complaint with id " + complaintid + " doesn't exist!");
+			throw new DuplicateCustomerFoundException("Complaint with id " + complaintid + doesNotExist);
 			
 		} else {
 			return parser.parse(complaintRepo.findById(complaintid).orElse(null));

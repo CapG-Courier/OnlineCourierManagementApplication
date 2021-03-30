@@ -365,4 +365,55 @@ VALUES
 
 
 
+Insert into customer(aadharno,accountholdername,accounttype,accountno,city,country,state,street,zip,firstname,lastname,mobileno)
+values
+(12345,'Amit','savings',123456,'chennai','India','TamilNadu','Street Y',600062,'Amit','Kumar',852147)
+;
+
+
+{
+  "consignmentNo": 5123,
+  "courierId": 1,
+  "customerid": 1,
+  "deliveredDate": "2021-03-21",
+  "initiatedDate": "2021-03-18",
+  "status": "DELIVERED"
+}
+
+
+{
+  "consignmentNo": 5123,
+  "courierId": 1,
+  "customer": {
+  "customerid": 1
+  },
+  "deliveredDate": "2021-03-21",
+  "initiatedDate": "2021-03-18",
+  "status": "DELIVERED"
+}
+
+
+{
+  "complaintId": 4,
+  "consignmentNo": 8523,
+  "customer": {
+    "customerid": 5,
+    "aadharno": 123456789044,
+    "acct": {
+        "accountno": 963852741032277 ,
+        "accountHolderName": "Aksheya",
+        "accountType": "Current"
+    },
+    "firstname": "Aksheya",
+    "lastname": "K S",
+    "mobileno": 9874563240
+  },
+  "detailDescription": "Courier was unable to reach us asjcaj",
+  "shortDescription": "Courier Losmc,mas lkt"
+}
+
+
+
+
+gradlew sonarqube -Dsonar.projectKey=OnlineCourierManagementApplication -Dsonar.host.url=http://localhost:9000 -Dsonar.login=46c62c47aaa12c1dcb53bb77450975b3d0042cfe
 

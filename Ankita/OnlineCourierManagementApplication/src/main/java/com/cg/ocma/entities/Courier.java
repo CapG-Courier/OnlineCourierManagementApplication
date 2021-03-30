@@ -2,7 +2,7 @@ package com.cg.ocma.entities;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,9 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 @Entity
 @Table(name="courier")
 public class Courier {
@@ -26,18 +23,16 @@ public class Courier {
 	@Column(name = "courierid")
 	private int courierId;
 	
-	@Column(name = "consignmentno")
+	@Column(unique = true, name = "consignmentno")
 	private int consignmentNo;
 	
-	@DateTimeFormat(iso=ISO.DATE)
-	@Column(name = "intitateddate")
+	@Column(name = "initiateddate")
 	private LocalDate initiatedDate;
 	
-	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "delivereddate")
 	private LocalDate deliveredDate;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "customerid")
 	private Customer customer;
 	

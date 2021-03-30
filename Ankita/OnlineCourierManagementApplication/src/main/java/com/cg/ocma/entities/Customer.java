@@ -5,11 +5,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +22,7 @@ public class Customer {
 	private int customerid;
 	
 	@Column(name = "aadharno")
-	private int aadharno;
+	private long aadharno;
 	
 	@Column(name = "firstname", length = 20)
 	private String firstname;
@@ -30,19 +30,19 @@ public class Customer {
 	@Column(name = "lastname", length = 20)
 	private String lastname;
 	
-	@Embedded
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Address addr;
 	
 	@Column(name = "mobileno")
-	private int mobileno;
+	private long mobileno;
 	
 	@Embedded
 	private BankAccount acct;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List <Complaint> complaints;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List <Courier> couriers;
 	
 	public Customer() {
@@ -51,18 +51,17 @@ public class Customer {
 		
 	}
 
-	public Customer(int customerid, int aadharno, String firstname, String lastname, Address addr, int mobileno, BankAccount acct) {
+	public Customer(int customerid, long aadharno, String firstname, String lastname, long mobileno, BankAccount acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.addr = addr;
 		this.mobileno = mobileno;
 		this.acct = acct;
 	}
 
-	public Customer(int customerid, int aadharno, String firstname, String lastname, int mobileno) {
+	public Customer(int customerid, long aadharno, String firstname, String lastname, long mobileno) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
@@ -71,11 +70,11 @@ public class Customer {
 		this.mobileno = mobileno;
 	}
 
-	public int getAadharno() {
+	public long getAadharno() {
 		return aadharno;
 	}
 
-	public void setAadharno(int aadharno) {
+	public void setAadharno(long aadharno) {
 		this.aadharno = aadharno;
 	}
 
@@ -103,11 +102,11 @@ public class Customer {
 		this.addr = addr;
 	}
 
-	public int getMobileno() {
+	public long getMobileno() {
 		return mobileno;
 	}
 
-	public void setMobileno(int mobileno) {
+	public void setMobileno(long mobileno) {
 		this.mobileno = mobileno;
 	}
 
@@ -127,13 +126,15 @@ public class Customer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + aadharno;
+		result = prime * result + (int) (aadharno ^ (aadharno >>> 32));
 		result = prime * result + ((acct == null) ? 0 : acct.hashCode());
 		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
+		result = prime * result + ((complaints == null) ? 0 : complaints.hashCode());
+		result = prime * result + ((couriers == null) ? 0 : couriers.hashCode());
 		result = prime * result + customerid;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + mobileno;
+		result = prime * result + (int) (mobileno ^ (mobileno >>> 32));
 		return result;
 	}
 
@@ -158,6 +159,16 @@ public class Customer {
 				return false;
 		} else if (!addr.equals(other.addr))
 			return false;
+		if (complaints == null) {
+			if (other.complaints != null)
+				return false;
+		} else if (!complaints.equals(other.complaints))
+			return false;
+		if (couriers == null) {
+			if (other.couriers != null)
+				return false;
+		} else if (!couriers.equals(other.couriers))
+			return false;
 		if (customerid != other.customerid)
 			return false;
 		if (firstname == null) {
@@ -178,7 +189,8 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct + "]";
+				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct
+				+ ", complaints=" + complaints + ", couriers=" + couriers + "]";
 	}
 
 	

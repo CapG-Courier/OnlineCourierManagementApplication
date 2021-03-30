@@ -3,13 +3,17 @@ package com.cg.ocma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.CustomerModel;
+import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
@@ -21,14 +25,19 @@ public class CustomerServiceImpl implements ICustomerService {
 	private CourierRepo courierRepo;
 	
 	@Autowired
+	private AddressRepo addressRepo;
+	
+	@Autowired
 	private ComplaintRepo complaintRepo;
 	
 	@Autowired
 	private CustomerRepo customerRepo;
 	
 	@Autowired
-	private EMParser parser;	
-
+	private EMParser parser;
+	
+	private static final String alreadyExists=" already exists!";
+	
 	public CustomerServiceImpl() {
 		/* No implementation */
 	}
@@ -43,10 +52,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Transactional
 	@Override
 	public int initiateProcess(CourierModel courier) throws DuplicateCourierFoundException {
-		
 		if(courier != null) {
 			if(courierRepo.existsById(courier.getCourierId())) {
-				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
+				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + alreadyExists);
 			} else {
 				parser.parse(courierRepo.save(parser.parse(courier)));
 			}
@@ -60,7 +68,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		if(customer != null) {
 			if(customerRepo.existsById(customer.getCustomerid())) {
 				
-				throw new DuplicateCustomerFoundException("Customer with id " + customer.getCustomerid() + " already exists!");
+				throw new DuplicateCustomerFoundException("Customer with id " + customer.getCustomerid() + alreadyExists);
 			} else {
 				parser.parse(customerRepo.save(parser.parse(customer)));
 			}
@@ -68,10 +76,20 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		return customer.getCustomerid();
 	}
-
+	
+	@Transactional
 	@Override
-	public boolean makePayment() {        //Empty method for shifting urls
-		return true;
+	public int registerAddress(AddressModel address) throws DuplicateAddressFoundException{
+		if(address != null) {
+			if(addressRepo.existsById(address.getAddressid())) {
+				
+				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + alreadyExists);
+			} else {
+				
+				parser.parse(addressRepo.save(parser.parse(address)));
+			}
+		}
+		return address.getAddressid();
 	}
 
 	@Override
@@ -80,7 +98,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		if(courierRepo.findByConsignmentNo(consignmentno) == null) {
 			throw new CourierNotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
 		} else {
-			return (courierRepo.findByConsignmentNo(consignmentno)).getStatus().toString();
+			return ((courierRepo.findByConsignmentNo(consignmentno)).getStatus()).toString();
 		}
 		
 	}
@@ -91,7 +109,8 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		if(complaint != null) {
 			if(complaintRepo.existsById(complaint.getComplaintId())) {
-				throw new DuplicateComplaintFoundException("Complaint with id " + complaint.getComplaintId() + " already exists!");
+		
+				throw new DuplicateComplaintFoundException("Complaint with id " + complaint.getComplaintId() + alreadyExists);
 			} else {
 				parser.parse(complaintRepo.save(parser.parse(complaint)));
 			}

@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
 import com.cg.ocma.exception.OutletNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
+import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.OfficeOutletRepo;
 
 @Service
@@ -21,8 +24,15 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	private OfficeOutletRepo officeRepo;
 	
 	@Autowired
+	private AddressRepo addressRepo;
+	
+	@Autowired
 	private EMParser parser;
 
+	private static final String officeOutletWithId="Office Outlet with id ";
+	private static final String doesNotExist=" does not exist!";
+	private static final String alreadyExist=" already exist!";
+	
 	public OfficeOutletServiceImpl() {
 		
 		/* No implementation */
@@ -40,7 +50,7 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		
 		if(officeoutlet != null) {
 			if(officeRepo.existsById(officeoutlet.getOfficeid())) {
-				throw new DuplicateOfficeOutletFoundException("Office Outlet with id " + officeoutlet.getOfficeid() + " already exists!");
+				throw new DuplicateOfficeOutletFoundException(officeOutletWithId + officeoutlet.getOfficeid() + alreadyExist);
 			} else {
 				parser.parse(officeRepo.save(parser.parse(officeoutlet)));
 			}
@@ -48,14 +58,29 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		return officeoutlet.getOfficeid();
 		
 	}
+	
+	@Transactional
+	@Override
+	public int registerOfficeAddress(AddressModel address) throws DuplicateAddressFoundException{
+		if(address != null) {
+			if(addressRepo.existsById(address.getAddressid())) {
+				
+				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + alreadyExist);
+			} else {
+				
+				parser.parseOffice(addressRepo.save(parser.parseOffice(address)));
+			}
+		}
+		return address.getAddressid();
+	}
 
 	@Transactional
 	@Override
 	public boolean removeNewOffice(int officeid) throws OutletNotFoundException {
 		
 		boolean flag = false;
-		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office Outlet with id " + officeid + " doesn't exist!");	
+		if(!officeRepo.existsById(officeid)) {
+			throw new OutletNotFoundException(officeOutletWithId + officeid + doesNotExist);	
 		} else {
 			officeRepo.deleteById(officeid);
 			flag = true;
@@ -67,8 +92,8 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	@Override
 	public CourierOfficeOutletModel getOfficeInfo(int officeid) throws OutletNotFoundException {
 		
-		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office with id " + officeid + " doesn't exist!");
+		if(!officeRepo.existsById(officeid)) {
+			throw new OutletNotFoundException(officeOutletWithId + officeid + doesNotExist);
 		} else {
 			return parser.parse(officeRepo.findById(officeid).orElse(null));
 		}
@@ -91,9 +116,9 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	@Override
 	public boolean isOfficeOpen(int officeid) throws OutletClosedException {
 		
-		if(officeRepo.existsById(officeid) == false) {
+		if(!officeRepo.existsById(officeid)) {
 			
-			throw new OutletClosedException("Office with id " + officeid + " doesn't exist!");
+			throw new OutletClosedException(officeOutletWithId + officeid + doesNotExist);
 		} else {
 			
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
@@ -114,7 +139,7 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	@Override
 	public boolean isOfficeClosed(int officeid) throws OutletClosedException {
 		if(officeRepo.findById(officeid) == null) {
-			throw new OutletClosedException("Office with id " + officeid + " doesn't exist!");
+			throw new OutletClosedException(officeOutletWithId + officeid + doesNotExist);
 		} else {
 			
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());

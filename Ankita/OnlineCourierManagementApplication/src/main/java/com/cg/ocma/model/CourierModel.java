@@ -2,16 +2,22 @@ package com.cg.ocma.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import com.cg.ocma.entities.Customer;
 
 public class CourierModel {
 
 	private int courierId;
 	
+	
 	private int consignmentNo;
 	
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate initiatedDate;
 	
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate deliveredDate;
 	
 	private Customer customer;

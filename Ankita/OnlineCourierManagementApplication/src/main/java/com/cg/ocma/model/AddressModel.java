@@ -1,56 +1,49 @@
-package com.cg.ocma.entities;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+package com.cg.ocma.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name="address")
-public class Address {
+import com.cg.ocma.entities.CourierOfficeOutlet;
+import com.cg.ocma.entities.Customer;
+
+public class AddressModel {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "addressid")
-	private int addressid;
+private int addressid;
 	
-	@Column(name = "houseno")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String houseNo;
 	
-	@Column(name = "street")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String street;
 	
-	@Column(name = "city")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String city;
 	
-	@Column(name = "state")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String state;
 	
-	@Column(name = "country")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String country;
 	
-	@Column(name = "zip")
+
 	private int zip;
-	
-	@OneToOne
-	@JoinColumn(name = "customerid")
+
 	private Customer customer;
 	
-	@OneToOne
-	@JoinColumn(name = "officeid")
 	private CourierOfficeOutlet office;
 	
-	public Address() {
+	public AddressModel() {
 		
 		/*No implementation*/
 		
 	}
 	
-	public Address(int addressid, String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutlet office) {
+	public AddressModel(int addressid, String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutlet office) {
 		super();
 		this.addressid = addressid;
 		this.houseNo = houseNo;
@@ -62,7 +55,7 @@ public class Address {
 		this.office = office;
 	}
 
-	public Address(int addressid, String houseNo, String street, String city, String state, String country, int zip, Customer customer) {
+	public AddressModel(int addressid, String houseNo, String street, String city, String state, String country, int zip, Customer customer) {
 		super();
 		this.addressid = addressid;
 		this.houseNo = houseNo;
@@ -74,7 +67,7 @@ public class Address {
 		this.customer = customer;
 	}
 
-	public Address(int addressid, String houseNo, String street, String city, String state, String country, int zip) {
+	public AddressModel(int addressid, String houseNo, String street, String city, String state, String country, int zip) {
 		super();
 		this.addressid = addressid;
 		this.houseNo = houseNo;
@@ -85,14 +78,14 @@ public class Address {
 		this.zip = zip;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public String getHouseNo() {
+		return houseNo;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -133,20 +126,20 @@ public class Address {
 		this.zip = zip;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public int getAddressid() {
 		return addressid;
 	}
 
 	public void setAddressid(int addressid) {
 		this.addressid = addressid;
-	}
-
-	public String getHouseNo() {
-		return houseNo;
-	}
-
-	public void setHouseNo(String houseNo) {
-		this.houseNo = houseNo;
 	}
 
 	public CourierOfficeOutlet getOffice() {
@@ -181,7 +174,7 @@ public class Address {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Address other = (Address) obj;
+		AddressModel other = (AddressModel) obj;
 		if (addressid != other.addressid)
 			return false;
 		if (city == null) {
@@ -226,9 +219,9 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "AddressEntity [addressid=" + addressid + ", houseNo=" + houseNo + ", street=" + street + ", city="
-				+ city + ", state=" + state + ", country=" + country + ", zip=" + zip + ", customer=" + customer
-				+ ", office=" + office + "]";
+		return "AddressModel [addressid=" + addressid + ", houseNo=" + houseNo + ", street=" + street + ", city=" + city
+				+ ", state=" + state + ", country=" + country + ", zip=" + zip + ", customer=" + customer + ", office="
+				+ office + "]";
 	}
-	
+
 }

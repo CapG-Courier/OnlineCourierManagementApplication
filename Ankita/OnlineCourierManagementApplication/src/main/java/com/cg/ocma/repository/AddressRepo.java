@@ -3,9 +3,9 @@ package com.cg.ocma.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cg.ocma.entities.Customer;
+import com.cg.ocma.entities.Address;
 
 @Repository
-public interface CustomerRepo extends JpaRepository <Customer,Integer>{
-	
+public interface AddressRepo extends JpaRepository <Address,Integer>{
+
 }

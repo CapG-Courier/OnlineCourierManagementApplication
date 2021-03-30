@@ -1,6 +1,5 @@
 package com.cg.ocma.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class Complaint {
 	@Column(name = "detaildesc")
 	private String detailDescription;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "customerid")
 	private Customer customer;
 

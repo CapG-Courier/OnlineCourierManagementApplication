@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.CustomerModel;
@@ -61,6 +63,21 @@ public class CustomerRestController {
 			
 			int consignmentid = customerService.initiateProcess(courier);
 			ResponseEntity <String> response = new ResponseEntity <> ("The courier has been registered with consignment id " + consignmentid, HttpStatus.CREATED);
+			return response;
+			
+		}
+		
+	}
+	
+	@PostMapping("/registerAddress")
+	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateAddressFoundException{
+		
+		if (result.hasErrors()) {
+			throw new DuplicateAddressFoundException(GlobalExceptionHandler.messageFrom(result));
+		} else {
+			
+			int addressid = customerService.registerAddress(address);
+			ResponseEntity <String> response = new ResponseEntity <> ("You have successfully registered your address with the id " + addressid, HttpStatus.CREATED);
 			return response;
 			
 		}

@@ -5,17 +5,16 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CourierOfficeOutlet")
+@Table(name = "courierofficeoutlet")
 public class CourierOfficeOutlet {
 
 	@Id
@@ -23,7 +22,7 @@ public class CourierOfficeOutlet {
 	@Column(name = "officeid")
 	private int officeid;
 	
-	@Embedded
+	@OneToOne(mappedBy = "office", cascade = CascadeType.ALL)
 	private Address address;
 	
 	@Column(name = "openingtime")	
@@ -32,21 +31,13 @@ public class CourierOfficeOutlet {
 	@Column(name = "closingtime")
 	private String closingTime;
 	
-	@OneToMany(mappedBy = "office", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "office", cascade = CascadeType.ALL)
 	private List <OfficeStaffMembers> officeStaff;
 	
 	public CourierOfficeOutlet() {
 		
 		/*No implementation*/
 			
-	}
-
-	public CourierOfficeOutlet(int officeid, Address address, String openingTime, String closingTime) {
-		super();
-		this.officeid = officeid;
-		this.address = address;
-		this.openingTime = openingTime;
-		this.closingTime = closingTime;
 	}
 
 	public CourierOfficeOutlet(int officeid, String openingTime, String closingTime) {
