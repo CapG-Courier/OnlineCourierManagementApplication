@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
 import com.cg.ocma.exception.DuplicateCourierFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.CustomerModel;
+import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
@@ -27,6 +29,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 	@Autowired
 	private CustomerRepo customerRepo;
+	
+	@Autowired
+	private AddressRepo addressRepo;
 	
 	@Autowired
 	private EMParser parser;	
@@ -51,7 +56,6 @@ public class CustomerServiceImpl implements ICustomerService {
 				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
 			} else {
 				parser.parse(courierRepo.save(parser.parse(courier)));
-				//(courierRepo.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INITIATED);
 			}
 		} 
 		return courier.getConsignmentNo();
@@ -71,16 +75,26 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		return customer.getCustomerid();
 	}
-
+	
+	@Transactional
 	@Override
-	public boolean makePayment() {        //Empty method for shifting urls
-		return true;
+	public int registerAddress(AddressModel address) throws DuplicateAddressFoundException{
+		if(address != null) {
+			if(addressRepo.existsById(address.getAddressid())) {
+				
+				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + " already exists!");
+			} else {
+				
+				parser.parse(addressRepo.save(parser.parse(address)));
+			}
+		}
+		return address.getAddressid();
 	}
 
 	@Override
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException{
 		
-		if(courierRepo.findByConsignmentNo(consignmentno) == null) {
+		if(courierRepo.existsByConsignmentNo(consignmentno) == false) {
 			throw new CourierNotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
 		} else {
 			return ((courierRepo.findByConsignmentNo(consignmentno)).getStatus()).toString();
