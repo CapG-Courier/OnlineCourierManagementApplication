@@ -1,39 +1,52 @@
-package com.cg.ocma.model;
+package com.cg.ocma.entities;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.cg.ocma.entities.CustomerEntity;
-
-public class ComplaintModel {
+@Entity
+@Table(name="complaint")
+public class ComplaintEntity {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "complaintid")
 	private int complaintId;
 	
-	@NotNull(message="This consignment no cannot be omitted")
+	@Column(name = "consignmentno")
 	private int consignmentNo;
 	
-	@NotEmpty(message="This short desc cannot be empty")
-	@NotNull(message="This short desc cannot be omitted")
+	@Column(name = "shortdesc")
 	private String shortDescription;
 	
+	@Column(name = "detaildesc")
 	private String detailDescription;
 	
+	@ManyToOne
+	@JoinColumn(name = "customerid")
 	private CustomerEntity customer;
 
-	public ComplaintModel() {
+	public ComplaintEntity() {
+		
+		/*No implementation*/
 		
 	}
 
-	public ComplaintModel(int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
+	public ComplaintEntity(int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.consignmentNo = consignmentNo;
 		this.shortDescription = shortDescription;
 		this.detailDescription = detailDescription;
 		this.customer = customer;
 	}
-	
 
-	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
+	
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
 		this.consignmentNo = consignmentNo;
@@ -46,9 +59,6 @@ public class ComplaintModel {
 		return complaintId;
 	}
 
-	public void setComplaintId(int complaintId) {
-		this.complaintId = complaintId;
-	}
 
 	public int getConsignmentNo() {
 		return consignmentNo;
@@ -84,7 +94,7 @@ public class ComplaintModel {
 
 	@Override
 	public String toString() {
-		return "ComplaintModel [complaintId=" + complaintId + ", consignmentNo=" + consignmentNo + ", shortDescription="
+		return "Complaint [complaintId=" + complaintId + ", consignmentNo=" + consignmentNo + ", shortDescription="
 				+ shortDescription + ", detailDescription=" + detailDescription + ", customer=" + customer + "]";
 	}
 

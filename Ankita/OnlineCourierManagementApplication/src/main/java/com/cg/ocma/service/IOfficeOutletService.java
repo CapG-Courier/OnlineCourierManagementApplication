@@ -2,6 +2,7 @@ package com.cg.ocma.service;
 
 import java.util.List;
 
+import com.cg.ocma.exception.AddressNotFoundException;
 import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
@@ -18,5 +19,6 @@ public interface IOfficeOutletService {
 	public List<CourierOfficeOutletModel> getAllOfficesData() throws OutletNotFoundException;
 	public boolean isOfficeOpen(int officeid) throws OutletClosedException;
 	public boolean isOfficeClosed(int officeid)throws OutletClosedException;
+	public AddressModel findOfficeAddress(int officeId) throws AddressNotFoundException;
 	
 }

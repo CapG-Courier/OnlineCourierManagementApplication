@@ -1,45 +1,58 @@
 package com.cg.ocma.model;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-import com.cg.ocma.entities.CourierOfficeOutlet;
+import com.cg.ocma.entities.CourierOfficeOutletEntity;
 
 public class OfficeStaffMembersModel {
 	
-	private int empid;
+	private int empId;
 	
 	@NotEmpty(message="Employee name cannot be empty")
 	@NotNull(message="Employee name cannot be omitted")
 	private String name;
-	
-	@NotEmpty(message="Employee role cannot be empty")
-	@NotNull(message="Employee role cannot be omitted")
+
 	private String role;
 	
-	private CourierOfficeOutlet office;
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message="A digit must occur at least once;"
+			+ "A lower case letter must occur at least once; An upper case letter must occur at least once; A special character must occur at least once;"
+			+ "No whitespace allowed in the entire password; Atleast 8 characters must be there")
+	private String password;
 	
+	private CourierOfficeOutletEntity office;
+
 	public OfficeStaffMembersModel() {
 		
+		/*No implementation*/
+		
+	}
+	
+	public OfficeStaffMembersModel(String name, String role, String password, CourierOfficeOutletEntity office) {
+		super();
+		this.name = name;
+		this.role = role;
+		this.password = password;
+		this.office = office;
 	}
 
-	public OfficeStaffMembersModel(int empid, String name, String role, CourierOfficeOutlet office) {
+	public OfficeStaffMembersModel(String name, String role, CourierOfficeOutletEntity office) {
 		super();
-		this.empid = empid;
 		this.name = name;
 		this.role = role;
 		this.office = office;
 	}
 
-	public OfficeStaffMembersModel(int empid, String name, String role) {
+	public OfficeStaffMembersModel(int empId, String name, String role, CourierOfficeOutletEntity office) {
 		super();
-		this.empid = empid;
+		this.empId = empId;
 		this.name = name;
 		this.role = role;
+		this.office = office;
 	}
-
+	
 	public int getEmpid() {
-		return empid;
+		return empId;
 	}
 
 	public String getName() {
@@ -58,58 +71,25 @@ public class OfficeStaffMembersModel {
 		this.role = role;
 	}
 
-	public CourierOfficeOutlet getOffice() {
+	public CourierOfficeOutletEntity getOffice() {
 		return office;
 	}
 
-	public void setOffice(CourierOfficeOutlet office) {
+	public void setOffice(CourierOfficeOutletEntity office) {
 		this.office = office;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + empid;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((office == null) ? 0 : office.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		return result;
+	public String getPassword() {
+		return password;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OfficeStaffMembersModel other = (OfficeStaffMembersModel) obj;
-		if (empid != other.empid)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (office == null) {
-			if (other.office != null)
-				return false;
-		} else if (!office.equals(other.office))
-			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		return true;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "OfficeStaffMembersModel [empid=" + empid + ", name=" + name + ", role=" + role + ", office=" + office
+		return "OfficeStaffMembersModel [empId=" + empId + ", name=" + name + ", role=" + role + ", office=" + office
 				+ "]";
 	}
-
 }

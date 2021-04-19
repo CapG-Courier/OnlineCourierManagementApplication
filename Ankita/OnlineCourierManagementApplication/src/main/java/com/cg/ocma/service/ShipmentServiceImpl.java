@@ -15,9 +15,6 @@ public class ShipmentServiceImpl implements IShipmentService {
 	
 	@Autowired
 	private EMParser parser;
-	
-	private static final String courierWithId="Courier with id ";
-	private static final String doesNotExist=" does not exist!";
 
 	public ShipmentServiceImpl() {
 		
@@ -33,12 +30,12 @@ public class ShipmentServiceImpl implements IShipmentService {
 	@Override
 	public boolean initiateShipmentTransaction(int courierid) throws CourierNotFoundException{
 		
-		if(!courierRepo.existsById(courierid)) {
+		if(courierRepo.existsById(courierid) == false) {
 			
-			throw new CourierNotFoundException(courierWithId + courierid + doesNotExist);
+			throw new CourierNotFoundException("Courier with id " + courierid + " does not exist");
 			
 		} else{
-			
+
 			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.INTRANSIT);
 			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
@@ -50,11 +47,10 @@ public class ShipmentServiceImpl implements IShipmentService {
 	@Override
 	public String checkShipmentStatus(int courierid) throws CourierNotFoundException{
 
-		if(!courierRepo.existsById(courierid)) {
+		if(courierRepo.existsById(courierid) == false) {
 			
-			throw new CourierNotFoundException(courierWithId + courierid + doesNotExist);
+			throw new CourierNotFoundException("Courier with id " + courierid + " doesn't exist!");
 		} else {
-			
 			return (courierRepo.findById(courierid).orElse(null)).getStatus().toString();
 		}
 		
@@ -63,12 +59,13 @@ public class ShipmentServiceImpl implements IShipmentService {
 	@Override
 	public boolean closeShipmentTransaction(int courierid) throws CourierNotFoundException{
 		
-		if(!courierRepo.existsById(courierid)) {
+		if(courierRepo.existsById(courierid) == false) {
 			
-			throw new CourierNotFoundException(courierWithId + courierid + doesNotExist);
+			throw new CourierNotFoundException("Courier with id " + courierid + " does not exist");
 			
 		} else{
 			
+
 			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.DELIVERED);
 			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
@@ -79,15 +76,17 @@ public class ShipmentServiceImpl implements IShipmentService {
 
 	@Override
 	public boolean rejectShipmentTransaction(int courierid) throws CourierNotFoundException{
-		if(!courierRepo.existsById(courierid)) {
+		if(courierRepo.existsById(courierid) == false) {
 			
-			throw new CourierNotFoundException(courierWithId + courierid + doesNotExist);
+			throw new CourierNotFoundException("Courier with id " + courierid + " does not exist");
 			
 		} else{
 			
+
 			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.REJECTED);
 			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
+			
 		}
 	}
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ocma.exception.AddressNotFoundException;
 import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
 import com.cg.ocma.exception.OutletClosedException;
@@ -66,17 +67,17 @@ public class OfficeOutletRestController {
 		
 	}
 	
-	@GetMapping("/getOffice/officeid={officeid}")
+	@GetMapping("/getOffice/{officeid}")
 	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("officeid") int officeid) throws OutletNotFoundException{
 		
-		return new ResponseEntity <> (officeService.getOfficeInfo(officeid), HttpStatus.FOUND);
+		return new ResponseEntity <> (officeService.getOfficeInfo(officeid), HttpStatus.OK);
 			
 	}
 	
 	@GetMapping("/getAllOffice")
 	public ResponseEntity <List<CourierOfficeOutletModel>> getAllOfficesData() throws OutletNotFoundException{
 		
-		return new ResponseEntity <> (officeService.getAllOfficesData(), HttpStatus.FOUND);
+		return new ResponseEntity <> (officeService.getAllOfficesData(), HttpStatus.OK);
 			
 	}
 	
@@ -122,6 +123,13 @@ public class OfficeOutletRestController {
 				return new ResponseEntity <> (toCheckOffice + officeid + " is opened: ", HttpStatus.OK);
 
 			}
+	}
+	
+	@GetMapping("/{managerid}/{officeId}")
+	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("officeId") int officeId) throws AddressNotFoundException{
+		
+		return new ResponseEntity <> (officeService.findOfficeAddress(officeId), HttpStatus.FOUND);
+		
 	}
 
 }

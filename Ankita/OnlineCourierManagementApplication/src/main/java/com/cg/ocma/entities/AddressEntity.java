@@ -1,49 +1,56 @@
-package com.cg.ocma.model;
+package com.cg.ocma.entities;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import com.cg.ocma.entities.CourierOfficeOutletEntity;
-import com.cg.ocma.entities.CustomerEntity;
+@Entity
+@Table(name = "address")
+public class AddressEntity {
 
-public class AddressModel {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "addressid")
 	private int addressId;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "houseno")
 	private String houseNo;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "street")
 	private String street;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "city")
 	private String city;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "state")
 	private String state;
 	
-	@NotEmpty(message="This field cannot be empty")
-	@NotNull(message="This field cannot be omitted")
+	@Column(name = "country")
 	private String country;
 	
-
+	@Column(name = "zip")
 	private int zip;
-
+	
+	@OneToOne
+	@JoinColumn(name = "customerid")
 	private CustomerEntity customer;
 	
+	@OneToOne
+	@JoinColumn(name = "officeid")
 	private CourierOfficeOutletEntity office;
 	
-	public AddressModel() {
+	public AddressEntity() {
 		
 		/*No implementation*/
 		
 	}
 	
-	public AddressModel(String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
+	public AddressEntity(String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
 		super();
 		this.houseNo = houseNo;
 		this.street = street;
@@ -54,7 +61,7 @@ public class AddressModel {
 		this.office = office;
 	}
 
-	public AddressModel(String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
+	public AddressEntity(String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
 		super();
 		this.houseNo = houseNo;
 		this.street = street;
@@ -65,7 +72,7 @@ public class AddressModel {
 		this.customer = customer;
 	}
 
-	public AddressModel(int addressId, String houseNo, String street, String city, String state, String country, int zip) {
+	public AddressEntity(int addressId, String houseNo, String street, String city, String state, String country, int zip) {
 		super();
 		this.addressId = addressId;
 		this.houseNo = houseNo;
@@ -76,14 +83,14 @@ public class AddressModel {
 		this.zip = zip;
 	}
 
-	public String getHouseNo() {
-		return houseNo;
+	public CustomerEntity getCustomer() {
+		return customer;
 	}
 
-	public void setHouseNo(String houseNo) {
-		this.houseNo = houseNo;
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
 	}
-
+	
 	public String getStreet() {
 		return street;
 	}
@@ -124,20 +131,20 @@ public class AddressModel {
 		this.zip = zip;
 	}
 
-	public CustomerEntity getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(CustomerEntity customer) {
-		this.customer = customer;
-	}
-
 	public int getAddressid() {
 		return addressId;
 	}
 
 	public void setAddressid(int addressId) {
 		this.addressId = addressId;
+	}
+
+	public String getHouseNo() {
+		return houseNo;
+	}
+
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
 	}
 
 	public CourierOfficeOutletEntity getOffice() {
@@ -150,8 +157,8 @@ public class AddressModel {
 
 	@Override
 	public String toString() {
-		return "AddressModel [addressId=" + addressId + ", houseNo=" + houseNo + ", street=" + street + ", city=" + city
-				+ ", state=" + state + ", country=" + country + ", zip=" + zip + ", customer=" + customer + ", office="
-				+ office + "]";
+		return "AddressEntity [addressId=" + addressId + ", houseNo=" + houseNo + ", street=" + street + ", city="
+				+ city + ", state=" + state + ", country=" + country + ", zip=" + zip + ", customer=" + customer
+				+ ", office=" + office + "]";
 	}
 }

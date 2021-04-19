@@ -2,15 +2,17 @@ package com.cg.ocma.model;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.cg.ocma.entities.Customer;
+import com.cg.ocma.entities.CustomerEntity;
 
 public class CourierModel {
 
 	private int courierId;
-	
 	
 	private int consignmentNo;
 	
@@ -20,15 +22,27 @@ public class CourierModel {
 	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate deliveredDate;
 	
-	private Customer customer;
+	private CustomerEntity customer;
+	
+	@NotEmpty(message="Weight cannot be empty")
+	@NotNull(message="Weight cannot be omitted")
+	private double weight;
 	
 	private String status;
 
 	public CourierModel() {
 		
+		/* Not implemented */
+	}
+	
+	public CourierModel(LocalDate initiatedDate, CustomerEntity customer, double weight) {
+		super();
+		this.initiatedDate = initiatedDate;
+		this.customer = customer;
+		this.weight = weight;
 	}
 
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, Customer customer) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, CustomerEntity customer, double weight) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -36,21 +50,7 @@ public class CourierModel {
 		this.deliveredDate = deliveredDate;
 		this.status = status;
 		this.customer = customer;
-	}
-
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
-		super();
-		this.courierId = courierId;
-		this.consignmentNo = consignmentNo;
-		this.initiatedDate = initiatedDate;
-		this.deliveredDate = deliveredDate;
-	}
-
-	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate) {
-		super();
-		this.courierId = courierId;
-		this.consignmentNo = consignmentNo;
-		this.initiatedDate = initiatedDate;
+		this.weight = weight;
 	}
 
 	public int getCourierId() {
@@ -89,57 +89,22 @@ public class CourierModel {
 		this.status = status;
 	}
 
-	public Customer getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + consignmentNo;
-		result = prime * result + courierId;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((deliveredDate == null) ? 0 : deliveredDate.hashCode());
-		result = prime * result + ((initiatedDate == null) ? 0 : initiatedDate.hashCode());
-		return result;
+	
+	public double getWeight() {
+		return weight;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CourierModel other = (CourierModel) obj;
-		if (consignmentNo != other.consignmentNo)
-			return false;
-		if (courierId != other.courierId)
-			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
-		if (deliveredDate == null) {
-			if (other.deliveredDate != null)
-				return false;
-		} else if (!deliveredDate.equals(other.deliveredDate))
-			return false;
-		if (initiatedDate == null) {
-			if (other.initiatedDate != null)
-				return false;
-		} else if (!initiatedDate.equals(other.initiatedDate))
-			return false;
-		return true;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "CourierModel [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
@@ -147,5 +112,5 @@ public class CourierModel {
 	}
 	
 	
-	
 }
+

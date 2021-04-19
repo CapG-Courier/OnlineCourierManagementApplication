@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.ocma.entities.RoleEnum;
+import com.cg.ocma.exception.AddressNotFoundException;
 import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
-import com.cg.ocma.exception.DuplicateStaffMember;
 import com.cg.ocma.exception.StaffMemberNotFoundException;
+import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
+import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.ManagerRepo;
@@ -35,11 +38,12 @@ public class ManagerServiceImpl implements IManagerService {
 	private ComplaintRepo complaintRepo;
 	
 	@Autowired
+	private AddressRepo addressRepo;
+	
+	@Autowired
 	private EMParser parser;
 	
-	private static final String staffWithId="Staff with id ";
-	private static final String doesNotExist=" does not exist!";
-	
+
 	public ManagerServiceImpl() {
 		/* No implementation */
 	}
@@ -56,23 +60,21 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Transactional
 	@Override
-	public int addStaffMember(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember {
+	public String addStaffMember(OfficeStaffMembersModel staffmember){
 		if(staffmember != null) {
-			if(managerRepo.existsById(staffmember.getEmpid())) {
-				throw new DuplicateStaffMember(staffWithId + staffmember.getEmpid() + " already exists!");
-			} else {
-				parser.parse(managerRepo.save(parser.parse(staffmember)));
-			}
+			
+			parser.parse(managerRepo.save(parser.parse(staffmember)));
 		} 
-		return staffmember.getEmpid();
+		
+		return staffmember.getName();
 	}
 
 	@Transactional
 	@Override
 	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException{
 		boolean flag = false;
-		if(managerRepo.findById(empid)==null) {
-			throw new StaffMemberNotFoundException(staffWithId + empid + doesNotExist);	
+		if(managerRepo.findById(empid) == null) {
+			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");	
 		} else {
 			managerRepo.deleteById(empid);
 			if(managerRepo.existsById(empid) == false) {
@@ -86,8 +88,8 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException {
-		if(managerRepo.findById(empid)==null) {
-			throw new StaffMemberNotFoundException(staffWithId + empid + doesNotExist);
+		if(managerRepo.findById(empid) == null) {
+			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");
 		} else {
 			return parser.parse(managerRepo.findById(empid).get());
 		}
@@ -107,9 +109,9 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public String getCourierStatus(int courierid) throws CourierNotFoundException {
-		if(!courierRepo.existsById(courierid)) {
+		if(courierRepo.existsById(courierid) == false) {
 			
-			throw new CourierNotFoundException("Courier with id " + courierid + doesNotExist);
+			throw new CourierNotFoundException("Courier with id " + courierid + " doesn't exist!");
 		} else {
 			
 			return (courierRepo.findById(courierid).orElse(null)).getStatus().toString();
@@ -118,9 +120,9 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Override
 	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateCustomerFoundException {
-		if(!complaintRepo.existsById(complaintid)) {
+		if(complaintRepo.existsById(complaintid) == false) {
 			
-			throw new DuplicateCustomerFoundException("Complaint with id " + complaintid + doesNotExist);
+			throw new DuplicateCustomerFoundException("Complaint with id " + complaintid + " doesn't exist!");
 			
 		} else {
 			return parser.parse(complaintRepo.findById(complaintid).orElse(null));
@@ -137,6 +139,55 @@ public class ManagerServiceImpl implements IManagerService {
 			
 			return complaintRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 		}
+	}
+
+	@Override
+	public AddressModel findCustomerAddress(int customerId) throws AddressNotFoundException {
+		
+		if(addressRepo.findByCustomerId(customerId) == null) {
+			
+			throw new AddressNotFoundException("The address of customer with customer id: " + customerId + " doesn't exist!");
+			
+		}else {
+			
+			return (addressRepo.findByCustomerId(customerId));
+			
+		}
+		
+	}
+
+	@Override
+	public boolean loginManager(int empId, String password) {
+		
+		boolean flag = true;
+		if(managerRepo.existsById(empId) && (managerRepo.findById(empId).orElse(null)).getRole() == RoleEnum.MANAGER) {
+			
+			String compare = (managerRepo.findById(empId).orElse(null)).getPassword();
+			if((compare.compareTo(password)) == 0) { 
+				
+				flag = true;
+			} else {
+				
+				flag = false;
+			}
+			
+		} else {
+			
+			flag = false;
+			
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public String addManager(OfficeStaffMembersModel staffmember) {
+		
+		if(staffmember != null) {
+			
+			parser.parseAdmin(managerRepo.save(parser.parseAdmin(staffmember)));
+		} 
+		return staffmember.getName();
 	}
 
 }

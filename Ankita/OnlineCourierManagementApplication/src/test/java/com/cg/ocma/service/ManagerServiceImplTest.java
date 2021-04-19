@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cg.ocma.entities.Courier;
+import com.cg.ocma.entities.CourierEntity;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateCustomerFoundException;
@@ -48,7 +48,6 @@ public class ManagerServiceImplTest {
 	
 	@InjectMocks
 	private ManagerServiceImpl msImpl;
-	
 	
 	@Test
 	@DisplayName("ManagerServiceImpl:: addStaffMember should throw an exception if the staff already exits")
@@ -108,7 +107,7 @@ public class ManagerServiceImplTest {
 		String expected = "INITIATED";
 		int courierid = 6;
 		
-		Courier testdata = new Courier(6, 5436, LocalDate.parse("2021-01-13"), LocalDate.parse("2021-01-22"), CourierStatus.INITIATED);
+		CourierEntity testdata = new CourierEntity(6, 5436, LocalDate.parse("2021-01-13"), LocalDate.parse("2021-01-22"), CourierStatus.INITIATED);
 		
 		Mockito.when(courierRepo.existsById(courierid)).thenReturn(true);
 		Mockito.when(courierRepo.findById(courierid)).thenReturn(Optional.of(testdata));
@@ -121,6 +120,7 @@ public class ManagerServiceImplTest {
 	@DisplayName("CustomerServiceImpl:: checkOnlineTrackingStatusCheck should give an exception when the Courier is not found")
 	void getCourierStatusCheck() throws CourierNotFoundException {
 		
+		//Courier testdata = new Courier(1,5123,LocalDate.parse("2020-11-03"),LocalDate.parse("2021-03-20"),CourierStatus.INITIATED);
 		int courierid = 1;
 		Mockito.when(courierRepo.existsById(courierid)).thenReturn(false);
 		assertThrows(CourierNotFoundException.class, () -> {
@@ -133,7 +133,9 @@ public class ManagerServiceImplTest {
 	@DisplayName("ManagerServiceImpl:: getRegisteredComplaint should throws an exception if complaint does not exsit")
 	void getRegistedComplaintCheck() throws DuplicateCustomerFoundException{
 		
+		//OfficeStaffMembersModel check = new OfficeStaffMembersModel(1,"Sid","Manager");
 		int customerid=1;
+	//	Mockito.when(managerRepo.existsById(customerid)).thenReturn(false);
 		assertThrows(DuplicateCustomerFoundException.class, () -> {
 			msImpl.getRegistedComplaint(customerid);
 		});
