@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.ocma.entities.CustomerEntity;
 import com.cg.ocma.exception.CourierNotFoundException;
 import com.cg.ocma.exception.DuplicateAddressFoundException;
 import com.cg.ocma.exception.DuplicateComplaintFoundException;
@@ -52,12 +51,15 @@ public class CustomerServiceImpl implements ICustomerService {
 	public boolean loginCustomer(int customerId, String password) {
 		
 		boolean flag = true;
-		if(courierRepo.existsById(customerId)) {
+		if(customerRepo.existsById(customerId)) {
 			
-			CustomerEntity customer = customerRepo.findById(customerId).orElse(null);
-			if(customer.getPassword().equals(password)) {
+			String compare = (customerRepo.findById(customerId).orElse(null)).getPassword();
+			if((compare.compareTo(password)) == 0) { 
 				
 				flag = true;
+			} else {
+				
+				flag = false;
 			}
 			
 		} else {

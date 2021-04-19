@@ -1,6 +1,8 @@
 package com.cg.ocma.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +22,12 @@ public class OfficeStaffMembersEntity {
 	@Column(name = "name", length = 50)
 	private String name;
 	
-	@Column(name = "role", length = 20)
-	private String role;
+	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
+	private RoleEnum role;
+	
+	@Column(name = "password")
+	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name = "officeid")
@@ -32,7 +38,17 @@ public class OfficeStaffMembersEntity {
 		//no implementation//
 	}
 	
-	public OfficeStaffMembersEntity(int empId, String name, String role, CourierOfficeOutletEntity office) {
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role, String password, CourierOfficeOutletEntity office) {
+		
+		super();
+		this.empId = empId;
+		this.name = name;
+		this.role = role;
+		this.password = password;
+		this.office = office;
+	}
+	
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role, CourierOfficeOutletEntity office) {
 		
 		super();
 		this.empId = empId;
@@ -41,7 +57,7 @@ public class OfficeStaffMembersEntity {
 		this.office = office;
 	}
 
-	public OfficeStaffMembersEntity(int empId, String name, String role) {
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role) {
 		super();
 		this.empId = empId;
 		this.name = name;
@@ -64,11 +80,11 @@ public class OfficeStaffMembersEntity {
 		this.name = name;
 	}
 
-	public String getRole() {
+	public RoleEnum getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RoleEnum role) {
 		this.role = role;
 	}
 
@@ -78,6 +94,14 @@ public class OfficeStaffMembersEntity {
 
 	public void setOffice(CourierOfficeOutletEntity office) {
 		this.office = office;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

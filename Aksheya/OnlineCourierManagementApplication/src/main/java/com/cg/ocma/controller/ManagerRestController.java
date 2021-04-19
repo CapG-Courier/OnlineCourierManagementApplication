@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ocma.exception.AddressNotFoundException;
@@ -36,10 +37,39 @@ public class ManagerRestController {
 	@Autowired
 	private IManagerService managerService;
 	
-	@PostMapping("/{managerid}")
+	@PostMapping("/adminLogin")
+	public ResponseEntity <String> loginAction(@RequestParam int empId, @RequestParam String password) {
+		
+		boolean flag = managerService.loginManager(empId, password);
+		if(flag) {
+			
+			return new ResponseEntity <> ("Admin with employee id " + empId + " has successfully logged in!", HttpStatus.ACCEPTED);
+			
+		} else {
+			
+			return new ResponseEntity <> ("Incorrect Login Credentials!", HttpStatus.NOT_ACCEPTABLE);
+			
+		}
+	}
+	
+	/*@PostMapping("/{managerid}")
 	public ResponseEntity <String> loginAction(@PathVariable("managerid") int managerid) {
 		
 		return new ResponseEntity <> ("Manager with manager id " + managerid + " has successfully logged in!", HttpStatus.ACCEPTED);
+	}*/
+	
+	@PostMapping("/{managerid}/addAdmin")
+	public ResponseEntity <String> addSAdminAction(@RequestBody @Valid OfficeStaffMembersModel staff, BindingResult result) throws DuplicateStaffMember{
+		
+		if (result.hasErrors()) {
+			throw new DuplicateStaffMember(GlobalExceptionHandler.messageFrom(result));
+		} else {
+			
+			int empid = managerService.addAdmin(staff);
+			return new ResponseEntity <> ("You have successfully added an admin with the id " + empid, HttpStatus.CREATED);
+			
+		}
+		
 	}
 	
 	@PostMapping("/{managerid}/addStaff")

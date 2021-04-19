@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.ocma.entities.RoleEnum;
 import com.cg.ocma.exception.AddressNotFoundException;
 import com.cg.ocma.exception.ComplaintNotFoundException;
 import com.cg.ocma.exception.CourierNotFoundException;
@@ -57,7 +58,44 @@ public class ManagerServiceImpl implements IManagerService {
 		this.complaintRepo = complaintRepo;
 		this.parser=new EMParser();
 	}
+	
+	@Override
+	public boolean loginManager(int empId, String password) {
+		
+		boolean flag = true;
+		if(managerRepo.existsById(empId) && (managerRepo.findById(empId).orElse(null)).getRole() == RoleEnum.MANAGER) {
+			
+			String compare = (managerRepo.findById(empId).orElse(null)).getPassword();
+			if((compare.compareTo(password)) == 0) { 
+				
+				flag = true;
+			} else {
+				
+				flag = false;
+			}
+			
+		} else {
+			
+			flag = false;
+			
+		}
+		
+		return flag;
+	}
 
+	@Transactional
+	@Override
+	public int addAdmin(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember {
+		if(staffmember != null) {
+			if(managerRepo.existsById(staffmember.getEmpid())) {
+				throw new DuplicateStaffMember("Staff with id " + staffmember.getEmpid() + " already exists!");
+			} else {
+				parser.parseAdmin(managerRepo.save(parser.parseAdmin(staffmember)));
+			}
+		} 
+		return staffmember.getEmpid();
+	}
+	
 	@Transactional
 	@Override
 	public int addStaffMember(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember {

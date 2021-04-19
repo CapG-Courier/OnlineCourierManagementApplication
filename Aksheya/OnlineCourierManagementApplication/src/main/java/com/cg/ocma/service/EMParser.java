@@ -9,6 +9,7 @@ import com.cg.ocma.entities.CourierOfficeOutletEntity;
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.CustomerEntity;
 import com.cg.ocma.entities.OfficeStaffMembersEntity;
+import com.cg.ocma.entities.RoleEnum;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
@@ -179,7 +180,18 @@ public class EMParser {
 			
 			new OfficeStaffMembersModel(staff.getEmpid(),
 					staff.getName(),
-					staff.getRole(),
+					staff.getRole().toString(),
+					staff.getOffice());
+	}
+	
+	public OfficeStaffMembersModel parseAdmin(OfficeStaffMembersEntity staff) {
+		
+		return staff==null?null:
+			
+			new OfficeStaffMembersModel(staff.getEmpid(),
+					staff.getName(),
+					staff.getRole().toString(),
+					staff.getPassword(),
 					staff.getOffice());
 	}
 	
@@ -189,7 +201,18 @@ public class EMParser {
 			
 			new OfficeStaffMembersEntity(staff.getEmpid(),
 					staff.getName(),
-					staff.getRole(),
+					RoleEnum.valueOf(staff.getRole()),
+					staff.getOffice());
+	}
+	
+	public OfficeStaffMembersEntity parseAdmin(OfficeStaffMembersModel staff) {
+		
+		return staff==null?null:
+			
+			new OfficeStaffMembersEntity(staff.getEmpid(),
+					staff.getName(),
+					RoleEnum.valueOf(staff.getRole()),
+					staff.getPassword(),
 					staff.getOffice());
 	}
 	

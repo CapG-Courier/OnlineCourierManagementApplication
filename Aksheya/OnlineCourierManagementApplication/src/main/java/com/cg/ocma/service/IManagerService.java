@@ -14,6 +14,8 @@ import com.cg.ocma.model.OfficeStaffMembersModel;
 
 public interface IManagerService {
 
+	public boolean loginManager(int empId, String password);
+	public int addAdmin(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember;
 	public int addStaffMember(OfficeStaffMembersModel staffmember) throws DuplicateStaffMember;
 	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException;
 	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException;
