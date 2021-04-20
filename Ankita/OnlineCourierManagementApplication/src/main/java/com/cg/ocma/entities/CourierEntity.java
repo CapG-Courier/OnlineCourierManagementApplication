@@ -54,12 +54,13 @@ public class CourierEntity {
 	}
 	
 	
-	public CourierEntity(LocalDate initiatedDate, CustomerEntity customer, double weight, double cost) {
+	public CourierEntity(LocalDate initiatedDate, CustomerEntity customer, double weight, double cost, CourierStatus status) {
 		super();
 		this.initiatedDate = initiatedDate;
 		this.customer = customer;
 		this.weight = weight;
 		this.cost = cost;
+		this.status = status;
 	}
 
 	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,

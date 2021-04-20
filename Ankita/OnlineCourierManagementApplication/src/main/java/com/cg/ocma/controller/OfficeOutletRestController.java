@@ -87,13 +87,13 @@ public class OfficeOutletRestController {
 		} else {
 			
 			int addressid = officeService.registerOfficeAddress(address);
-			return new ResponseEntity <> ("You have successfully registered your address with the id " + addressid, HttpStatus.CREATED);
+			return new ResponseEntity <> ("You have successfully registered the office address with id " + addressid, HttpStatus.CREATED);
 			
 		}
 		
 	}
 
-	@GetMapping("/{officeId}")
+	@GetMapping("/getAddress/{officeId}")
 	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("officeId") int officeId) throws NotFoundException{
 		
 		return new ResponseEntity <> (officeService.findOfficeAddress(officeId), HttpStatus.FOUND);

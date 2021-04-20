@@ -6,6 +6,7 @@ import com.cg.ocma.entities.AddressEntity;
 import com.cg.ocma.entities.ComplaintEntity;
 import com.cg.ocma.entities.CourierEntity;
 import com.cg.ocma.entities.CourierOfficeOutletEntity;
+import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.CustomerEntity;
 import com.cg.ocma.entities.OfficeStaffMembersEntity;
 import com.cg.ocma.entities.RoleEnum;
@@ -29,39 +30,12 @@ public class EMParser {
 					customer.getLastname(),
 					customer.getMobileno(),
 					customer.getPassword(),
-					customer.getAcct());	
-		
-	}
-	
-	public CustomerEntity parse(CustomerModel customer) {
-		
-		return customer==null?null:
-			
-			new CustomerEntity(
-					customer.getAadharno(),
-					customer.getFirstname(),
-					customer.getLastname(),
-					customer.getMobileno(),
-					customer.getPassword());
-		
-	}
-	
-	public CustomerModel accParse(CustomerEntity customer) {
-		
-		return customer==null?null:
-			
-			new CustomerModel(customer.getCustomerid(),
-					customer.getAadharno(),
-					customer.getFirstname(),
-					customer.getLastname(),
-					customer.getMobileno(),
-					customer.getPassword(),
 					customer.getAcct());
 		
 	}
 	
 	
-	public CustomerEntity accParse(CustomerModel customer) {
+	public CustomerEntity parse(CustomerModel customer) {
 		
 		return customer==null?null:
 			
@@ -100,7 +74,8 @@ public class EMParser {
 					address.getCity(),
 					address.getState(),
 					address.getCountry(),
-					address.getZip());
+					address.getZip(),
+					address.getCustomer());
 
 		
 	}
@@ -157,7 +132,8 @@ public class EMParser {
 					courier.getInitiatedDate(),
 					courier.getCustomer(),
 					courier.getWeight(),
-					courier.getCost());
+					courier.getCost(),
+					CourierStatus.valueOf(courier.getStatus()));
 	}
 	
 	public ComplaintModel parse(ComplaintEntity complaint) {

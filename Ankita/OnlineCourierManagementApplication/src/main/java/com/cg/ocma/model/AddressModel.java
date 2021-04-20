@@ -76,6 +76,21 @@ public class AddressModel {
 		this.zip = zip;
 	}
 
+	
+	
+
+	public AddressModel(int addressId, String houseNo,String street, String city, String state, String country,	int zip, CustomerEntity customer) {
+		super();
+		this.addressId = addressId;
+		this.houseNo = houseNo;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zip = zip;
+		this.customer = customer;
+	}
+
 	public String getHouseNo() {
 		return houseNo;
 	}

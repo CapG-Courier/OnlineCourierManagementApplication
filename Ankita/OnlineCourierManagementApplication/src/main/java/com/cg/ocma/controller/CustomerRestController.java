@@ -41,10 +41,12 @@ public class CustomerRestController {
 	@PostMapping("/profile/addAddress")
 	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateFoundException{
 		
+		System.out.println(address);
 		if (result.hasErrors()) {
 			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
+			System.out.println(address);
 			boolean flag = customerService.registerAddress(address);
 			if(flag) {
 

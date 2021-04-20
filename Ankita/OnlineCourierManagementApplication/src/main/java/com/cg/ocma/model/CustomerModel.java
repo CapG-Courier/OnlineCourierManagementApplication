@@ -42,7 +42,7 @@ public class CustomerModel {
 		this.acct = acct;
 	}
 
-	public CustomerModel(int customerId,long aadharNo, String firstName, String lastName, long mobileNo,String password, BankAccountEntity acct) {
+	public CustomerModel(int customerId, long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
 		super();
 		this.customerId = customerId;
 		this.aadharNo = aadharNo;
@@ -53,14 +53,6 @@ public class CustomerModel {
 		this.acct = acct;
 	}
 	
-	public CustomerModel(long aadharNo, String firstName, String lastName, long mobileNo) {
-		super();
-		this.aadharNo = aadharNo;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobileNo = mobileNo;
-	}
-
 	public int getCustomerid() {
 		return customerId;
 	}

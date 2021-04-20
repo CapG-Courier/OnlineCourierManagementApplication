@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.exception.DuplicateFoundException;
 import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
@@ -79,9 +77,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		if(courier != null) {
 			if(courierRepo.existsById(courier.getCourierId())) {
+				
 				throw new DuplicateFoundException("Courier with id " + courier.getCourierId() + " already exists!");
 			} else {
-				courier.setStatus(CourierStatus.INITIATED.toString());
+				
+				courier.setStatus("INITIATED");
 				courier.setCost(courier.getWeight()*250);
 				parser.parse(courierRepo.save(parser.parse(courier)));
 			}
@@ -99,15 +99,9 @@ public class CustomerServiceImpl implements ICustomerService {
 				throw new DuplicateFoundException("Customer with aadhar number " + customer.getAadharno() + " already exists!");
 			} else {
 				
-				if(customer.getAcct() != null) {
-					 
-					double balance = Math.floor(Math.random()*(10000.00 - 500.00 + 1) + 500.00);
-					customer.getAcct().setBankBalance(balance);
-					parser.accParse(customerRepo.save(parser.accParse(customer)));
-				}else {
-					
-					parser.parse(customerRepo.save(parser.parse(customer)));
-				}
+				double balance = Math.floor(Math.random()*(10000.00 - 500.00 + 1) + 500.00);
+				customer.getAcct().setBankBalance(balance);
+				parser.parse(customerRepo.save(parser.parse(customer)));
 			}
 		}
 		
@@ -119,7 +113,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	public boolean registerAddress(AddressModel address) {
 		if(address != null) {
 				
-				parser.parse(addressRepo.save(parser.parse(address)));
+			System.out.println(address);
+			parser.parse(addressRepo.save(parser.parse(address)));
 			}
 		
 			boolean flag = addressRepo.existsByHouseNo(address.getHouseNo());

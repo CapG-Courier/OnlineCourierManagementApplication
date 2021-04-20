@@ -75,15 +75,6 @@ public class CustomerEntity {
 		this.acct = acct;
 	}
 
-	public CustomerEntity(long aadharNo, String firstName, String lastName, long mobileNo, String password) {
-		super();
-		this.aadharNo = aadharNo;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobileNo = mobileNo;
-		this.password = password;
-	}
-
 	public long getAadharno() {
 		return aadharNo;
 	}

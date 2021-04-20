@@ -91,7 +91,7 @@ public class ManagerRestController {
 		
 	}
 	
-	@GetMapping("/{courierId}")
+	@GetMapping("/courierId={courierId}")
 	public ResponseEntity <String> checkCourierStatusAction(@PathVariable("courierId") int courierId) throws NotFoundException {
 		
 		String status = managerService.getCourierStatus(courierId);

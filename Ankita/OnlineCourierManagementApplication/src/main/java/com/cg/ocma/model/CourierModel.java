@@ -2,7 +2,6 @@ package com.cg.ocma.model;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +23,6 @@ public class CourierModel {
 	
 	private CustomerEntity customer;
 	
-	@NotEmpty(message="Weight cannot be empty")
 	@NotNull(message="Weight cannot be omitted")
 	private double weight;
 	
@@ -37,11 +35,12 @@ public class CourierModel {
 		/* Not implemented */
 	}
 	
-	public CourierModel(LocalDate initiatedDate, CustomerEntity customer, double weight) {
+	public CourierModel(LocalDate initiatedDate, CustomerEntity customer, double weight, String status) {
 		super();
 		this.initiatedDate = initiatedDate;
 		this.customer = customer;
 		this.weight = weight;
+		this.status = status;
 	}
 
 	

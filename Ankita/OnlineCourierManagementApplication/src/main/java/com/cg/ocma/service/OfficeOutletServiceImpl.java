@@ -142,7 +142,7 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
 			LocalTime open = LocalTime.parse(office.getOpeningTime());
 			LocalTime close = LocalTime.parse(office.getClosingTime());
-			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
+			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now()))) {
 				
 				return true;
 			} else {
