@@ -15,10 +15,10 @@ public class AddressEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "addressid")
+	@Column(name = "address_id")
 	private int addressId;
 	
-	@Column(name = "houseno")
+	@Column(name = "house_no")
 	private String houseNo;
 	
 	@Column(name = "street")
@@ -37,11 +37,11 @@ public class AddressEntity {
 	private int zip;
 	
 	@OneToOne
-	@JoinColumn(name = "customerid")
+	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 	
 	@OneToOne
-	@JoinColumn(name = "officeid")
+	@JoinColumn(name = "office_id")
 	private CourierOfficeOutletEntity office;
 	
 	public AddressEntity() {

@@ -1,9 +1,9 @@
 package com.cg.ocma.exception;
-public class OutletNotFoundException extends Exception{
+public class NotFoundException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 	
-	public OutletNotFoundException(String errorMsg) {
+	public NotFoundException(String errorMsg) {
 		super(errorMsg);
 	}
 

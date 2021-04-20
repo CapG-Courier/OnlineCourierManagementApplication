@@ -142,9 +142,10 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courier.getStatus().toString(),
 					courier.getCustomer(),
-					courier.getWeight());
+					courier.getWeight(),
+					courier.getCost(),
+					courier.getStatus().toString());
 		
 	}
 	
@@ -155,7 +156,8 @@ public class EMParser {
 			new CourierEntity(
 					courier.getInitiatedDate(),
 					courier.getCustomer(),
-					courier.getWeight());
+					courier.getWeight(),
+					courier.getCost());
 	}
 	
 	public ComplaintModel parse(ComplaintEntity complaint) {

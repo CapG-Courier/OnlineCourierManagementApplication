@@ -8,15 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
-import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.CustomerNotFoundException;
-import com.cg.ocma.exception.DuplicateComplaintFoundException;
-import com.cg.ocma.exception.DuplicateCourierFoundException;
-import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.exception.OutletClosedException;
-import com.cg.ocma.exception.OutletNotFoundException;
-import com.cg.ocma.exception.StaffMemberNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,12 +20,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(exp.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(value = {DuplicateComplaintFoundException.class,DuplicateCourierFoundException.class,DuplicateOfficeOutletFoundException.class})
+	@ExceptionHandler(value = {DuplicateFoundException.class})
 	public ResponseEntity<Object> handleDuplicateExceptions(Exception exp){
 		return new ResponseEntity<>(exp.getMessage(), HttpStatus.CONFLICT);
 	}
 		
-	@ExceptionHandler(value = {StaffMemberNotFoundException.class,OutletNotFoundException.class,CustomerNotFoundException.class,CourierNotFoundException.class,DuplicateCustomerFoundException.class})
+	@ExceptionHandler(value = {NotFoundException.class})
 	public ResponseEntity<Object> handleNotFoundExceptions(Exception exp){
 		return new ResponseEntity<>(exp.getMessage(), HttpStatus.NOT_FOUND);
 	}

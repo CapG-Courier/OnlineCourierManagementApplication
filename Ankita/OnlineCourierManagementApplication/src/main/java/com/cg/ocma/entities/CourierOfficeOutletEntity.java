@@ -13,21 +13,21 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "courierofficeoutlet")
+@Table(name = "courier_office_outlet")
 public class CourierOfficeOutletEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "officeid")
+	@Column(name = "office_id")
 	private int officeId;
 	
 	@OneToOne(mappedBy = "office", cascade = CascadeType.ALL)
 	private AddressEntity addr;
 	
-	@Column(name = "openingtime")	
+	@Column(name = "opening_time")	
 	private String openingTime;
 	
-	@Column(name = "closingtime")
+	@Column(name = "closing_time")
 	private String closingTime;
 
 	@OneToMany(mappedBy = "office", cascade = CascadeType.ALL)

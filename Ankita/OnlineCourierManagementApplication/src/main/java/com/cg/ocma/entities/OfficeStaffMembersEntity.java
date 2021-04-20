@@ -11,12 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "officemembers")
+@Table(name = "office_members")
 public class OfficeStaffMembersEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "empid")
+	@Column(name = "emp_id")
 	private int empId;
 	
 	@Column(name = "name", length = 50)
@@ -30,7 +30,7 @@ public class OfficeStaffMembersEntity {
 	private String password;
 	
 	@ManyToOne
-	@JoinColumn(name = "officeid")
+	@JoinColumn(name = "office_id")
 	private CourierOfficeOutletEntity office;
 	
 	public OfficeStaffMembersEntity() {

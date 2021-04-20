@@ -18,22 +18,22 @@ public class CustomerEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "customerid")
+	@Column(name = "customer_id")
 	private int customerId;
 	
-	@Column(name = "aadharno")
+	@Column(name = "aadhar_no")
 	private long aadharNo;
 	
-	@Column(name = "firstname", length = 20)
+	@Column(name = "first_name", length = 20)
 	private String firstName;
 	
-	@Column(name = "lastname", length = 20)
+	@Column(name = "last_name", length = 20)
 	private String lastName;
 	
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private AddressEntity addr;
 	
-	@Column(name = "mobileno")
+	@Column(name = "mobile_no")
 	private long mobileNo;
 	
 	@Column(name = "password")

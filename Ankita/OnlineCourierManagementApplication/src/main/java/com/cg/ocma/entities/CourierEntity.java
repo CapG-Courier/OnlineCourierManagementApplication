@@ -20,26 +20,29 @@ public class CourierEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "courierid")
+	@Column(name = "courier_id")
 	private int courierId;
 	
-	@Column(unique = true, name = "consignmentno")
+	@Column(unique = true, name = "consignment_no")
 	@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 5000, allocationSize = 123)
 	@GeneratedValue(generator = "mySeqGen")
 	private int consignmentNo;
 	
-	@Column(name = "initiateddate")
+	@Column(name = "initiated_date")
 	private LocalDate initiatedDate;
 	
-	@Column(name = "delivereddate")
+	@Column(name = "delivered_date")
 	private LocalDate deliveredDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "customerid")
+	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 	
 	@Column(name = "weight")
 	private double weight;
+	
+	@Column(name = "cost")
+	private double cost;
 	
 	@Enumerated(EnumType.STRING)
 	private CourierStatus status;
@@ -51,23 +54,27 @@ public class CourierEntity {
 	}
 	
 	
-	public CourierEntity(LocalDate initiatedDate, CustomerEntity customer, double weight) {
+	public CourierEntity(LocalDate initiatedDate, CustomerEntity customer, double weight, double cost) {
 		super();
 		this.initiatedDate = initiatedDate;
 		this.customer = customer;
 		this.weight = weight;
+		this.cost = cost;
 	}
 
-	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CourierStatus status, CustomerEntity customer, double weight) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
+			CustomerEntity customer, double weight, double cost, CourierStatus status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
-		this.status = status;
 		this.customer = customer;
 		this.weight = weight;
+		this.cost = cost;
+		this.status = status;
 	}
+
 
 	public int getCourierId() {
 		return courierId;
@@ -122,14 +129,21 @@ public class CourierEntity {
 		this.weight = weight;
 	}
 
+	public double getCost() {
+		return cost;
+	}
+
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
 
 	@Override
 	public String toString() {
 		return "CourierEntity [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
 				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + ", weight=" + weight
-				+ ", status=" + status + "]";
+				+ ", cost=" + cost + ", status=" + status + "]";
 	}
-
-	
 	
 }

@@ -28,6 +28,8 @@ public class CourierModel {
 	@NotNull(message="Weight cannot be omitted")
 	private double weight;
 	
+	private double cost;
+	
 	private String status;
 
 	public CourierModel() {
@@ -42,15 +44,17 @@ public class CourierModel {
 		this.weight = weight;
 	}
 
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, CustomerEntity customer, double weight) {
+	
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer, double weight,	double cost, String status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
-		this.status = status;
 		this.customer = customer;
 		this.weight = weight;
+		this.cost = cost;
+		this.status = status;
 	}
 
 	public int getCourierId() {
@@ -105,12 +109,20 @@ public class CourierModel {
 		this.weight = weight;
 	}
 	
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
 	@Override
 	public String toString() {
 		return "CourierModel [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
-				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + "]";
+				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + ", weight=" + weight
+				+ ", cost=" + cost + ", status=" + status + "]";
 	}
-	
-	
+
 }
 

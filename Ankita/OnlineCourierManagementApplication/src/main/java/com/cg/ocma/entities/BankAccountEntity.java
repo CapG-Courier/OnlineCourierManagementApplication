@@ -10,19 +10,20 @@ public class BankAccountEntity {
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
-	@Column(name = "accountno")
+	@Column(name = "account_no")
 	public long accountNo;
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
-	@Column(name = "accountholdername")
+	@Column(name = "account_holder_name")
 	public String accountHolderName;
 	
 	@NotEmpty(message="This field cannot be empty")
 	@NotNull(message="This field cannot be omitted")
-	@Column(name = "accounttype")
+	@Column(name = "account_type")
 	public String accountType;
 	
+	@Column(name = "bank_balance")
 	public double bankBalance;
 	
 	public BankAccountEntity() {

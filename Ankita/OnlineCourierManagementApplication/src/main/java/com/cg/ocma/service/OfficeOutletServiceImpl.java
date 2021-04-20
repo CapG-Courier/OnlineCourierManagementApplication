@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.ocma.exception.AddressNotFoundException;
-import com.cg.ocma.exception.DuplicateAddressFoundException;
-import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.exception.OutletClosedException;
-import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
 import com.cg.ocma.repository.AddressRepo;
@@ -43,12 +41,12 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 
 	@Transactional
 	@Override
-	public int addNewOffice(CourierOfficeOutletModel officeoutlet) throws DuplicateOfficeOutletFoundException{
+	public int addNewOffice(CourierOfficeOutletModel officeoutlet) throws DuplicateFoundException{
 		
 		if(officeoutlet != null) {
 			if(officeRepo.existsById(officeoutlet.getOfficeid())) {
 				
-				throw new DuplicateOfficeOutletFoundException("Office Outlet with id " + officeoutlet.getOfficeid() + " already exists!");
+				throw new DuplicateFoundException("Office Outlet with id " + officeoutlet.getOfficeid() + " already exists!");
 			} else {
 				
 				parser.parse(officeRepo.save(parser.parse(officeoutlet)));
@@ -60,11 +58,11 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	
 	@Transactional
 	@Override
-	public int registerOfficeAddress(AddressModel address) throws DuplicateAddressFoundException{
+	public int registerOfficeAddress(AddressModel address) throws DuplicateFoundException{
 		if(address != null) {
 			if(addressRepo.existsById(address.getAddressid())) {
 				
-				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + " already exists!");
+				throw new DuplicateFoundException("Address with id " + address.getAddressid() + " already exists!");
 			} else {
 				
 				parser.parseOffice(addressRepo.save(parser.parseOffice(address)));
@@ -75,11 +73,11 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 
 	@Transactional
 	@Override
-	public boolean removeNewOffice(int officeid) throws OutletNotFoundException {
+	public boolean removeNewOffice(int officeid) throws NotFoundException {
 		
 		boolean flag = false;
 		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office Outlet with id " + officeid + " doesn't exist!");	
+			throw new NotFoundException("Office Outlet with id " + officeid + " doesn't exist!");	
 		} else {
 			officeRepo.deleteById(officeid);
 			flag = true;
@@ -89,21 +87,21 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	}
 
 	@Override
-	public CourierOfficeOutletModel getOfficeInfo(int officeid) throws OutletNotFoundException {
+	public CourierOfficeOutletModel getOfficeInfo(int officeid) throws NotFoundException {
 		
 		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office with id " + officeid + " doesn't exist!");
+			throw new NotFoundException("Office with id " + officeid + " doesn't exist!");
 		} else {
 			return parser.parse(officeRepo.findById(officeid).orElse(null));
 		}
 	}
 
 	@Override
-	public List<CourierOfficeOutletModel> getAllOfficesData() throws OutletNotFoundException{
+	public List<CourierOfficeOutletModel> getAllOfficesData() throws NotFoundException{
 		
 		if(officeRepo.count() == 0) {
 			
-			throw new OutletNotFoundException("No Offices exist!");
+			throw new NotFoundException("No Offices exist!");
 			
 		} else {
 			
@@ -156,15 +154,15 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	}
 
 	@Override
-	public AddressModel findOfficeAddress(int officeId) throws AddressNotFoundException {
+	public AddressModel findOfficeAddress(int officeId) throws NotFoundException {
 
 		if(addressRepo.findByOfficeId(officeId) == null) {
 			
-			throw new AddressNotFoundException("The address of office with office id: " + officeId + " doesn't exist!");
+			throw new NotFoundException("The address of office with office id: " + officeId + " doesn't exist!");
 			
 		}else {
 			
-			return (addressRepo.findByOfficeId(officeId));
+			return parser.parseOffice(addressRepo.findByOfficeId(officeId));
 			
 		}
 	}

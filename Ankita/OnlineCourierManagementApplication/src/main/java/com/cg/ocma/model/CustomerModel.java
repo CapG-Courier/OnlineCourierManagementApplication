@@ -13,10 +13,10 @@ public class CustomerModel {
 	@NotNull(message="This field cannot be omitted")
 	private long aadharNo;
 	
-	@NotEmpty(message="This field cannot be empty")
+	@NotEmpty(message="First name cannot be empty")
 	private String firstName;
 	
-	@NotEmpty(message="This field cannot be empty")
+	@NotEmpty(message="Last name cannot be empty")
 	private String lastName;
 	
 	private long mobileNo;

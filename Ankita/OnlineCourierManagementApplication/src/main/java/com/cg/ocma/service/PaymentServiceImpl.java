@@ -2,7 +2,7 @@ package com.cg.ocma.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.cg.ocma.repository.CourierRepo;
 import com.cg.ocma.repository.CustomerRepo;
 
 @Service
@@ -10,7 +10,10 @@ public class PaymentServiceImpl implements IPaymentService {
 	
 	@Autowired
 	private CustomerRepo customerRepo;
-
+	
+	@Autowired
+	private CourierRepo courierRepo;
+	
 	public PaymentServiceImpl() {
 		/* No implementation */
 	}
@@ -27,15 +30,18 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public boolean processByCard(int customerid) {
+	public boolean processByCard(int courierId) {
 		
 		boolean flag = false;
-		
-		if(customerRepo.existsById(customerid)) {
+		if(courierRepo.existsById(courierId)) {
 			
-			if(customerRepo.findById(customerid).orElse(null).getAcct() != null) {
-				flag = true;
+			double cost = (courierRepo.findById(courierId)).orElse(null).getCost();
+			int customerId = (courierRepo.findById(courierId).orElse(null).getCustomer().getCustomerid());
+			double balance = (customerRepo.findById(customerId).orElse(null).getAcct().getBankBalance());
+			
+			if(cost <= balance) {
 				
+				flag = true;
 			}else {
 				
 				flag = false;

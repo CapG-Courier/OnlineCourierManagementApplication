@@ -3,13 +3,11 @@ package com.cg.ocma.service;
 
 import java.util.List;
 
-import com.cg.ocma.exception.AddressNotFoundException;
-import com.cg.ocma.exception.ComplaintNotFoundException;
-import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
-import com.cg.ocma.exception.StaffMemberNotFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
+import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 
 public interface IManagerService {
@@ -18,15 +16,16 @@ public interface IManagerService {
 	
 	public String addManager(OfficeStaffMembersModel staffmember);
 	public String addStaffMember(OfficeStaffMembersModel staffmember);
-	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException;
+	public boolean removeStaffMember(int empid) throws NotFoundException;
 	
-	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException;
-	public List<OfficeStaffMembersModel> getAllStaffMembers() throws StaffMemberNotFoundException; //OfficeOutletRepo
+	public OfficeStaffMembersModel getStaffMember(int empid) throws NotFoundException;
+	public List<OfficeStaffMembersModel> getAllStaffMembers() throws NotFoundException; //OfficeOutletRepo
 	
-	public String getCourierStatus(int courierid) throws CourierNotFoundException; //CourierRepo
-	public AddressModel findCustomerAddress(int customerId) throws AddressNotFoundException;
+	public String getCourierStatus(int courierid) throws NotFoundException; //CourierRepo
+	public AddressModel findCustomerAddress(int customerId) throws NotFoundException;
 	
-	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateCustomerFoundException;  //ComplaintRepo
-	public List<ComplaintModel> getAllComplaints() throws ComplaintNotFoundException;
+	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateFoundException;  //ComplaintRepo
+	public List<ComplaintModel> getAllComplaints() throws NotFoundException;
+	public List<CourierModel> getAllCouriers() throws NotFoundException;
 	
 }

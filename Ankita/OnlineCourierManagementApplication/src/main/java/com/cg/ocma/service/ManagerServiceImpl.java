@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.ocma.entities.RoleEnum;
-import com.cg.ocma.exception.AddressNotFoundException;
-import com.cg.ocma.exception.ComplaintNotFoundException;
-import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
-import com.cg.ocma.exception.StaffMemberNotFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
+import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
@@ -58,104 +56,6 @@ public class ManagerServiceImpl implements IManagerService {
 		this.parser=new EMParser();
 	}
 
-	@Transactional
-	@Override
-	public String addStaffMember(OfficeStaffMembersModel staffmember){
-		if(staffmember != null) {
-			
-			parser.parse(managerRepo.save(parser.parse(staffmember)));
-		} 
-		
-		return staffmember.getName();
-	}
-
-	@Transactional
-	@Override
-	public boolean removeStaffMember(int empid) throws StaffMemberNotFoundException{
-		boolean flag = false;
-		if(managerRepo.findById(empid) == null) {
-			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");	
-		} else {
-			managerRepo.deleteById(empid);
-			if(managerRepo.existsById(empid) == false) {
-				
-				flag = true;
-				
-			}
-		}
-		return flag;
-	}
-
-	@Override
-	public OfficeStaffMembersModel getStaffMember(int empid) throws StaffMemberNotFoundException {
-		if(managerRepo.findById(empid) == null) {
-			throw new StaffMemberNotFoundException("Staff with id " + empid + " doesn't exist!");
-		} else {
-			return parser.parse(managerRepo.findById(empid).get());
-		}
-	}
-
-	@Override
-	public List<OfficeStaffMembersModel> getAllStaffMembers() throws StaffMemberNotFoundException{
-	
-		if(officeRepo.count() == 0) {
-			
-			throw new StaffMemberNotFoundException("No office staff members found!");
-		} else {
-			
-			return managerRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
-		}
-	}
-
-	@Override
-	public String getCourierStatus(int courierid) throws CourierNotFoundException {
-		if(courierRepo.existsById(courierid) == false) {
-			
-			throw new CourierNotFoundException("Courier with id " + courierid + " doesn't exist!");
-		} else {
-			
-			return (courierRepo.findById(courierid).orElse(null)).getStatus().toString();
-		}
-	}
-
-	@Override
-	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateCustomerFoundException {
-		if(complaintRepo.existsById(complaintid) == false) {
-			
-			throw new DuplicateCustomerFoundException("Complaint with id " + complaintid + " doesn't exist!");
-			
-		} else {
-			return parser.parse(complaintRepo.findById(complaintid).orElse(null));
-		}
-	}
-
-	@Override
-	public List<ComplaintModel> getAllComplaints() throws ComplaintNotFoundException{
-		
-		if(complaintRepo.count() == 0) {
-			
-			throw new ComplaintNotFoundException("No complaints found!");
-		} else {
-			
-			return complaintRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
-		}
-	}
-
-	@Override
-	public AddressModel findCustomerAddress(int customerId) throws AddressNotFoundException {
-		
-		if(addressRepo.findByCustomerId(customerId) == null) {
-			
-			throw new AddressNotFoundException("The address of customer with customer id: " + customerId + " doesn't exist!");
-			
-		}else {
-			
-			return (addressRepo.findByCustomerId(customerId));
-			
-		}
-		
-	}
-
 	@Override
 	public boolean loginManager(int empId, String password) {
 		
@@ -180,6 +80,104 @@ public class ManagerServiceImpl implements IManagerService {
 		return flag;
 	}
 
+	@Transactional
+	@Override
+	public String addStaffMember(OfficeStaffMembersModel staffmember){
+		if(staffmember != null) {
+			
+			parser.parse(managerRepo.save(parser.parse(staffmember)));
+		} 
+		
+		return staffmember.getName();
+	}
+
+	@Transactional
+	@Override
+	public boolean removeStaffMember(int empid) throws NotFoundException{
+		boolean flag = false;
+		if(managerRepo.findById(empid) == null) {
+			throw new NotFoundException("Staff with id " + empid + " doesn't exist!");	
+		} else {
+			managerRepo.deleteById(empid);
+			if(managerRepo.existsById(empid) == false) {
+				
+				flag = true;
+				
+			}
+		}
+		return flag;
+	}
+
+	@Override
+	public OfficeStaffMembersModel getStaffMember(int empid) throws NotFoundException {
+		if(managerRepo.findById(empid) == null) {
+			throw new NotFoundException("Staff with id " + empid + " doesn't exist!");
+		} else {
+			return parser.parse(managerRepo.findById(empid).get());
+		}
+	}
+
+	@Override
+	public List<OfficeStaffMembersModel> getAllStaffMembers() throws NotFoundException{
+	
+		if(officeRepo.count() == 0) {
+			
+			throw new NotFoundException("No office staff members found!");
+		} else {
+			
+			return managerRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
+		}
+	}
+
+	@Override
+	public String getCourierStatus(int courierid) throws NotFoundException {
+		if(courierRepo.existsById(courierid) == false) {
+			
+			throw new NotFoundException("Courier with id " + courierid + " doesn't exist!");
+		} else {
+			
+			return (courierRepo.findById(courierid).orElse(null)).getStatus().toString();
+		}
+	}
+
+	@Override
+	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateFoundException {
+		if(complaintRepo.existsById(complaintid) == false) {
+			
+			throw new DuplicateFoundException("Complaint with id " + complaintid + " doesn't exist!");
+			
+		} else {
+			return parser.parse(complaintRepo.findById(complaintid).orElse(null));
+		}
+	}
+
+	@Override
+	public List<ComplaintModel> getAllComplaints() throws NotFoundException{
+		
+		if(complaintRepo.count() == 0) {
+			
+			throw new NotFoundException("No complaints found!");
+		} else {
+			
+			return complaintRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
+		}
+	}
+
+	@Override
+	public AddressModel findCustomerAddress(int customerId) throws NotFoundException {
+		
+		if(addressRepo.findByCustomerId(customerId) == null) {
+			
+			throw new NotFoundException("The address of customer with customer id: " + customerId + " doesn't exist!");
+			
+		}else {
+			
+			return parser.parse(addressRepo.findByCustomerId(customerId));
+			
+		}
+		
+	}
+
 	@Override
 	public String addManager(OfficeStaffMembersModel staffmember) {
 		
@@ -188,6 +186,18 @@ public class ManagerServiceImpl implements IManagerService {
 			parser.parseAdmin(managerRepo.save(parser.parseAdmin(staffmember)));
 		} 
 		return staffmember.getName();
+	}
+
+	@Override
+	public List<CourierModel> getAllCouriers() throws NotFoundException {
+		
+		if(courierRepo.count() == 0) {
+			
+			throw new NotFoundException("No couriers found!");
+		} else {
+			
+			return courierRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
+		}
 	}
 
 }

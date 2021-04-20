@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.service.IShipmentService;
 
 @RestController
-@RequestMapping("/home/{managerid}/shipment")
-@CrossOrigin
+@RequestMapping("/home/managerId={managerId}/shipment/{courierId}")
+@CrossOrigin(origins = "*")
 public class ShipmentRestController {
 	
 	@Autowired
@@ -24,56 +24,50 @@ public class ShipmentRestController {
 	private static final String courierWithId="The courier with id ";
 	private static final String notFound=" not found";
 	
-	@PatchMapping("/{courierid}/initiate")
-	public ResponseEntity <String> initiateShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/initiate")
+	public ResponseEntity <String> initiateShipmentAction(@PathVariable("courierId") int courierId) throws NotFoundException {
 		
-			boolean flag = shipmentService.initiateShipmentTransaction(courierid);
+			boolean flag = shipmentService.initiateShipmentTransaction(courierId);
 			if(flag) {
 				
-				return new ResponseEntity <> ("You have successfully initiated the shipment process for the courier with id " + courierid, HttpStatus.OK);
-				
+				return new ResponseEntity <> ("You have successfully initiated the shipment process for the courier with id " + courierId, HttpStatus.OK);
 			} else {
 				
-				return new ResponseEntity <> (courierWithId + courierid + notFound, HttpStatus.NOT_FOUND);
-				
+				return new ResponseEntity <> (courierWithId + courierId + notFound, HttpStatus.NOT_FOUND);
 			}
 	}
 	
-	@GetMapping("/{courierid}/checkStatus")
-	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@GetMapping("/checkStatus")
+	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierId") int courierId) throws NotFoundException {
 		
-			String status = shipmentService.checkShipmentStatus(courierid);
-			return new ResponseEntity <> ("The status of the courier with courier id " + courierid + " is: " + status, HttpStatus.OK);
+			String status = shipmentService.checkShipmentStatus(courierId);
+			return new ResponseEntity <> ("The status of the courier with courier id " + courierId + " is: " + status, HttpStatus.OK);
 		
 	}
 	
-	@PatchMapping("/{courierid}/close")
-	public ResponseEntity <String> closeShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/close")
+	public ResponseEntity <String> closeShipmentAction(@PathVariable("courierId") int courierId) throws NotFoundException {
 		
-			boolean flag = shipmentService.closeShipmentTransaction(courierid);
+			boolean flag = shipmentService.closeShipmentTransaction(courierId);
 			if(flag) {
 				
-				return new ResponseEntity <> ("You have successfully closed the shipment process for the courier with id " + courierid, HttpStatus.OK);
-				
+				return new ResponseEntity <> ("You have successfully closed the shipment process for the courier with id " + courierId, HttpStatus.OK);
 			} else {
 				
-				return new ResponseEntity <> (courierWithId + courierid + notFound, HttpStatus.NOT_FOUND);
-				
+				return new ResponseEntity <> (courierWithId + courierId + notFound, HttpStatus.NOT_FOUND);
 			}
 	}
 	
-	@PatchMapping("/{courierid}/reject")
-	public ResponseEntity <String> rejectShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/reject")
+	public ResponseEntity <String> rejectShipmentAction(@PathVariable("courierId") int courierId) throws NotFoundException {
 		
-			boolean flag = shipmentService.rejectShipmentTransaction(courierid);
+			boolean flag = shipmentService.rejectShipmentTransaction(courierId);
 			if(flag) {
 				
-				return new ResponseEntity <> ("You have successfully rejected the shipment process for the courier with id " + courierid, HttpStatus.OK);
-				
+				return new ResponseEntity <> ("You have successfully rejected the shipment process for the courier with id " + courierId, HttpStatus.OK);
 			} else {
 				
-				return new ResponseEntity <> (courierWithId + courierid + notFound, HttpStatus.NOT_FOUND);
-			
+				return new ResponseEntity <> (courierWithId + courierId + notFound, HttpStatus.NOT_FOUND);			
 			}
 		
 	}

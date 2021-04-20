@@ -1,6 +1,7 @@
 package com.cg.ocma.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.ocma.entities.CourierStatus;
 import com.cg.ocma.entities.CustomerEntity;
-import com.cg.ocma.exception.CourierNotFoundException;
-import com.cg.ocma.exception.CustomerNotFoundException;
-import com.cg.ocma.exception.DuplicateComplaintFoundException;
-import com.cg.ocma.exception.DuplicateCourierFoundException;
-import com.cg.ocma.exception.DuplicateCustomerFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
@@ -75,27 +73,28 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 	@Transactional
 	@Override
-	public double initiateProcess(CourierModel courier) throws DuplicateCourierFoundException {
+	public double initiateProcess(CourierModel courier) throws DuplicateFoundException {
 		
 		if(courier != null) {
 			if(courierRepo.existsById(courier.getCourierId())) {
-				throw new DuplicateCourierFoundException("Courier with id " + courier.getCourierId() + " already exists!");
+				throw new DuplicateFoundException("Courier with id " + courier.getCourierId() + " already exists!");
 			} else {
 				courier.setStatus(CourierStatus.INITIATED.toString());
+				courier.setCost(courier.getWeight()*250);
 				parser.parse(courierRepo.save(parser.parse(courier)));
 			}
 		} 
 		
-		return courier.getWeight()*250;
+		return courier.getCost();
 	}
 	
 	@Transactional
 	@Override
-	public String register(CustomerModel customer) throws DuplicateCustomerFoundException {
+	public String register(CustomerModel customer) throws DuplicateFoundException {
 		if(customer != null) {
 			if(customerRepo.existsByAadharNo(customer.getAadharno())) {
 				
-				throw new DuplicateCustomerFoundException("Customer with aadhar number " + customer.getAadharno() + " already exists!");
+				throw new DuplicateFoundException("Customer with aadhar number " + customer.getAadharno() + " already exists!");
 			} else {
 				
 				if(customer.getAcct() != null) {
@@ -128,11 +127,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 
 	@Override
-	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException{
+	public String checkOnlineTrackingStatus(int consignmentno) throws NotFoundException{
 		
 		if(courierRepo.existsByConsignmentNo(consignmentno) == false) {
 			
-			throw new CourierNotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
+			throw new NotFoundException("Courier with consignment no " + consignmentno + " doesn't exist!");
 		} else {
 			return ((courierRepo.findByConsignmentNo(consignmentno)).getStatus()).toString();
 		}
@@ -141,11 +140,11 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Transactional
 	@Override
-	public int registerComplaint(ComplaintModel complaint) throws DuplicateComplaintFoundException {
+	public int registerComplaint(ComplaintModel complaint) throws DuplicateFoundException {
 		
 		if(complaint != null) {
 			if(complaintRepo.existsByConsignmentNo(complaint.getConsignmentNo())) {
-				throw new DuplicateComplaintFoundException("Complaint for courier with consignment number " + complaint.getConsignmentNo() + " already exists!");
+				throw new DuplicateFoundException("Complaint for courier with consignment number " + complaint.getConsignmentNo() + " already exists!");
 			} else {
 				
 				parser.parse(complaintRepo.save(parser.parse(complaint)));
@@ -156,11 +155,11 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public CustomerModel getCustomer(int customerid) throws CustomerNotFoundException {
+	public CustomerModel getCustomer(int customerid) throws NotFoundException {
 		
 		if(customerRepo.findById(customerid) == null) {
 			
-			throw new CustomerNotFoundException("Customer with id " + customerid + " doesn't exist!");
+			throw new NotFoundException("Customer with id " + customerid + " doesn't exist!");
 			
 		} else {
 			return parser.parse(customerRepo.findById(customerid).orElse(null));
@@ -170,13 +169,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public List<CourierModel> getCouriers(int customerId) {
 		
-		return (courierRepo.findAllByCustomerId(customerId));
+		return courierRepo.findAllByCustomerId(customerId).stream().map(parser::parse).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<ComplaintModel> getComplaints(int customerId) {
 		
-		return (complaintRepo.findAllByCustomerId(customerId));
+		return complaintRepo.findAllByCustomerId(customerId).stream().map(parser::parse).collect(Collectors.toList());
 	}
 
 

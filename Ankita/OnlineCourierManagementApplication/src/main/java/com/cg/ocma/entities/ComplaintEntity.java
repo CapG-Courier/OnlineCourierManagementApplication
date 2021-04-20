@@ -15,20 +15,20 @@ public class ComplaintEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "complaintid")
+	@Column(name = "complaint_id")
 	private int complaintId;
 	
-	@Column(name = "consignmentno")
+	@Column(name = "consignment_no")
 	private int consignmentNo;
 	
-	@Column(name = "shortdesc")
+	@Column(name = "short_desc")
 	private String shortDescription;
 	
-	@Column(name = "detaildesc")
+	@Column(name = "detail_desc")
 	private String detailDescription;
 	
 	@ManyToOne
-	@JoinColumn(name = "customerid")
+	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 
 	public ComplaintEntity() {
