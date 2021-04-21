@@ -57,13 +57,12 @@ public class HomeController {
 			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			String customerName = customerService.register(customer);
-			ResponseEntity <String> response = new ResponseEntity <> ("Welcome " + customerName + " ! You have successfully registered.", HttpStatus.CREATED);
-			return response;
+			int customerid = customerService.register(customer);
+			return new ResponseEntity <> ("You have successfully registered with the id " + customerid, HttpStatus.CREATED);
 			
 		}
 		
-	}	
+	}
 	
 	@PostMapping("/managerLogin")
 	public ResponseEntity <String> managerloginAction(@RequestParam int empId, @RequestParam String password) {

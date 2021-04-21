@@ -17,6 +17,5 @@ public interface IOfficeOutletService {
 	public List<CourierOfficeOutletModel> getAllOfficesData() throws NotFoundException;
 	public boolean isOfficeOpen(int officeid) throws OutletClosedException;
 	public boolean isOfficeClosed(int officeid)throws OutletClosedException;
-	public AddressModel findOfficeAddress(int officeId) throws NotFoundException;
 	
 }

@@ -142,7 +142,7 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
 			LocalTime open = LocalTime.parse(office.getOpeningTime());
 			LocalTime close = LocalTime.parse(office.getClosingTime());
-			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now()))) {
+			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
 				
 				return true;
 			} else {
@@ -150,20 +150,6 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 				return false;
 				
 			}
-		}
-	}
-
-	@Override
-	public AddressModel findOfficeAddress(int officeId) throws NotFoundException {
-
-		if(addressRepo.findByOfficeId(officeId) == null) {
-			
-			throw new NotFoundException("The address of office with office id: " + officeId + " doesn't exist!");
-			
-		}else {
-			
-			return parser.parseOffice(addressRepo.findByOfficeId(officeId));
-			
 		}
 	}
 

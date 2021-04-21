@@ -21,12 +21,6 @@ public class CourierOfficeOutletModel {
 		this.closingTime = closingTime;
 	}
 
-	public CourierOfficeOutletModel(String openingTime, String closingTime) {
-		super();
-		this.openingTime = openingTime;
-		this.closingTime = closingTime;
-	}
-
 	public int getOfficeid() {
 		return officeId;
 	}

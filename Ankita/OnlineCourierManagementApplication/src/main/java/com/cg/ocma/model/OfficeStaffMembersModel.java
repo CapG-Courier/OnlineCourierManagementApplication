@@ -1,4 +1,5 @@
 package com.cg.ocma.model;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,7 +13,9 @@ public class OfficeStaffMembersModel {
 	@NotEmpty(message="Employee name cannot be empty")
 	@NotNull(message="Employee name cannot be omitted")
 	private String name;
-
+	
+	@NotEmpty(message="Employee role cannot be empty")
+	@NotNull(message="Employee role cannot be omitted")
 	private String role;
 	
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message="A digit must occur at least once;"
@@ -27,22 +30,16 @@ public class OfficeStaffMembersModel {
 		/*No implementation*/
 		
 	}
-	
-	public OfficeStaffMembersModel(String name, String role, String password, CourierOfficeOutletEntity office) {
+
+	public OfficeStaffMembersModel(int empId, String name, String role, String password, CourierOfficeOutletEntity office) {
 		super();
+		this.empId = empId;
 		this.name = name;
 		this.role = role;
 		this.password = password;
 		this.office = office;
 	}
-
-	public OfficeStaffMembersModel(String name, String role, CourierOfficeOutletEntity office) {
-		super();
-		this.name = name;
-		this.role = role;
-		this.office = office;
-	}
-
+	
 	public OfficeStaffMembersModel(int empId, String name, String role, CourierOfficeOutletEntity office) {
 		super();
 		this.empId = empId;
@@ -50,7 +47,14 @@ public class OfficeStaffMembersModel {
 		this.role = role;
 		this.office = office;
 	}
-	
+
+	public OfficeStaffMembersModel(int empId, String name, String role) {
+		super();
+		this.empId = empId;
+		this.name = name;
+		this.role = role;
+	}
+
 	public int getEmpid() {
 		return empId;
 	}

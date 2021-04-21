@@ -2,8 +2,6 @@ package com.cg.ocma.model;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -23,36 +21,43 @@ public class CourierModel {
 	
 	private CustomerEntity customer;
 	
-	@NotNull(message="Weight cannot be omitted")
-	private double weight;
-	
-	private double cost;
-	
 	private String status;
 
 	public CourierModel() {
 		
-		/* Not implemented */
-	}
-	
-	public CourierModel(LocalDate initiatedDate, CustomerEntity customer, double weight, String status) {
-		super();
-		this.initiatedDate = initiatedDate;
-		this.customer = customer;
-		this.weight = weight;
-		this.status = status;
 	}
 
-	
-	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer, double weight,	double cost, String status) {
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, String status, CustomerEntity customer) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
+		this.status = status;
 		this.customer = customer;
-		this.weight = weight;
-		this.cost = cost;
+	}
+
+	public CourierModel(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+	}
+
+	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+	}
+	
+	public CourierModel(int courierId, int consignmentNo,LocalDate initiatedDate, LocalDate deliveredDate, String status) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
 		this.status = status;
 	}
 
@@ -100,28 +105,12 @@ public class CourierModel {
 		this.customer = customer;
 	}
 	
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-	
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-
 	@Override
 	public String toString() {
 		return "CourierModel [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
-				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + ", weight=" + weight
-				+ ", cost=" + cost + ", status=" + status + "]";
+				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + "]";
 	}
-
+	
+	
+	
 }
-

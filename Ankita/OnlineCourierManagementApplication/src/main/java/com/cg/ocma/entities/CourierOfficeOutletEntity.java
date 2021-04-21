@@ -45,12 +45,6 @@ public class CourierOfficeOutletEntity {
 		this.openingTime = openingTime;
 		this.closingTime = closingTime;
 	}
-	
-	public CourierOfficeOutletEntity(String openingTime, String closingTime) {
-		super();
-		this.openingTime = openingTime;
-		this.closingTime = closingTime;
-	}
 
 	public int getOfficeid() {
 		return officeId;

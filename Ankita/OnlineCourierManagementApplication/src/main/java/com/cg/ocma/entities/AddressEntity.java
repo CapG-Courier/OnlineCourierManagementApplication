@@ -50,8 +50,9 @@ public class AddressEntity {
 		
 	}
 	
-	public AddressEntity(String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
+	public AddressEntity(int addressId, String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
 		super();
+		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;
@@ -61,8 +62,9 @@ public class AddressEntity {
 		this.office = office;
 	}
 
-	public AddressEntity(String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
+	public AddressEntity(int addressId, String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
 		super();
+		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;

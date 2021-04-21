@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +23,6 @@ public class CourierEntity {
 	private int courierId;
 	
 	@Column(unique = true, name = "consignment_no")
-	@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 5000, allocationSize = 123)
-	@GeneratedValue(generator = "mySeqGen")
 	private int consignmentNo;
 	
 	@Column(name = "initiated_date")
@@ -38,12 +35,6 @@ public class CourierEntity {
 	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 	
-	@Column(name = "weight")
-	private double weight;
-	
-	@Column(name = "cost")
-	private double cost;
-	
 	@Enumerated(EnumType.STRING)
 	private CourierStatus status;
 
@@ -53,26 +44,53 @@ public class CourierEntity {
 		
 	}
 	
-	
-	public CourierEntity(LocalDate initiatedDate, CustomerEntity customer, double weight, double cost, CourierStatus status) {
-		super();
-		this.initiatedDate = initiatedDate;
-		this.customer = customer;
-		this.weight = weight;
-		this.cost = cost;
-		this.status = status;
-	}
-
-	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
-			CustomerEntity customer, double weight, double cost, CourierStatus status) {
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer, CourierStatus status) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
 		this.customer = customer;
-		this.weight = weight;
-		this.cost = cost;
+		this.status = status;
+	}
+
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CustomerEntity customer) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+		this.customer = customer;
+	}
+
+
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
+	}
+
+	public CourierEntity(LocalDate initiatedDate) {
+		super();
+		this.initiatedDate = initiatedDate;
+	}
+	
+
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+	}
+
+	public CourierEntity(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate, CourierStatus status) {
+		super();
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
+		this.initiatedDate = initiatedDate;
+		this.deliveredDate = deliveredDate;
 		this.status = status;
 	}
 
@@ -120,31 +138,12 @@ public class CourierEntity {
 	public void setStatus(CourierStatus status) {
 		this.status = status;
 	}
-	
-	public double getWeight() {
-		return weight;
-	}
-
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-
 
 	@Override
 	public String toString() {
-		return "CourierEntity [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
-				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + ", weight=" + weight
-				+ ", cost=" + cost + ", status=" + status + "]";
+		return "Courier [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
+				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", customer=" + customer + "]";
 	}
+
 	
 }

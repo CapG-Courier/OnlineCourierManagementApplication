@@ -43,8 +43,9 @@ public class AddressModel {
 		
 	}
 	
-	public AddressModel(String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
+	public AddressModel(int addressId, String houseNo, String street, String city, String state, String country, int zip, CourierOfficeOutletEntity office) {
 		super();
+		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;
@@ -54,8 +55,9 @@ public class AddressModel {
 		this.office = office;
 	}
 
-	public AddressModel(String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
+	public AddressModel(int addressId, String houseNo, String street, String city, String state, String country, int zip, CustomerEntity customer) {
 		super();
+		this.addressId = addressId;
 		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;
@@ -74,21 +76,6 @@ public class AddressModel {
 		this.state = state;
 		this.country = country;
 		this.zip = zip;
-	}
-
-	
-	
-
-	public AddressModel(int addressId, String houseNo,String street, String city, String state, String country,	int zip, CustomerEntity customer) {
-		super();
-		this.addressId = addressId;
-		this.houseNo = houseNo;
-		this.street = street;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.zip = zip;
-		this.customer = customer;
 	}
 
 	public String getHouseNo() {

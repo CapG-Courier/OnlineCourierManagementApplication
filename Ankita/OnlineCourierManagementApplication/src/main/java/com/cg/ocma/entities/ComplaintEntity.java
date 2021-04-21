@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,8 @@ public class ComplaintEntity {
 	private int complaintId;
 	
 	@Column(name = "consignment_no")
+	@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 5000, allocationSize = 123)
+	@GeneratedValue(generator = "mySeqGen")
 	private int consignmentNo;
 	
 	@Column(name = "short_desc")
@@ -37,15 +40,6 @@ public class ComplaintEntity {
 		
 	}
 
-	public ComplaintEntity(int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
-		super();
-		this.consignmentNo = consignmentNo;
-		this.shortDescription = shortDescription;
-		this.detailDescription = detailDescription;
-		this.customer = customer;
-	}
-
-	
 	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
@@ -53,6 +47,23 @@ public class ComplaintEntity {
 		this.shortDescription = shortDescription;
 		this.detailDescription = detailDescription;
 		this.customer = customer;
+	}
+
+	
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, CustomerEntity customer) {
+		super();
+		this.complaintId = complaintId;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.customer = customer;
+	}
+
+	public ComplaintEntity(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
+		super();
+		this.complaintId = complaintId;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.detailDescription = detailDescription;
 	}
 
 	public int getComplaintId() {

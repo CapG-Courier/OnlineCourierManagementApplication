@@ -21,7 +21,6 @@ import com.cg.ocma.exception.DuplicateFoundException;
 import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
-import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.service.IManagerService;
 
@@ -33,19 +32,19 @@ public class ManagerRestController {
 	@Autowired
 	private IManagerService managerService;
 	
-	@PostMapping("/addManager")
-	public ResponseEntity <String> addManagerAction(@RequestBody @Valid OfficeStaffMembersModel staff, BindingResult result) throws DuplicateFoundException{
-		
-		if (result.hasErrors()) {
-			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
-		} else {
-			
-			String staffName = managerService.addManager(staff);
-			return new ResponseEntity <> ("You have successfully added the admin: " + staffName, HttpStatus.CREATED);
-			
-		}
-		
-	}
+//	@PostMapping("/addManager")
+//	public ResponseEntity <String> addManagerAction(@RequestBody @Valid OfficeStaffMembersModel staff, BindingResult result) throws DuplicateFoundException{
+//		
+//		if (result.hasErrors()) {
+//			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
+//		} else {
+//			
+//			String staffName = managerService.addManager(staff);
+//			return new ResponseEntity <> ("You have successfully added the admin: " + staffName, HttpStatus.CREATED);
+//			
+//		}
+//		
+//	}
 	
 	@PostMapping("/addStaff")
 	public ResponseEntity <String> addStaffAction(@RequestBody @Valid OfficeStaffMembersModel staff, BindingResult result) throws DuplicateFoundException{
@@ -54,8 +53,8 @@ public class ManagerRestController {
 			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			String staffName = managerService.addStaffMember(staff);
-			return new ResponseEntity <> ("You have successfully added the staff member: " + staffName, HttpStatus.CREATED);
+			int empid = managerService.addStaffMember(staff);
+			return new ResponseEntity <> ("You have successfully added staff member with the id " + empid, HttpStatus.CREATED);
 			
 		}
 		
@@ -106,11 +105,11 @@ public class ManagerRestController {
 	}
 	
 	
-	@GetMapping("/getAllCourier")
-	public ResponseEntity <List<CourierModel>> getAllCourierAction() throws NotFoundException {
-		
-		return new ResponseEntity <> (managerService.getAllCouriers(), HttpStatus.OK);
-	}
+//	@GetMapping("/getAllCourier")
+//	public ResponseEntity <List<CourierModel>> getAllCourierAction() throws NotFoundException {
+//		
+//		return new ResponseEntity <> (managerService.getAllCouriers(), HttpStatus.OK);
+//	}
 	
 	@GetMapping("/{customerId}")
 	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("customerId") int customerId) throws NotFoundException{

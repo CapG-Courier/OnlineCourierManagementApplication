@@ -54,16 +54,6 @@ public class CustomerEntity {
 		
 	}
 
-	public CustomerEntity(long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
-		super();
-		this.aadharNo = aadharNo;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobileNo = mobileNo;
-		this.password = password;
-		this.acct = acct;
-	}
-	
 	public CustomerEntity(int customerId, long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
 		super();
 		this.customerId = customerId;
@@ -73,6 +63,16 @@ public class CustomerEntity {
 		this.mobileNo = mobileNo;
 		this.password = password;
 		this.acct = acct;
+	}
+
+	public CustomerEntity(int customerId, long aadharNo, String firstName, String lastName, long mobileNo, String password) {
+		super();
+		this.customerId = customerId;
+		this.aadharNo = aadharNo;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobileNo = mobileNo;
+		this.password = password;
 	}
 
 	public long getAadharno() {
@@ -107,14 +107,6 @@ public class CustomerEntity {
 		this.mobileNo = mobileNo;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public BankAccountEntity getAcct() {
 		return acct;
 	}
@@ -127,13 +119,19 @@ public class CustomerEntity {
 		return customerId;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "CustomerEntity [customerId=" + customerId + ", aadharNo=" + aadharNo + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", addr=" + addr + ", mobileNo=" + mobileNo + ", password=" + password
-				+ ", acct=" + acct + ", complaints=" + complaints + ", couriers=" + couriers + "]";
+				+ ", lastName=" + lastName + ", addr=" + addr + ", mobileNo=" + mobileNo + ", acct=" + acct
+				+ ", complaints=" + complaints + ", couriers=" + couriers + "]";
 	}
-
-
 
 }

@@ -93,12 +93,12 @@ public class OfficeOutletRestController {
 		
 	}
 
-	@GetMapping("/getAddress/{officeId}")
-	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("officeId") int officeId) throws NotFoundException{
-		
-		return new ResponseEntity <> (officeService.findOfficeAddress(officeId), HttpStatus.FOUND);
-		
-	}
+//	@GetMapping("/getAddress/{officeId}")
+//	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("officeId") int officeId) throws NotFoundException{
+//		
+//		return new ResponseEntity <> (officeService.findOfficeAddress(officeId), HttpStatus.FOUND);
+//		
+//	}
 	
 	@GetMapping("checkOfficeOpen/{officeId}")
 	public ResponseEntity <String> isOfficeOpen(@PathVariable("officeId") int officeId) throws OutletClosedException {

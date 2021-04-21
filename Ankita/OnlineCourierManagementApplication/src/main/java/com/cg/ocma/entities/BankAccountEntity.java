@@ -23,59 +23,41 @@ public class BankAccountEntity {
 	@Column(name = "account_type")
 	public String accountType;
 	
-	@Column(name = "bank_balance")
-	public double bankBalance;
-	
 	public BankAccountEntity() {
 		
 		/* no implementation required */
 		
 	}
-	
-	public BankAccountEntity(long accountNo, String accountHolderName, String accountType, double bankBalance) {
+	public BankAccountEntity(long accountNo, String accountHolderName, String accountType) {
 		super();
 		this.accountNo = accountNo;
 		this.accountHolderName = accountHolderName;
 		this.accountType = accountType;
-		this.bankBalance = bankBalance;
 	}
-
 	public long getAccountno() {
 		return accountNo;
 	}
-	
-	public void setAccountno(long accountNo) {
-		this.accountNo = accountNo;
+	public void setAccountno(long accountno) {
+		this.accountNo = accountno;
 	}
-	
-	public String getAccountHolderName() {
+	public String getAccountHolderNmae() {
 		return accountHolderName;
 	}
-
-	public void setAccountHolderName(String accountHolderName) {
-		this.accountHolderName = accountHolderName;
+	public void setAccountHolderNmae(String accountHolderNmae) {
+		this.accountHolderName = accountHolderNmae;
 	}
-
 	public String getAccountType() {
 		return accountType;
 	}
-	
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 
-	public double getBankBalance() {
-		return bankBalance;
-	}
-	
-	public void setBankBalance(double bankBalance) {
-		this.bankBalance = bankBalance;
-	}
-
 	@Override
 	public String toString() {
-		return "BankAccountEntity [accountNo=" + accountNo + ", accountHolderName=" + accountHolderName
-				+ ", accountType=" + accountType + ", bankBalance=" + bankBalance + "]";
-	}
+		return "BankAccount [accountNo=" + accountNo + ", accountHolderName=" + accountHolderName + ", accountType="
+				+ accountType + "]";
+	}	
+
 	
 }

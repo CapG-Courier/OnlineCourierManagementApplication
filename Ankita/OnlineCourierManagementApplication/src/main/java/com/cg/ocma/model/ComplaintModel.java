@@ -9,11 +9,12 @@ public class ComplaintModel {
 	
 	private int complaintId;
 	
-	@NotNull(message="This consignment no cannot be omitted")
+	//@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private int consignmentNo;
 	
-	@NotEmpty(message="This short desc cannot be empty")
-	@NotNull(message="This short desc cannot be omitted")
+	@NotEmpty(message="This field cannot be empty")
+	@NotNull(message="This field cannot be omitted")
 	private String shortDescription;
 	
 	private String detailDescription;
@@ -24,15 +25,6 @@ public class ComplaintModel {
 		
 	}
 
-	public ComplaintModel(int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
-		super();
-		this.consignmentNo = consignmentNo;
-		this.shortDescription = shortDescription;
-		this.detailDescription = detailDescription;
-		this.customer = customer;
-	}
-	
-
 	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription, CustomerEntity customer) {
 		super();
 		this.complaintId = complaintId;
@@ -40,6 +32,15 @@ public class ComplaintModel {
 		this.shortDescription = shortDescription;
 		this.detailDescription = detailDescription;
 		this.customer = customer;
+	}
+	
+
+	public ComplaintModel(int complaintId, int consignmentNo, String shortDescription, String detailDescription) {
+		super();
+		this.complaintId = complaintId;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.detailDescription = detailDescription;
 	}
 
 	public int getComplaintId() {

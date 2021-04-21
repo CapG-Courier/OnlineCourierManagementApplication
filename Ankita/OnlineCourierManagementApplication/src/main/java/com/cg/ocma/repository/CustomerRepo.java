@@ -8,7 +8,4 @@ import com.cg.ocma.entities.CustomerEntity;
 @Repository
 public interface CustomerRepo extends JpaRepository <CustomerEntity,Integer>{
 	
-	public boolean existsByAadharNo(long aadharNo);
-	
-	
 }

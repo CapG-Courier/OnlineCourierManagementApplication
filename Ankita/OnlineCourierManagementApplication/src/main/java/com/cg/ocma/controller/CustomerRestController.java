@@ -1,7 +1,5 @@
 package com.cg.ocma.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
-import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.service.ICustomerService;
 
 @RestController
@@ -32,30 +29,24 @@ public class CustomerRestController {
 	@Autowired
 	private ICustomerService customerService;
 	
-	@GetMapping("/profile")
-	public ResponseEntity <CustomerModel> getCustomerAction(@PathVariable("customerId") int customerId) throws NotFoundException{
-		
-		return new ResponseEntity <> (customerService.getCustomer(customerId), HttpStatus.OK);
-	}
+//	@GetMapping("/profile")
+//	public ResponseEntity <CustomerModel> getCustomerAction(@PathVariable("customerId") int customerId) throws NotFoundException{
+//		
+//		return new ResponseEntity <> (customerService.getCustomer(customerId), HttpStatus.OK);
+//	}
 	
 	@PostMapping("/profile/addAddress")
 	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateFoundException{
 		
-		System.out.println(address);
 		if (result.hasErrors()) {
 			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			System.out.println(address);
-			boolean flag = customerService.registerAddress(address);
-			if(flag) {
-
-				return new ResponseEntity <> ("You have successfully added your address.", HttpStatus.CREATED);
-			} else {
-				
-				return new ResponseEntity <> ("Your address was not added!", HttpStatus.CREATED);
-			}
+			int addressid = customerService.registerAddress(address);
+			return new ResponseEntity <> ("You have successfully registered your address with the id " + addressid, HttpStatus.CREATED);
+			
 		}
+		
 	}
 	
 	@PostMapping("/newCourier")
@@ -94,16 +85,16 @@ public class CustomerRestController {
 		}
 	}
 	
-	@GetMapping("/getAllComplaints")
-	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction(@PathVariable("customerId") int customerId) {
-		
-		return new ResponseEntity <> (customerService.getComplaints(customerId), HttpStatus.OK);
-	}
-	
-	@GetMapping("/getAllCouriers")
-	public ResponseEntity <List<CourierModel>> getAllCourierAction(@PathVariable("customerId") int customerId) {
-		
-		return new ResponseEntity <> (customerService.getCouriers(customerId), HttpStatus.OK);
-	}
+//	@GetMapping("/getAllComplaints")
+//	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction(@PathVariable("customerId") int customerId) {
+//		
+//		return new ResponseEntity <> (customerService.getComplaints(customerId), HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/getAllCouriers")
+//	public ResponseEntity <List<CourierModel>> getAllCourierAction(@PathVariable("customerId") int customerId) {
+//		
+//		return new ResponseEntity <> (customerService.getCouriers(customerId), HttpStatus.OK);
+//	}
 	
 }

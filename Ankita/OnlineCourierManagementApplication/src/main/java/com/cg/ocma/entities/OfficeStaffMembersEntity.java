@@ -30,7 +30,7 @@ public class OfficeStaffMembersEntity {
 	private String password;
 	
 	@ManyToOne
-	@JoinColumn(name = "office_id")
+	@JoinColumn(name = "officeid")
 	private CourierOfficeOutletEntity office;
 	
 	public OfficeStaffMembersEntity() {
@@ -38,30 +38,30 @@ public class OfficeStaffMembersEntity {
 		//no implementation//
 	}
 	
-	public OfficeStaffMembersEntity(String name, RoleEnum role, String password, CourierOfficeOutletEntity office) {
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role, String password, CourierOfficeOutletEntity office) {
 		
 		super();
+		this.empId=empId;
 		this.name = name;
 		this.role = role;
 		this.password = password;
 		this.office = office;
 	}
 	
-	public OfficeStaffMembersEntity(String name, RoleEnum role, CourierOfficeOutletEntity office) {
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role, CourierOfficeOutletEntity office) {
 		
 		super();
+		this.empId=empId;
 		this.name = name;
 		this.role = role;
 		this.office = office;
 	}
-	
-	public OfficeStaffMembersEntity(int empId,  String name, RoleEnum role, CourierOfficeOutletEntity office) {
-		
+
+	public OfficeStaffMembersEntity(int empId, String name, RoleEnum role) {
 		super();
 		this.empId = empId;
 		this.name = name;
 		this.role = role;
-		this.office = office;
 	}
 
 	public int getEmpid() {

@@ -13,10 +13,10 @@ public class CustomerModel {
 	@NotNull(message="This field cannot be omitted")
 	private long aadharNo;
 	
-	@NotEmpty(message="First name cannot be empty")
+	@NotEmpty(message="This field cannot be empty")
 	private String firstName;
 	
-	@NotEmpty(message="Last name cannot be empty")
+	@NotEmpty(message="This field cannot be empty")
 	private String lastName;
 	
 	private long mobileNo;
@@ -32,17 +32,7 @@ public class CustomerModel {
 		 
 	}
 
-	public CustomerModel(long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
-		super();
-		this.aadharNo = aadharNo;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobileNo = mobileNo;
-		this.password = password;
-		this.acct = acct;
-	}
-
-	public CustomerModel(int customerId, long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
+	public CustomerModel(int customerId,long aadharNo, String firstName, String lastName, long mobileNo, String password, BankAccountEntity acct) {
 		super();
 		this.customerId = customerId;
 		this.aadharNo = aadharNo;
@@ -53,6 +43,16 @@ public class CustomerModel {
 		this.acct = acct;
 	}
 	
+	public CustomerModel(int customerId, long aadharNo, String firstName, String lastName, long mobileNo, String password) {
+		super();
+		this.customerId = customerId;
+		this.aadharNo = aadharNo;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobileNo = mobileNo;
+		this.password = password;
+	}
+
 	public int getCustomerid() {
 		return customerId;
 	}
@@ -89,14 +89,6 @@ public class CustomerModel {
 		this.mobileNo = mobileNo;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public BankAccountEntity getAcct() {
 		return acct;
 	}
@@ -105,6 +97,14 @@ public class CustomerModel {
 		this.acct = acct;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "CustomerModel [customerId=" + customerId + ", aadharNo=" + aadharNo + ", firstName=" + firstName

@@ -12,7 +12,6 @@ import com.cg.ocma.exception.DuplicateFoundException;
 import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
-import com.cg.ocma.model.CourierModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
@@ -55,7 +54,7 @@ public class ManagerServiceImpl implements IManagerService {
 		this.complaintRepo = complaintRepo;
 		this.parser=new EMParser();
 	}
-
+	
 	@Override
 	public boolean loginManager(int empId, String password) {
 		
@@ -82,13 +81,15 @@ public class ManagerServiceImpl implements IManagerService {
 
 	@Transactional
 	@Override
-	public String addStaffMember(OfficeStaffMembersModel staffmember){
+	public int addStaffMember(OfficeStaffMembersModel staffmember) throws DuplicateFoundException {
 		if(staffmember != null) {
-			
-			parser.parse(managerRepo.save(parser.parse(staffmember)));
+			if(managerRepo.existsById(staffmember.getEmpid())) {
+				throw new DuplicateFoundException("Staff with id " + staffmember.getEmpid() + " already exists!");
+			} else {
+				parser.parse(managerRepo.save(parser.parse(staffmember)));
+			}
 		} 
-		
-		return staffmember.getName();
+		return staffmember.getEmpid();
 	}
 
 	@Transactional
@@ -164,40 +165,18 @@ public class ManagerServiceImpl implements IManagerService {
 	}
 
 	@Override
-	public AddressModel findCustomerAddress(int customerId) throws NotFoundException {
+	public AddressModel findCustomerAddress(int addressid) throws NotFoundException {
 		
-		if(addressRepo.findByCustomerId(customerId) == null) {
+		if(addressRepo.existsById(addressid) == false) {
 			
-			throw new NotFoundException("The address of customer with customer id: " + customerId + " doesn't exist!");
+			throw new NotFoundException("The address with id: " + addressid + " doesn't exist!");
 			
 		}else {
 			
-			return parser.parse(addressRepo.findByCustomerId(customerId));
+			return parser.parse(addressRepo.findById(addressid).orElse(null));
 			
 		}
 		
-	}
-
-	@Override
-	public String addManager(OfficeStaffMembersModel staffmember) {
-		
-		if(staffmember != null) {
-			
-			parser.parseAdmin(managerRepo.save(parser.parseAdmin(staffmember)));
-		} 
-		return staffmember.getName();
-	}
-
-	@Override
-	public List<CourierModel> getAllCouriers() throws NotFoundException {
-		
-		if(courierRepo.count() == 0) {
-			
-			throw new NotFoundException("No couriers found!");
-		} else {
-			
-			return courierRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
-		}
 	}
 
 }

@@ -34,12 +34,11 @@ public class EMParser {
 		
 	}
 	
-	
 	public CustomerEntity parse(CustomerModel customer) {
 		
 		return customer==null?null:
 			
-			new CustomerEntity(
+			new CustomerEntity(customer.getCustomerid(),
 					customer.getAadharno(),
 					customer.getFirstname(),
 					customer.getLastname(),
@@ -53,7 +52,7 @@ public class EMParser {
 		
 		return address==null?null:
 			
-			new AddressEntity(
+			new AddressEntity(address.getAddressid(),
 					address.getHouseNo(),
 					address.getStreet(),
 					address.getCity(),
@@ -76,7 +75,6 @@ public class EMParser {
 					address.getCountry(),
 					address.getZip(),
 					address.getCustomer());
-
 		
 	}
 	
@@ -84,7 +82,7 @@ public class EMParser {
 		
 		return address==null?null:
 			
-			new AddressEntity(
+			new AddressEntity(address.getAddressid(),
 					address.getHouseNo(),
 					address.getStreet(),
 					address.getCity(),
@@ -99,7 +97,7 @@ public class EMParser {
 		
 		return address==null?null:
 			
-			new AddressModel(
+			new AddressModel(address.getAddressid(),
 					address.getHouseNo(),
 					address.getStreet(),
 					address.getCity(),
@@ -117,10 +115,8 @@ public class EMParser {
 					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
 					courier.getDeliveredDate(),
-					courier.getCustomer(),
-					courier.getWeight(),
-					courier.getCost(),
-					courier.getStatus().toString());
+					courier.getStatus().toString(),
+					courier.getCustomer());
 		
 	}
 	
@@ -128,12 +124,13 @@ public class EMParser {
 		
 		return courier==null?null:
 			
-			new CourierEntity(
+			new CourierEntity(courier.getCourierId(),
+					courier.getConsignmentNo(),
 					courier.getInitiatedDate(),
+					courier.getDeliveredDate(),
 					courier.getCustomer(),
-					courier.getWeight(),
-					courier.getCost(),
 					CourierStatus.valueOf(courier.getStatus()));
+		
 	}
 	
 	public ComplaintModel parse(ComplaintEntity complaint) {
@@ -152,7 +149,7 @@ public class EMParser {
 		
 		return complaint==null?null:
 			
-			new ComplaintEntity(
+			new ComplaintEntity(complaint.getComplaintId(),
 					complaint.getConsignmentNo(),
 					complaint.getShortDescription(),
 					complaint.getDetailDescription(),
@@ -173,7 +170,7 @@ public class EMParser {
 		
 		return office==null?null:
 			
-			new CourierOfficeOutletEntity(
+			new CourierOfficeOutletEntity(office.getOfficeid(),
 					office.getOpeningTime(),
 					office.getClosingTime());
 	}
@@ -188,6 +185,16 @@ public class EMParser {
 					staff.getOffice());
 	}
 	
+	public OfficeStaffMembersEntity parse(OfficeStaffMembersModel staff) {
+		
+		return staff==null?null:
+			
+			new OfficeStaffMembersEntity(staff.getEmpid(),
+					staff.getName(),
+					RoleEnum.valueOf(staff.getRole()),
+					staff.getOffice());
+	}
+	
 	public OfficeStaffMembersModel parseAdmin(OfficeStaffMembersEntity staff) {
 		
 		return staff==null?null:
@@ -198,26 +205,16 @@ public class EMParser {
 					staff.getOffice());
 	}
 	
-	public OfficeStaffMembersEntity parse(OfficeStaffMembersModel staff) {
-		
-		return staff==null?null:
-			
-			new OfficeStaffMembersEntity(
-					staff.getName(),
-					RoleEnum.valueOf(staff.getRole()),
-					staff.getOffice());
-	}
-	
 	public OfficeStaffMembersEntity parseAdmin(OfficeStaffMembersModel staff) {
 		
 		return staff==null?null:
 			
-			new OfficeStaffMembersEntity(
+			new OfficeStaffMembersEntity(staff.getEmpid(),
 					staff.getName(),
 					RoleEnum.valueOf(staff.getRole()),
 					staff.getPassword(),
 					staff.getOffice());
 	}
-	
+
 	
 }
