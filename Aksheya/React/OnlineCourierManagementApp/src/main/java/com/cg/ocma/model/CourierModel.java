@@ -60,6 +60,11 @@ public class CourierModel {
 		this.deliveredDate = deliveredDate;
 		this.status = status;
 	}
+	
+	public CourierModel(LocalDate initiatedDate) {
+		super();
+		this.initiatedDate = initiatedDate;
+	}
 
 	public int getCourierId() {
 		return courierId;

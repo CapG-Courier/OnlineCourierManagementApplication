@@ -17,16 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.ocma.exception.DuplicateAddressFoundException;
-import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.exception.OutletClosedException;
-import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
 import com.cg.ocma.service.IOfficeOutletService;
 
 @RestController
-@RequestMapping("/home/{managerid}/office")
+@RequestMapping("/home/managerid={managerid}")
 @CrossOrigin(origins = "*")
 public class OfficeOutletRestController {
 	
@@ -36,36 +35,53 @@ public class OfficeOutletRestController {
 	private IOfficeOutletService officeService;
 	
 	@PostMapping("/addOffice")
-	public ResponseEntity <String> addOfficeAction(@RequestBody @Valid CourierOfficeOutletModel office, BindingResult result) throws DuplicateOfficeOutletFoundException{
+	public ResponseEntity <String> addOfficeAction(@RequestBody @Valid CourierOfficeOutletModel office, BindingResult result) throws DuplicateFoundException{
 		
 		if (result.hasErrors()) {
-			throw new DuplicateOfficeOutletFoundException(GlobalExceptionHandler.messageFrom(result));
+			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			int officeid = officeService.addNewOffice(office);
-			return new ResponseEntity <> ("You have successfully added a new office with the id " + officeid, HttpStatus.CREATED);
-
+			boolean flag = officeService.addNewOffice(office);
+			
+			if(flag) {
+				
+				return new ResponseEntity <> ("You have successfully added a new office!", HttpStatus.CREATED);
+				
+			}else {
+				
+				return new ResponseEntity <> ("Unfortunately you couldn't add a new office.", HttpStatus.CREATED);
+				
+			}
 			
 		}
 		
 	}
 	
-	@PostMapping("/addOffice/registerAddress")
-	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateAddressFoundException{
+	@PostMapping("/registerAddress")
+	public ResponseEntity <String> registerAddressAction(@RequestBody @Valid AddressModel address, BindingResult result) throws DuplicateFoundException{
 		
 		if (result.hasErrors()) {
-			throw new DuplicateAddressFoundException(GlobalExceptionHandler.messageFrom(result));
+			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			int addressid = officeService.registerOfficeAddress(address);
-			return new ResponseEntity <> ("You have successfully registered the office address with the id " + addressid, HttpStatus.CREATED);
+			boolean flag = officeService.registerOfficeAddress(address);
+			
+			if(flag) {
+				
+				return new ResponseEntity <> ("You have successfully registered the office address!", HttpStatus.CREATED);
+				
+			}else {
+				
+				return new ResponseEntity <> ("Unfortunately you couldn't update the address for the office", HttpStatus.CREATED);
+				
+			}
 			
 		}
 		
 	}
 	
 	@DeleteMapping("deleteOffice/{officeid}")
-	public ResponseEntity <String> removeOfficeAction(@PathVariable("officeid") int officeid) throws OutletNotFoundException {
+	public ResponseEntity <String> removeOfficeAction(@PathVariable("officeid") int officeid) throws NotFoundException {
 		
 		boolean check = officeService.removeNewOffice(officeid);
 		if(check) {
@@ -79,14 +95,14 @@ public class OfficeOutletRestController {
 	}
 	
 	@GetMapping("/getOffice/{officeid}")
-	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("officeid") int officeid) throws OutletNotFoundException{
+	public ResponseEntity <CourierOfficeOutletModel> getOfficeInfo(@PathVariable("officeid") int officeid) throws NotFoundException{
 		
 		return new ResponseEntity <> (officeService.getOfficeInfo(officeid), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/getAllOffice")
-	public ResponseEntity <List<CourierOfficeOutletModel>> getAllOfficesData() throws OutletNotFoundException{
+	public ResponseEntity <List<CourierOfficeOutletModel>> getAllOfficesData() throws NotFoundException{
 		
 		return new ResponseEntity <> (officeService.getAllOfficesData(), HttpStatus.OK);
 		

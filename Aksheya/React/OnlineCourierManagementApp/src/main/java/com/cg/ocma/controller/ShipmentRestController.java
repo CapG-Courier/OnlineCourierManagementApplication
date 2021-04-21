@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.ocma.exception.CourierNotFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.service.IShipmentService;
 
 @RestController
-@RequestMapping("/home/{managerid}/shipment")
+@RequestMapping("/home/managerid={managerid}/shipment")
 @CrossOrigin(origins = "*")
 public class ShipmentRestController {
 	
@@ -23,8 +23,8 @@ public class ShipmentRestController {
 	@Autowired
 	private IShipmentService shipmentService;
 	
-	@PatchMapping("/{courierid}/initiate")
-	public ResponseEntity <String> initiateShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/initiate/{courierid}")
+	public ResponseEntity <String> initiateShipmentAction(@PathVariable("courierid") int courierid) throws NotFoundException {
 		
 		boolean flag = shipmentService.initiateShipmentTransaction(courierid);
 		if(flag) {
@@ -39,16 +39,16 @@ public class ShipmentRestController {
 		
 	}
 	
-	@GetMapping("/{courierid}/checkStatus")
-	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@GetMapping("/checkStatus/{courierid}")
+	public ResponseEntity <String> checkShipmentStatusAction(@PathVariable("courierid") int courierid) throws NotFoundException {
 		
 		String status = shipmentService.checkShipmentStatus(courierid);
 		return new ResponseEntity <> ("The status of the courier with courier id " + courierid + " is: " + status, HttpStatus.OK);
 		
 	}
 	
-	@PatchMapping("/{courierid}/close")
-	public ResponseEntity <String> closeShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/close/{courierid}")
+	public ResponseEntity <String> closeShipmentAction(@PathVariable("courierid") int courierid) throws NotFoundException {
 		
 		boolean flag = shipmentService.closeShipmentTransaction(courierid);
 		if(flag) {
@@ -63,8 +63,8 @@ public class ShipmentRestController {
 		
 	}
 	
-	@PatchMapping("/{courierid}/reject")
-	public ResponseEntity <String> rejectShipmentAction(@PathVariable("courierid") int courierid) throws CourierNotFoundException {
+	@PatchMapping("/reject/{courierid}")
+	public ResponseEntity <String> rejectShipmentAction(@PathVariable("courierid") int courierid) throws NotFoundException {
 		
 		boolean flag = shipmentService.rejectShipmentTransaction(courierid);
 		if(flag) {

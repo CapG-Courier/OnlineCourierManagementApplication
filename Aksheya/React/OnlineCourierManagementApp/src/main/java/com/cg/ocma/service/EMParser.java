@@ -202,6 +202,7 @@ public class EMParser {
 			new OfficeStaffMembersModel(staff.getEmpid(),
 					staff.getName(),
 					staff.getRole().toString(),
+					staff.getPassword(),
 					staff.getOffice());
 	}
 	

@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.ocma.exception.DuplicateAddressFoundException;
-import com.cg.ocma.exception.DuplicateOfficeOutletFoundException;
+import com.cg.ocma.exception.DuplicateFoundException;
+import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.exception.OutletClosedException;
-import com.cg.ocma.exception.OutletNotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.CourierOfficeOutletModel;
 import com.cg.ocma.repository.AddressRepo;
@@ -42,43 +41,44 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 
 	@Transactional
 	@Override
-	public int addNewOffice(CourierOfficeOutletModel officeoutlet) throws DuplicateOfficeOutletFoundException{
+	public boolean addNewOffice(CourierOfficeOutletModel officeoutlet) {
+		
+		boolean flag = false;
 		
 		if(officeoutlet != null) {
-			if(officeRepo.existsById(officeoutlet.getOfficeid())) {
-				
-				throw new DuplicateOfficeOutletFoundException("Office Outlet with id " + officeoutlet.getOfficeid() + " already exists!");
-			} else {
-				
-				parser.parse(officeRepo.save(parser.parse(officeoutlet)));
-			}
+			
+			parser.parse(officeRepo.save(parser.parse(officeoutlet)));
+			flag = true;
 		} 
-		return officeoutlet.getOfficeid();
+		return flag;
 		
 	}
 	
 	@Transactional
 	@Override
-	public int registerOfficeAddress(AddressModel address) throws DuplicateAddressFoundException{
+	public boolean registerOfficeAddress(AddressModel address) throws DuplicateFoundException{
+		
+		boolean flag = false;
 		if(address != null) {
-			if(addressRepo.existsById(address.getAddressid())) {
+			if(addressRepo.existsByHouseNo(address.getHouseNo())) {
 				
-				throw new DuplicateAddressFoundException("Address with id " + address.getAddressid() + " already exists!");
+				throw new DuplicateFoundException("Address with the same house number " + address.getHouseNo() + " already exists!");
 			} else {
 				
 				parser.parseOffice(addressRepo.save(parser.parseOffice(address)));
+				flag = true;
 			}
 		}
-		return address.getAddressid();
+		return flag;
 	}
 
 	@Transactional
 	@Override
-	public boolean removeNewOffice(int officeid) throws OutletNotFoundException {
+	public boolean removeNewOffice(int officeid) throws NotFoundException {
 		
 		boolean flag = false;
 		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office Outlet with id " + officeid + " doesn't exist!");	
+			throw new NotFoundException("Office Outlet with id " + officeid + " doesn't exist!");	
 		} else {
 			officeRepo.deleteById(officeid);
 			flag = true;
@@ -88,21 +88,21 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 	}
 
 	@Override
-	public CourierOfficeOutletModel getOfficeInfo(int officeid) throws OutletNotFoundException {
+	public CourierOfficeOutletModel getOfficeInfo(int officeid) throws NotFoundException {
 		
 		if(officeRepo.existsById(officeid) == false) {
-			throw new OutletNotFoundException("Office with id " + officeid + " doesn't exist!");
+			throw new NotFoundException("Office with id " + officeid + " doesn't exist!");
 		} else {
 			return parser.parse(officeRepo.findById(officeid).orElse(null));
 		}
 	}
 
 	@Override
-	public List<CourierOfficeOutletModel> getAllOfficesData() throws OutletNotFoundException{
+	public List<CourierOfficeOutletModel> getAllOfficesData() throws NotFoundException{
 		
 		if(officeRepo.count() == 0) {
 			
-			throw new OutletNotFoundException("No Offices exist!");
+			throw new NotFoundException("No Offices exist!");
 			
 		} else {
 			
@@ -141,9 +141,8 @@ public class OfficeOutletServiceImpl implements IOfficeOutletService {
 		} else {
 			
 			CourierOfficeOutletModel office = parser.parse(officeRepo.findById(officeid).get());
-			LocalTime open = LocalTime.parse(office.getOpeningTime());
 			LocalTime close = LocalTime.parse(office.getClosingTime());
-			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
+			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now()))) {
 				
 				return true;
 			} else {

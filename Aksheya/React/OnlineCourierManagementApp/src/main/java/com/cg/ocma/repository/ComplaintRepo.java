@@ -7,5 +7,7 @@ import com.cg.ocma.entities.ComplaintEntity;
 
 @Repository
 public interface ComplaintRepo extends JpaRepository <ComplaintEntity,Integer>{
+	
+	public boolean existsByConsignmentNo(int consignmentno);
 
 }

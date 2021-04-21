@@ -40,11 +40,11 @@ public class BankAccountEntity {
 	public void setAccountno(long accountno) {
 		this.accountno = accountno;
 	}
-	public String getAccountHolderNmae() {
+	public String getAccountHolderName() {
 		return accountHolderName;
 	}
-	public void setAccountHolderNmae(String accountHolderNmae) {
-		this.accountHolderName = accountHolderNmae;
+	public void setAccountHolderNmae(String accountHolderName) {
+		this.accountHolderName = accountHolderName;
 	}
 	public String getAccountType() {
 		return accountType;
