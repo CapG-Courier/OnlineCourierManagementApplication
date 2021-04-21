@@ -1,5 +1,7 @@
 package com.cg.ocma.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +67,9 @@ public class ShipmentServiceImpl implements IShipmentService {
 			
 		} else{
 			
-
+			
 			(courierRepo.findById(courierid).orElse(null)).setStatus(CourierStatus.DELIVERED);
+			(courierRepo.findById(courierid).orElse(null)).setDeliveredDate(LocalDate.now());
 			parser.parse(courierRepo.save(courierRepo.findById(courierid).orElse(null)));
 			return true;
 			

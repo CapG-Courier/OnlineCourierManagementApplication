@@ -67,17 +67,9 @@ public class CustomerRestController {
 			throw new DuplicateFoundException(GlobalExceptionHandler.messageFrom(result));
 		} else {
 			
-			boolean flag = customerService.initiateProcess(courier);
+			int consignmentno = customerService.initiateProcess(courier);
 			
-			if(flag) {
-				
-				return new ResponseEntity <> ("The courier has been successfully registered and initiated!", HttpStatus.CREATED);
-				
-			}else {
-				
-				return new ResponseEntity <> ("Unfortunately the courier couldn't be registered", HttpStatus.BAD_REQUEST);
-				
-			}
+			return new ResponseEntity <> ("The courier has been successfully registered with consignment number " + consignmentno + " for your reference.", HttpStatus.CREATED);
 		}
 		
 	}

@@ -11,7 +11,7 @@ public interface ICustomerService {
 	public boolean loginCustomer(int customerId, String password);
 	public boolean register(CustomerModel customer) throws DuplicateFoundException;
 	public CustomerModel getCustomer(int customerid) throws NotFoundException;
-	public boolean initiateProcess(CourierModel courier);
+	public int initiateProcess(CourierModel courier);
 	public boolean registerAddress(AddressModel address) throws DuplicateFoundException;
 	public String checkOnlineTrackingStatus(int consignmentno) throws NotFoundException; //CourierRepo
 	public boolean registerComplaint(ComplaintModel complaint) throws DuplicateFoundException;  //ComplaintRepo

@@ -121,20 +121,17 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Transactional
 	@Override
-	public boolean initiateProcess(CourierModel courier) {
-		
-		boolean flag = false;
-		
+	public int initiateProcess(CourierModel courier) {
+			
 		if(courier != null) {
 			
 			int consignmentno = (int) Math.floor(Math.random()*(10000 - 5000 + 1) + 5000);
 			courier.setConsignmentNo(consignmentno);
 			courier.setStatus("INITIATED");
 			parser.parse(courierRepo.save(parser.parse(courier)));
-			flag = true;
 		} 
 		
-		return flag;
+		return courier.getConsignmentNo();
 	}
 
 	@Override
