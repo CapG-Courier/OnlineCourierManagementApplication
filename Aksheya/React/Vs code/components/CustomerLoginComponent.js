@@ -6,7 +6,6 @@ import {Redirect} from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as homeActions from '../store/actions/HomeActions';
-import CustomerComponent from './CustomerComponent';
  
 class CustomerLoginComponent extends React.Component {
  
@@ -72,7 +71,8 @@ class CustomerLoginComponent extends React.Component {
  
         if(isAuthCustomer) {    
             
-            return <Redirect to="/customer/Home" />;
+            let cid = parseInt(this.state.customerid)
+            return <Redirect to={`/customer/customerid=${cid}/Home`} />;
         }        
         
         return(
@@ -90,7 +90,7 @@ class CustomerLoginComponent extends React.Component {
             </p>
             <p>
 
-                <input type="text" placeholder="Password" name="password" id="password" value={this.state.password} onChange={this.handleInputChange}></input>
+                <input type="password" placeholder="Password" name="password" id="password" value={this.state.password} onChange={this.handleInputChange}></input>
                 <div className="text-danger">{this.state.errors.password}</div>
 
              </p>

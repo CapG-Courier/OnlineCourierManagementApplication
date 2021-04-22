@@ -16,6 +16,9 @@ export default class ManagerComponent extends React.Component{
                     <Link to={`/addStaff`}>Add New Staff</Link>
                 </p>
                 <p>
+                    <Link to={`/addOffice`}>Add New Office</Link>
+                </p>
+                <p>
                     <Link to={`/deleteStaff`}>Delete Staff</Link>
                 </p>
                 <p>

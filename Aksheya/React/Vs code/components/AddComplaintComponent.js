@@ -5,20 +5,22 @@ import { Redirect } from 'react-router-dom';
 import * as customerActions from '../store/actions/CustomerActions';
 
 
-class AddCourierComponent extends Component {
+class AddComplaintComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
 
-            initiatedDate: '',
+            consignmentNo: 0,
+            detailDescription:'',
+            shortDescription:'',
             customer: {
                 customerid: 0,
             }
 
         }
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createCourier = this.createCourier.bind(this);
+        this.createComplaint = this.createComplaint.bind(this);
     }
 
     handleInputChange(event) {
@@ -27,18 +29,20 @@ class AddCourierComponent extends Component {
         });
     }
 
-    createCourier(e) {
+    createComplaint(e) {
         e.preventDefault();
 
         let payload = {
 
-            initiatedDate: this.state.initiatedDate,
+            consignmentNo: this.state.consignmentNo,
+            detailDescription: this.state.detailDescription,
+            shortDescription: this.state.shortDescription,
             customerid: this.state.customerid
 
         }
 
         const { customerActions } = this.props;
-        customerActions.createCourier(payload);
+        customerActions.createComplaint(payload);
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -104,7 +108,9 @@ class AddCourierComponent extends Component {
 
     clear = () => {
         this.setState = ({
-            initiatedDate: '',
+            consignmentNo:0,
+            detailDescription: '',
+            shortDescription: '',
             customer: {
                 customerid: 0
             }
@@ -113,7 +119,7 @@ class AddCourierComponent extends Component {
 
     render() {
 
-        if(this.props.courier !== undefined) {
+        if(this.props.complaint !== undefined) {
 
             let cid = parseInt(this.state.customerid)
             return <Redirect to={`/customer/customerid=${cid}/Home`} />;
@@ -121,28 +127,30 @@ class AddCourierComponent extends Component {
 
         return (
             <div>
-                <h3>Register Courier</h3>
-                <form onSubmit={this.createCourier}>
+                <h3>Register Complaint</h3>
+                <form onSubmit={this.createComplaint}>
                     <table>
                         <tbody>
-                            <tr>
-                                <td><label>Initiated Date:</label></td>
-                                <td><input type="date" placeholder="Initiated Date" name="initiatedDate" id="initiatedDate" value={this.state.initiatedDate} onChange={this.handleInputChange}></input></td>
+                        <tr>
+                                <td><label>Customer ID:</label></td>
+                                <td><input type="number" placeholder="CustomerID" name="customerid" id="customerid" value={this.state.customerid} onChange={this.handleInputChange}></input></td>
                             </tr>
                             <tr>
-                                <td><label>Customer Id:</label></td>
-                                <td><input type="number" placeholder="CustomerId" name="customerid" id="customerid" value={this.state.customerid} onChange={this.handleInputChange}></input></td>
+                                <td><label>Consignment No:</label></td>
+                                <td><input type="number" placeholder="ConsignmentNo" name="consignmentNo" id="consignmentNo" value={this.state.consignmentNo} onChange={this.handleInputChange}></input></td>
+                            </tr>
+                            <tr>
+                                <td><label>Detail Description:</label></td>
+                                <td><textarea  name="detailDescription" id="detailDescription" value={this.state.detailDescription} onChange={this.handleInputChange}></textarea></td>
+                            </tr>
+                            <tr>
+                                <td><label>Short Description:</label></td>
+                                <td><textarea name="shortDescription" id="shortDescription" value={this.state.shortDescription} onChange={this.handleInputChange}></textarea></td>
                             </tr>
                         </tbody>
                     </table>
                     <input type="submit" value="Submit"></input>
                 </form>
-{/* 
-                {
-                    this.props.courier !== undefined &&
-                    <Redirect to="/customer/Home" />
-                } */}
-
             </div >
         );
     }
@@ -150,7 +158,7 @@ class AddCourierComponent extends Component {
 
 function mapStateToProps(state) {
 
-    return { courier: state.customerReducer.courier }
+    return { complaint: state.customerReducer.complaint }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -159,4 +167,4 @@ function mapDispatchToProps(dispatch) {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCourierComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AddComplaintComponent);

@@ -71,7 +71,8 @@ class ManagerLoginComponent extends React.Component {
  
         if(isAuthManager) {    
 
-            return <Redirect to="/manager/Home" />;
+            let eid = parseInt(this.state.empId)
+            return <Redirect to={`/manager/managerid=${eid}/Home`} />;
         }        
         
         return(
