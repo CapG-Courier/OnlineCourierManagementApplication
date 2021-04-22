@@ -14,6 +14,10 @@ import AddComplaintComponent from './AddComplaintComponent';
 import CustomerCouriersComponent from './CustomerCouriersComponent';
 import AddManagerComponent from './AddManagerComponent';
 import CustomerComplaintsComponent from './CustomerComplaintsComponent';
+import AddStaffComponent from './AddStaffComponent';
+import AddOfficeComponent from './AddOfficeComponent';
+import ManagerAllStaffComponent from './ManagerAllStaffComponent';
+import ManagerStaffComponent from './ManagerStaffComponent';
  
 const Routes = () => (
     <BrowserRouter>
@@ -30,7 +34,12 @@ const Routes = () => (
             <Route path={`/getComplaints/:customerid`} component={CustomerComplaintsComponent}/>
             <Route path={`/checkStatus`} component={CheckStatusComponent}/>
             <Route path={`/registerComplaint`} component={AddComplaintComponent}/>
-            <Route path={`/addManager`} component={AddManagerComponent}/>
+            <Route path={`/addManager/:managerid`} component={AddManagerComponent}/>
+            <Route path={`/addStaff/:managerid`} component={AddStaffComponent}/>
+            <Route path={`/addOffice/:managerid`} component={AddOfficeComponent}/>
+            <Route path={`/getAllStaff/:managerid`} component={ManagerAllStaffComponent}/>
+            <Route path={`/getAllStaff/view/:empid`} component={ManagerStaffComponent}/>
+            
             
         </Switch>
     </BrowserRouter>

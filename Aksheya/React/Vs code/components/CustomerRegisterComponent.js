@@ -188,7 +188,7 @@ class CustomerRegisterComponent extends Component {
 
                 {
                     this.props.customer !== undefined &&
-                        <Redirect to="/customer/Home" />
+                        <Redirect to="/home" />
                 }
                    
             </div > 

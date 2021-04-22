@@ -3,7 +3,9 @@ const initialState = {
     manager: undefined,
     staff: undefined,
     office: undefined,
-    status: undefined
+    status: undefined,
+    staffs: [],
+    employee: {}
 }
 
 export default function ManagerReducer(state = initialState, action) {
@@ -32,6 +34,18 @@ export default function ManagerReducer(state = initialState, action) {
             return {
                 ...state,
                 status: action.status 
+            };
+
+        case 'FETCH_ALL_STAFF_SUCCESS':
+            return {
+                ...state,
+                staffs: action.staffs
+            };
+
+         case 'FETCH_STAFF_SUCCESS':
+            return {
+                ...state,
+                employee: action.employee
             };
 
         default:
