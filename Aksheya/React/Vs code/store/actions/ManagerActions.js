@@ -24,6 +24,13 @@ export const createOfficeSuccess = (office) => {
     }
 };
 
+export const createAddressSuccess = (address) => {
+    return {
+        type: 'CREATE_ADDRESS_SUCCESS',
+        payload: address
+    }
+};
+
 export const checkStatusSuccess = (status) => {
     
     return {
@@ -72,6 +79,14 @@ export const fetchAllCouriersSuccess = (couriers) => {
     }
 };
 
+export const fetchAllOfficeSuccess = (offices) => {
+    
+    return {
+        type: 'FETCH_ALL_OFFICE_SUCCESS',
+        offices
+    }
+};
+
 export const deleteSuccess = (deleteMessage) => {
     return {
         type: 'DELETE_SUCCESS',
@@ -82,6 +97,19 @@ export const deleteSuccess = (deleteMessage) => {
 export const deleteFailure = () => {
     return {
         type: 'DELETE_FAILURE'
+    }
+};
+
+export const deleteOfficeSuccess = (deleteMessage) => {
+    return {
+        type: 'DELETE_OFFICE_SUCCESS',
+        payload: deleteMessage
+    }
+};
+ 
+export const deleteOfficeFailure = () => {
+    return {
+        type: 'DELETE_OFFICE_FAILURE'
     }
 };
 
@@ -144,6 +172,32 @@ export const createOffice = (payload, managerid) => {
         return Axios.post(apiUrl + `/managerid=` + managerid + `/addOffice`, data)
             .then(response => {
                 dispatch(createOfficeSuccess(response.data))
+            })
+            .catch(error => {
+                throw (error);
+            });
+    };
+};
+
+export const createAddress = (payload, managerid) => {
+
+    Number(managerid)
+
+    let data = {
+        city: payload.city,
+        country: payload.country,
+        houseNo: payload.houseNo,
+        state: payload.state,
+        street: payload.street,
+        zip: Number(payload.zip),
+        office:{
+            officeid: Number(payload.officeid),
+        }
+    }
+    return (dispatch) => {
+        return Axios.post(apiUrl + `/managerid=` + managerid + `/registerAddress`, data)
+            .then(response => {
+                dispatch(createAddressSuccess(response.data))
             })
             .catch(error => {
                 throw (error);
@@ -243,6 +297,24 @@ export const fetchAllCouriers = (managerid) => {
     };
 };
 
+export const fetchAllOffice = (managerid) => {
+
+    Number(managerid);
+    
+    return dispatch => {
+        
+        return Axios.get(apiUrl + `/managerid=` + managerid + `/getAllOffice`)
+            .then(resp => {
+                    
+                dispatch(fetchAllOfficeSuccess(resp.data))
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            });
+    };
+};
+
 export const doDelete = (payload) => {
     let data = {
         empid: Number(payload.empid),
@@ -255,6 +327,23 @@ export const doDelete = (payload) => {
             })
             .catch(error => {
                 dispatch(deleteFailure());
+            });
+    };
+    
+};
+
+export const doDeleteOffice = (payload) => {
+    let data = {
+        officeid: Number(payload.officeid),
+        managerid: Number(payload.managerid)
+    }   
+    return (dispatch) => {
+        return Axios.delete(apiUrl + `/managerid=${data.managerid}/deleteOffice/${data.officeid}`, data)
+            .then(response => {
+                dispatch(deleteOfficeSuccess(response.data))
+            })
+            .catch(error => {
+                dispatch(deleteOfficeFailure());
             });
     };
     

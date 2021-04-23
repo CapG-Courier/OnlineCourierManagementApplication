@@ -43,7 +43,7 @@ class CustomerProfileComponent extends Component {
                                             <td>{customer.lastname}</td>
                                             <td>{customer.mobileno}</td>
                                             <td>{customer.acct.accountno}</td>
-                                            <td><Link to={`/profile/registerAddress/${customer.customerid}}`}>View</Link></td>
+                                            <td><Link to={`/registerAddress/${customer.customerid}`}>Update</Link></td>
                                         </tr>
                                 }
                             </tbody>

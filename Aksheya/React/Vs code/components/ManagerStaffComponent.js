@@ -37,9 +37,9 @@ class ManagerStaffComponent extends Component {
                                             <td>{employee.empid}</td>
                                             <td>{employee.name}</td>
                                             <td>{employee.role}</td>
-                                            <td>{employee.office.officeid}</td>
-                                            <td>{employee.office.openingTime}</td>
-                                            <td>{employee.office.closingTime}</td>
+                                            <td>{employee.officeid}</td>
+                                            <td>{employee.openingTime}</td>
+                                            <td>{employee.closingTime}</td>
                                         </tr>
                                 }
                             </tbody>

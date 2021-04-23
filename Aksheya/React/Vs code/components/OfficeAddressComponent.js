@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import * as customerActions from '../store/actions/CustomerActions';
+import * as managerActions from '../store/actions/ManagerActions';
 
 
-class CustomerAddressComponent extends Component {
+class OfficeAddressComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -17,8 +17,8 @@ class CustomerAddressComponent extends Component {
             state: '',
             street: '',
             zip: 0,
-            customer: {
-                customerid: 0
+            office: {
+                officeid: 0
             }
 
         }
@@ -43,12 +43,12 @@ class CustomerAddressComponent extends Component {
             state: this.state.state,
             street: this.state.street,
             zip: this.state.zip,
-            customerid: this.state.customerid
+            officeid: this.state.officeid
 
         }
 
-        const { customerActions, match } = this.props;
-        customerActions.createAddress(payload);
+        const { managerActions, match } = this.props;
+        managerActions.createAddress(payload, match.params.managerid);
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -120,8 +120,8 @@ class CustomerAddressComponent extends Component {
             state: '',
             street: '',
             zip: 0,
-            customer: {
-                customerid: 0
+            office: {
+                officeid: 0
             }
         });
     }
@@ -131,7 +131,7 @@ class CustomerAddressComponent extends Component {
         if(this.props.address !== undefined) {    
             
             const { match } = this.props;
-            return <Redirect to={`/customer/customerid=${Number(match.params.customerid)}/Home`} />;
+            return <Redirect to={`/manager/managerid=${match.params.managerid}/Home`} />;
         }  
 
         return (
@@ -165,8 +165,8 @@ class CustomerAddressComponent extends Component {
                                 <td><input type="number" placeholder="ZipCode" name="zip" id="zip" value={this.state.zip} onChange={this.handleInputChange}></input></td>
                             </tr>
                             <tr>
-                                <td><label>Customer Id:</label></td>
-                                <td><input type="number" placeholder="CustomerId" name="customerid" id="customerid" value={this.state.customerid} onChange={this.handleInputChange}></input></td>
+                                <td><label>Office Id:</label></td>
+                                <td><input type="number" placeholder="OfficeId" name="officeid" id="officeid" value={this.state.officeid} onChange={this.handleInputChange}></input></td>
                             </tr>
                         </tbody>
                     </table>
@@ -179,13 +179,13 @@ class CustomerAddressComponent extends Component {
 
 function mapStateToProps(state) {
 
-    return { address: state.customerReducer.address }
+    return { address: state.managerReducer.address }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        customerActions: bindActionCreators(customerActions, dispatch)
+        managerActions: bindActionCreators(managerActions, dispatch)
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerAddressComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(OfficeAddressComponent);

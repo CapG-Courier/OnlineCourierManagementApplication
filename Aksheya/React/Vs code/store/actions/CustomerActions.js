@@ -92,7 +92,7 @@ export const createAddress = (payload) => {
         }
     }
     return (dispatch) => {
-        return Axios.post(apiUrl + `/customerid=${data.customer.customerid}/profile/registerAddress`, data)
+        return Axios.post(apiUrl + `/customerid=${data.customer.customerid}/profile/addAddress`, data)
             .then(response => {
                 dispatch(createAddressSuccess(response.data))
             })
