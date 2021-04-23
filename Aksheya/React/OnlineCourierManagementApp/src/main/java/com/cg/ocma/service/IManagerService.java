@@ -7,6 +7,7 @@ import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
+import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 
 public interface IManagerService {
@@ -22,6 +23,7 @@ public interface IManagerService {
 	
 	public String getCourierStatus(int courierid) throws NotFoundException; //CourierRepo
 	public AddressModel findCustomerAddress(int customerid) throws NotFoundException;
+	public CustomerModel findCustomer(int customerid) throws NotFoundException;
 	
 	public ComplaintModel getRegistedComplaint(int complaintid) throws DuplicateFoundException;  //ComplaintRepo
 	public List<ComplaintModel> getAllComplaints() throws NotFoundException;

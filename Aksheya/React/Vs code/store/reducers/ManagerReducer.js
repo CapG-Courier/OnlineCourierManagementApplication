@@ -6,7 +6,8 @@ const initialState = {
     status: undefined,
     staffs: [],
     employee: {},
-    complaints: []
+    complaints: [],
+    customer: {}
 }
 
 export default function ManagerReducer(state = initialState, action) {
@@ -22,19 +23,19 @@ export default function ManagerReducer(state = initialState, action) {
         case 'CREATE_STAFF_SUCCESS':
             return {
                 ...state,
-                staff: action.payload 
+                staff: action.payload
             };
 
         case 'CREATE_OFFICE_SUCCESS':
             return {
                 ...state,
-                office: action.payload 
+                office: action.payload
             };
 
         case 'CHECK_STATUS_SUCCESS':
             return {
                 ...state,
-                status: action.status 
+                status: action.status
             };
 
         case 'FETCH_ALL_STAFF_SUCCESS':
@@ -43,13 +44,19 @@ export default function ManagerReducer(state = initialState, action) {
                 staffs: action.staffs
             };
 
-         case 'FETCH_STAFF_SUCCESS':
+        case 'FETCH_STAFF_SUCCESS':
             return {
                 ...state,
                 employee: action.employee
             };
 
-         case 'FETCH_ALL_COMPLAINTS_SUCCESS':
+        case 'FETCH_CUSTOMER_SUCCESS':
+            return {
+                ...state,
+                customer: action.customer
+            };
+
+        case 'FETCH_ALL_COMPLAINTS_SUCCESS':
             return {
                 ...state,
                 complaints: action.complaints

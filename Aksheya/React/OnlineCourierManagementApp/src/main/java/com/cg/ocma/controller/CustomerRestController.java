@@ -1,5 +1,7 @@
 package com.cg.ocma.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +105,18 @@ public class CustomerRestController {
 			
 		}
 		
+	}
+	
+	@GetMapping("/getCouriers")
+	public ResponseEntity <List<CourierModel>> getCouriersAction(@PathVariable("customerid") int customerid) throws NotFoundException {
+		
+		return new ResponseEntity <> (customerService.getCouriers(customerid), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getComplaints")
+	public ResponseEntity <List<ComplaintModel>> getComplaintsAction(@PathVariable("customerid") int customerid) throws NotFoundException {
+		
+		return new ResponseEntity <> (customerService.getComplaints(customerid), HttpStatus.OK);
 	}
 	
 }

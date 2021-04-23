@@ -22,6 +22,7 @@ import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
+import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.service.IManagerService;
 
@@ -121,26 +122,33 @@ public class ManagerRestController {
 	@GetMapping("complaintid={complaintid}")
 	public ResponseEntity <ComplaintModel> getComplaintAction(@PathVariable("complaintid") int complaintid) throws DuplicateFoundException {
 		
-		return new ResponseEntity <> (managerService.getRegistedComplaint(complaintid), HttpStatus.FOUND);
+		return new ResponseEntity <> (managerService.getRegistedComplaint(complaintid), HttpStatus.OK);
 
 	}
 	
 	@GetMapping("/getAllComplaints")
 	public ResponseEntity <List<ComplaintModel>> getAllComplaintAction() throws NotFoundException {
 		
-		return new ResponseEntity <> (managerService.getAllComplaints(), HttpStatus.FOUND);
+		return new ResponseEntity <> (managerService.getAllComplaints(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/getAllCouriers")
 	public ResponseEntity <List<CourierModel>> getAllCourierAction() throws NotFoundException {
 		
-		return new ResponseEntity <> (managerService.getAllCouriers(), HttpStatus.FOUND);
+		return new ResponseEntity <> (managerService.getAllCouriers(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/customerid={customerid}")
 	public ResponseEntity <AddressModel> getAddressAction(@PathVariable("customerid") int customerid) throws NotFoundException{
 		
-		return new ResponseEntity <> (managerService.findCustomerAddress(customerid), HttpStatus.FOUND);
+		return new ResponseEntity <> (managerService.findCustomerAddress(customerid), HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/getCustomer/customerid={customerid}")
+	public ResponseEntity <CustomerModel> getCustomerAction(@PathVariable("customerid") int customerid) throws NotFoundException{
+		
+		return new ResponseEntity <> (managerService.findCustomer(customerid), HttpStatus.OK);
 		
 	}
 	

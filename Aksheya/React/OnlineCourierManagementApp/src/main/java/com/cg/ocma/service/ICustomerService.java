@@ -1,4 +1,6 @@
 package com.cg.ocma.service;
+import java.util.List;
+
 import com.cg.ocma.exception.DuplicateFoundException;
 import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
@@ -15,4 +17,6 @@ public interface ICustomerService {
 	public boolean registerAddress(AddressModel address) throws DuplicateFoundException;
 	public String checkOnlineTrackingStatus(int consignmentno) throws NotFoundException; //CourierRepo
 	public boolean registerComplaint(ComplaintModel complaint) throws DuplicateFoundException;  //ComplaintRepo
+	public List<CourierModel> getCouriers(int customerid) throws NotFoundException;
+	public List<ComplaintModel> getComplaints(int customerid) throws NotFoundException;
 }

@@ -13,10 +13,12 @@ import com.cg.ocma.exception.NotFoundException;
 import com.cg.ocma.model.AddressModel;
 import com.cg.ocma.model.ComplaintModel;
 import com.cg.ocma.model.CourierModel;
+import com.cg.ocma.model.CustomerModel;
 import com.cg.ocma.model.OfficeStaffMembersModel;
 import com.cg.ocma.repository.AddressRepo;
 import com.cg.ocma.repository.ComplaintRepo;
 import com.cg.ocma.repository.CourierRepo;
+import com.cg.ocma.repository.CustomerRepo;
 import com.cg.ocma.repository.ManagerRepo;
 import com.cg.ocma.repository.OfficeOutletRepo;
 
@@ -37,6 +39,9 @@ public class ManagerServiceImpl implements IManagerService {
 	
 	@Autowired
 	private AddressRepo addressRepo;
+	
+	@Autowired
+	private CustomerRepo customerRepo;
 	
 	@Autowired
 	private EMParser parser;
@@ -87,6 +92,7 @@ public class ManagerServiceImpl implements IManagerService {
 		boolean flag = false;
 		if(staff != null && staff.getPassword() != null) {
 			
+			staff.setRole("MANAGER");
 			parser.parseAdmin(managerRepo.save(parser.parseAdmin(staff)));
 			flag = true;
 		} 
@@ -181,7 +187,7 @@ public class ManagerServiceImpl implements IManagerService {
 	@Override
 	public AddressModel findCustomerAddress(int customerid) throws NotFoundException {
 		
-		if(addressRepo.findByCustomerId(customerid) != null) {
+		if(addressRepo.findByCustomerId(customerid) == null) {
 			
 			throw new NotFoundException("The address for customer with id: " + customerid + " doesn't exist!");
 			
@@ -202,6 +208,20 @@ public class ManagerServiceImpl implements IManagerService {
 		} else {
 			
 			return courierRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
+		}
+	}
+
+	@Override
+	public CustomerModel findCustomer(int customerid) throws NotFoundException {
+		
+		if(customerRepo.existsById(customerid) == false) {
+			
+			throw new NotFoundException("The customer with id: " + customerid + " doesn't exist!");
+			
+		}else {
+			
+			return parser.parse(customerRepo.findById(customerid).orElse(null));
+			
 		}
 	}
 

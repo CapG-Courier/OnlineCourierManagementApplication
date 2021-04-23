@@ -14,7 +14,7 @@ public class OfficeStaffMembersModel {
 	@NotNull(message="Employee name cannot be omitted")
 	private String name;
 	
-	@NotEmpty(message="Employee role cannot be empty")
+//	@NotEmpty(message="Employee role cannot be empty")
 	@NotNull(message="Employee role cannot be omitted")
 	private String role;
 	

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as managerActions from '../store/actions/ManagerActions';
+import { Link } from 'react-router-dom';
  
 class ManagerAllComplaintsComponent extends Component {
  
@@ -12,6 +13,10 @@ class ManagerAllComplaintsComponent extends Component {
         
     }
     render() {
+
+        const { match } = this.props;
+        let managerid = Number(match.params.managerid);  
+        
         return (
             <div class="container">
             <h2>Complaint Details</h2>
@@ -37,6 +42,7 @@ class ManagerAllComplaintsComponent extends Component {
                                         <td>{complaint.shortDescription}</td>
                                         <td>{complaint.detailDescription}</td>
                                         <td>{complaint.customer.customerid}</td>
+                                        <td><Link to={`/getCustomer/${managerid}/view/${Number(complaint.customer.customerid)}`}>View</Link></td>
                                     </tr>)
                             }
                         </tbody>

@@ -2,5 +2,5 @@ package com.cg.ocma.entities;
 
 public enum RoleEnum {
 	
-	MANAGER, STAFF
+	MANAGER, STAFF, ACCOUNTING, SALES, MARKETING
 }

@@ -20,8 +20,6 @@ public class ComplaintEntity {
 	private int complaintId;
 	
 	@Column(name = "consignmentno")
-	@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 5000, allocationSize = 123)
-	@GeneratedValue(generator = "mySeqGen")
 	private int consignmentNo;
 	
 	@Column(name = "shortdesc")

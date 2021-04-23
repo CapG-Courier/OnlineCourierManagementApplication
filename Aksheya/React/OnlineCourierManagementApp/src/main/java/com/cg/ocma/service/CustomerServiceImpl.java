@@ -1,5 +1,8 @@
 package com.cg.ocma.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -161,6 +164,32 @@ public class CustomerServiceImpl implements ICustomerService {
 		} 
 		return flag;
 		
+	}
+
+	@Override
+	public List<CourierModel> getCouriers(int customerid) throws NotFoundException {
+		
+		if(courierRepo.findAllByCustomerid(customerid) == null) {
+			
+			throw new NotFoundException("No couriers to show for customer with customer Id " + customerid);
+		}else {
+			
+			return courierRepo.findAllByCustomerid(customerid).stream().map(parser::parse).collect(Collectors.toList());
+			
+		}
+	}
+
+	@Override
+	public List<ComplaintModel> getComplaints(int customerid) throws NotFoundException {
+		
+		if(complaintRepo.findAllByCustomerid(customerid) == null) {
+			
+			throw new NotFoundException("No complaints to show for customer with customer Id " + customerid);
+		}else {
+			
+			return complaintRepo.findAllByCustomerid(customerid).stream().map(parser::parse).collect(Collectors.toList());
+			
+		}
 	}
 
 }

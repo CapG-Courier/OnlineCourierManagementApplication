@@ -48,6 +48,14 @@ export const fetchStaffSuccess = (employee) => {
     }
 };
 
+export const fetchCustomerSuccess = (customer) => {
+    
+    return {
+        type: 'FETCH_CUSTOMER_SUCCESS',
+        customer
+    }
+};
+
 export const fetchAllComplaintsSuccess = (complaints) => {
     
     return {
@@ -151,6 +159,25 @@ export const fetchStaff = (managerid, empid) => {
             .then(resp => {
             
                 dispatch(fetchStaffSuccess(resp.data))
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            });
+    };
+};
+
+export const fetchCustomer = (managerid, customerid) => {
+
+    Number(managerid)
+    Number(customerid);
+
+    return dispatch => {
+
+        return Axios.get(apiUrl + `/managerid=` + managerid + `/getCustomer/customerid=` + customerid)
+            .then(resp => {
+            
+                dispatch(fetchCustomerSuccess(resp.data))
             })
             .catch(error => {
                 console.log(error);
