@@ -15,6 +15,13 @@ export const fetchCustomerSuccess = (customer) => {
     }
 };
 
+export const createAddressSuccess = (address) => {
+    return {
+        type: 'CREATE_ADDRESS_SUCCESS',
+        payload: address
+    }
+};
+
 export const createCourierSuccess = (courier) => {
     return {
         type: 'CREATE_COURIER_SUCCESS',
@@ -67,6 +74,29 @@ export const fetchCustomer = (customerid) => {
             })
             .catch(error => {
                 console.log(error);
+                throw (error);
+            });
+    };
+};
+
+export const createAddress = (payload) => {
+    let data = {
+        city: payload.city,
+        country: payload.country,
+        houseNo: payload.houseNo,
+        state: payload.state,
+        street: payload.street,
+        zip: Number(payload.zip),
+        customer:{
+            customerid: Number(payload.customerid),
+        }
+    }
+    return (dispatch) => {
+        return Axios.post(apiUrl + `/customerid=${data.customer.customerid}/profile/registerAddress`, data)
+            .then(response => {
+                dispatch(createAddressSuccess(response.data))
+            })
+            .catch(error => {
                 throw (error);
             });
     };

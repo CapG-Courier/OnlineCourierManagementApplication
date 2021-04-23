@@ -64,6 +64,27 @@ export const fetchAllComplaintsSuccess = (complaints) => {
     }
 };
 
+export const fetchAllCouriersSuccess = (couriers) => {
+    
+    return {
+        type: 'FETCH_ALL_COURIERS_SUCCESS',
+        couriers
+    }
+};
+
+export const deleteSuccess = (deleteMessage) => {
+    return {
+        type: 'DELETE_SUCCESS',
+        payload: deleteMessage
+    }
+};
+ 
+export const deleteFailure = () => {
+    return {
+        type: 'DELETE_FAILURE'
+    }
+};
+
 export const createManager = (payload, managerid) => {
 
     Number(managerid)
@@ -204,18 +225,37 @@ export const fetchAllComplaints = (managerid) => {
     };
 };
 
-// export const checkStatus = () => {
+export const fetchAllCouriers = (managerid) => {
 
-//     return dispatch => {
+    Number(managerid);
+    
+    return dispatch => {
+        
+        return Axios.get(apiUrl + `/managerid=` + managerid + `/getAllCouriers`)
+            .then(resp => {
+                    
+                dispatch(fetchAllCouriersSuccess(resp.data))
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            });
+    };
+};
 
-//         return Axios.get(apiUrl + '/customerid={customerid}/checkStatus/{consignmentno}')
-//             .then(resp => {
-            
-//                 dispatch(fetchCustomerSuccess(resp.data))
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//                 throw (error);
-//             });
-//     };
-// };
+export const doDelete = (payload) => {
+    let data = {
+        empid: Number(payload.empid),
+        managerid: Number(payload.managerid)
+    }   
+    return (dispatch) => {
+        return Axios.delete(apiUrl + `/managerid=${data.managerid}/deleteStaff/${data.empid}`, data)
+            .then(response => {
+                dispatch(deleteSuccess(response.data))
+            })
+            .catch(error => {
+                dispatch(deleteFailure());
+            });
+    };
+    
+};

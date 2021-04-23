@@ -4,9 +4,12 @@ const initialState = {
     staff: undefined,
     office: undefined,
     status: undefined,
+    deleteMessage: undefined,
+    isAuthDelete: undefined,
     staffs: [],
     employee: {},
     complaints: [],
+    couriers: [],
     customer: {}
 }
 
@@ -60,6 +63,24 @@ export default function ManagerReducer(state = initialState, action) {
             return {
                 ...state,
                 complaints: action.complaints
+            };
+
+        case 'FETCH_ALL_COURIERS_SUCCESS':
+            return {
+                ...state,
+                couriers: action.couriers
+            };
+
+        case 'DELETE_SUCCESS':
+            return {
+                ...state,
+                deleteMessage: action.payload,
+                isAuthDelete: true
+            };
+        case 'DELETE_FAILURE':
+            return {
+                ...state,
+                isAuthDelete: false
             };
 
         default:

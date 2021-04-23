@@ -19,8 +19,10 @@ import AddOfficeComponent from './AddOfficeComponent';
 import ManagerAllStaffComponent from './ManagerAllStaffComponent';
 import ManagerStaffComponent from './ManagerStaffComponent';
 import ManagerAllComplaintsComponent from './ManagerAllComplaintsComponent';
+import ManagerAllCouriersComponent from './ManagerAllCouriersComponent';
 import ManagerGetCustomerComponent from './ManagerGetCustomerComponent';
- 
+import ManagerDeleteStaffComponent from './ManagerDeleteStaffComponent';
+import CustomerAddressComponent from './CustomerAddressComponent';
 const Routes = () => (
     <BrowserRouter>
         <Switch>
@@ -42,7 +44,10 @@ const Routes = () => (
             <Route path={`/getAllStaff/:managerid`} component={ManagerAllStaffComponent}/>
             <Route path={`/getStaff/:managerid/view/:empid`} component={ManagerStaffComponent} exact/>
             <Route path={`/getAllComplaints/:managerid`} component={ManagerAllComplaintsComponent} />
+            <Route path={`/getAllCouriers/:managerid`} component={ManagerAllCouriersComponent} />
             <Route path={`/getCustomer/:managerid/view/:customerid`} component={ManagerGetCustomerComponent} />
+            <Route path={`/deleteStaff`} component={ManagerDeleteStaffComponent} />
+            <Route path={`/profile/registerAddress/:customerid}`} component={CustomerAddressComponent}/>
             
             
         </Switch>

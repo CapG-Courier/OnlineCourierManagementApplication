@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as customerActions from '../store/actions/CustomerActions';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
  
 class CustomerProfileComponent extends Component {
 
@@ -30,6 +31,7 @@ class CustomerProfileComponent extends Component {
                                     <th>Last Name</th>
                                     <th>Mobile No.</th>
                                     <th>Bank Account No.</th>
+                                    <th>Update Address</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +43,7 @@ class CustomerProfileComponent extends Component {
                                             <td>{customer.lastname}</td>
                                             <td>{customer.mobileno}</td>
                                             <td>{customer.acct.accountno}</td>
+                                            <td><Link to={`/profile/registerAddress/${customer.customerid}}`}>View</Link></td>
                                         </tr>
                                 }
                             </tbody>
@@ -49,19 +52,6 @@ class CustomerProfileComponent extends Component {
                         <h3>Loading....</h3>
                 }
             </div>
-            // <div>
-            //     {
-            //         customer !== undefined ?
-            //         <div>
-
-            //             <p>
-            //                 <h4>Customer Details:</h4>
-            //                 {customer.customerid} {customer.aadharno} {customer.firstname} {customer.lastname} {customer.mobileno} {customer.acct.accountno} 
-            //             </p>
-            //         </div>
-            //         : <h3>Loading....</h3>
-            //     }
-            // </div>
         );
     }
 }

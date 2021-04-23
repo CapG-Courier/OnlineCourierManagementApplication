@@ -26,16 +26,10 @@ export default function ManagerComponent () {
                 <Link to={`/getAllStaff/${managerid}`}>Get All Staff</Link>
             </p>
             <p>
-                <Link to={`/checkStatus`}>Check Status</Link>
-            </p>
-            <p>
-                <Link to={`/getComplaint`}>Get Complaint</Link>
-            </p>
-            <p>
                 <Link to={`/getAllComplaints/${managerid}`}>Get All Complaints</Link>
             </p>
             <p>
-                <Link to={`/getAllCouriers`}>Get All Couriers</Link>
+                <Link to={`/getAllCouriers/${managerid}`}>Get All Couriers</Link>
             </p>
         </div>
     )

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import * as managerActions from '../store/actions/ManagerActions';
 import { Link } from 'react-router-dom';
  
-class ManagerAllComplaintsComponent extends Component {
+class ManagerAllCouriersComponent extends Component {
  
     componentDidMount() {    
 
         const { managerActions, match } = this.props;
-        managerActions.fetchAllComplaints(match.params.managerid);  
+        managerActions.fetchAllCouriers(match.params.managerid);  
         
     }
     render() {
@@ -19,37 +19,39 @@ class ManagerAllComplaintsComponent extends Component {
         
         return (
             <div class="container">
-            <h2>Complaint Details</h2>
+            <h2>Courier Details</h2>
             {
-                 this.props.complaints !== undefined ?
+                 this.props.couriers !== undefined ?
 
                     <table class="table table-dark table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Complaint ID</th>
+                                <th>Courier ID</th>
                                 <th>Consignment No.</th>
-                                <th>Short Description</th>
-                                <th>Detailed Description</th>
+                                <th>Initiated Date</th>
+                                <th>Delivered Date</th>
+                                <th>Status</th>
                                 <th>Customer ID</th>
                                 <th>View Customer</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.props.complaints.map((complaint, index) =>
+                                this.props.couriers.map((courier, index) =>
                                     <tr>
-                                        <td>{complaint.complaintId}</td>
-                                        <td>{complaint.consignmentNo}</td>
-                                        <td>{complaint.shortDescription}</td>
-                                        <td>{complaint.detailDescription}</td>
-                                        <td>{complaint.customer.customerid}</td>
-                                        <td><Link to={`/getCustomer/${managerid}/view/${Number(complaint.customer.customerid)}`}>View</Link></td>
+                                        <td>{courier.courierId}</td>
+                                        <td>{courier.consignmentNo}</td>
+                                        <td>{courier.initiatedDate}</td>
+                                        <td>{courier.deliveredDate}</td>
+                                        <td>{courier.status}</td>
+                                        <td>{courier.customer.customerid}</td>
+                                        <td><Link to={`/getCustomer/${managerid}/view/${Number(courier.customer.customerid)}`}>View</Link></td>
                                     </tr>)
                             }
                         </tbody>
                     </table>
                     :
-                    <h3>No Complaints!</h3>
+                    <h3>No Couriers!</h3>
             }
         </div>
         );
@@ -58,7 +60,7 @@ class ManagerAllComplaintsComponent extends Component {
  
 function mapStateToProps(state) {
  
-    return { complaints: state.managerReducer.complaints }
+    return { couriers: state.managerReducer.couriers }
 }  
  
 function mapDispatchToProps (dispatch) {
@@ -67,4 +69,4 @@ function mapDispatchToProps (dispatch) {
    }   
   };
  
-export default connect(mapStateToProps,mapDispatchToProps) (ManagerAllComplaintsComponent);
+export default connect(mapStateToProps,mapDispatchToProps) (ManagerAllCouriersComponent);
