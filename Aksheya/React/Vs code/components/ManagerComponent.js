@@ -22,9 +22,6 @@ export default function ManagerComponent () {
             <p>
                 <Link to={`/deleteStaff`}>Delete Staff</Link>
             </p>
-            {/* <p>
-                <Link to={`/getStaff/`}>Get Staff</Link>
-            </p> */}
             <p>
                 <Link to={`/getAllStaff/${managerid}`}>Get All Staff</Link>
             </p>
@@ -35,7 +32,7 @@ export default function ManagerComponent () {
                 <Link to={`/getComplaint`}>Get Complaint</Link>
             </p>
             <p>
-                <Link to={`/getAllComplaints`}>Get All Complaint</Link>
+                <Link to={`/getAllComplaints/${managerid}`}>Get All Complaints</Link>
             </p>
             <p>
                 <Link to={`/getAllCouriers`}>Get All Couriers</Link>

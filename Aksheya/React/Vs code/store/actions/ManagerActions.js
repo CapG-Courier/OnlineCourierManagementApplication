@@ -40,6 +40,22 @@ export const fetchAllStaffSuccess = (staffs) => {
     }
 };
 
+export const fetchStaffSuccess = (employee) => {
+    
+    return {
+        type: 'FETCH_STAFF_SUCCESS',
+        employee
+    }
+};
+
+export const fetchAllComplaintsSuccess = (complaints) => {
+    
+    return {
+        type: 'FETCH_ALL_COMPLAINTS_SUCCESS',
+        complaints
+    }
+};
+
 export const createManager = (payload, managerid) => {
 
     Number(managerid)
@@ -116,6 +132,43 @@ export const fetchAllStaff = (managerid) => {
             .then(resp => {
                     
                 dispatch(fetchAllStaffSuccess(resp.data))
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            });
+    };
+};
+
+export const fetchStaff = (managerid, empid) => {
+
+    Number(managerid)
+    Number(empid);
+
+    return dispatch => {
+
+        return Axios.get(apiUrl + `/managerid=` + managerid + `/getStaff/` + empid)
+            .then(resp => {
+            
+                dispatch(fetchStaffSuccess(resp.data))
+            })
+            .catch(error => {
+                console.log(error);
+                throw (error);
+            });
+    };
+};
+
+export const fetchAllComplaints = (managerid) => {
+
+    Number(managerid);
+    
+    return dispatch => {
+        
+        return Axios.get(apiUrl + `/managerid=` + managerid + `/getAllComplaints`)
+            .then(resp => {
+                    
+                dispatch(fetchAllComplaintsSuccess(resp.data))
             })
             .catch(error => {
                 console.log(error);

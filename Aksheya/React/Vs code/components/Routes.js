@@ -18,6 +18,7 @@ import AddStaffComponent from './AddStaffComponent';
 import AddOfficeComponent from './AddOfficeComponent';
 import ManagerAllStaffComponent from './ManagerAllStaffComponent';
 import ManagerStaffComponent from './ManagerStaffComponent';
+import ManagerAllComplaintsComponent from './ManagerAllComplaintsComponent';
  
 const Routes = () => (
     <BrowserRouter>
@@ -38,7 +39,8 @@ const Routes = () => (
             <Route path={`/addStaff/:managerid`} component={AddStaffComponent}/>
             <Route path={`/addOffice/:managerid`} component={AddOfficeComponent}/>
             <Route path={`/getAllStaff/:managerid`} component={ManagerAllStaffComponent}/>
-            <Route path={`/getAllStaff/view/:empid`} component={ManagerStaffComponent}/>
+            <Route path={`/getStaff/:managerid/view/:empid`} component={ManagerStaffComponent} exact/>
+            <Route path={`/getAllComplaints/:managerid`} component={ManagerAllComplaintsComponent} />
             
             
         </Switch>

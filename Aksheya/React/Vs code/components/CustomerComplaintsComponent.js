@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as customerActions from '../store/actions/CustomerActions';
-import { Link } from 'react-router-dom';
  
 class GetAllComplaintsComponent extends Component {
  

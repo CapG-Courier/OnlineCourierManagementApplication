@@ -13,6 +13,10 @@ class ManagerAllStaffComponent extends Component {
         
     }
     render() {
+
+        const { match } = this.props;
+        let managerid = Number(match.params.managerid);  
+
         return (
             <div class="container">
                 <h2>Staff Details</h2>
@@ -37,7 +41,7 @@ class ManagerAllStaffComponent extends Component {
                                             <td>{staff.name}</td>
                                             <td>{staff.role}</td>
                                             <td>{staff.office.officeid}</td>
-                                           <td><Link to={`/getAllStaff/view/${staff.empid}`}>View</Link></td>
+                                           <td><Link to={`/getStaff/${Number(managerid)}/view/${Number(staff.empid)}`}>View</Link></td>
                                         </tr>)
                                 }
                             </tbody>
