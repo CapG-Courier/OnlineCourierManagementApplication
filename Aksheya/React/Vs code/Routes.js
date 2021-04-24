@@ -2,35 +2,37 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
  
 import HomeComponent from './HomeComponent';
-import CustomerComponent from './CustomerComponent';
-import CustomerLoginComponent from './CustomerLoginComponent';
-import ManagerComponent from './ManagerComponent';
-import ManagerLoginComponent from './ManagerLoginComponent';
-import CustomerRegisterComponent from './CustomerRegisterComponent';
-import CustomerProfileComponent from './CustomerProfileComponent';
-import AddCourierComponent from './AddCourierComponent';
-import CheckStatusComponent from './CheckStatusComponent';
-import AddComplaintComponent from './AddComplaintComponent';
-import CustomerCouriersComponent from './CustomerCouriersComponent';
-import AddManagerComponent from './AddManagerComponent';
-import CustomerComplaintsComponent from './CustomerComplaintsComponent';
-import AddStaffComponent from './AddStaffComponent';
-import AddOfficeComponent from './AddOfficeComponent';
-import ManagerAllStaffComponent from './ManagerAllStaffComponent';
-import ManagerStaffComponent from './ManagerStaffComponent';
-import ManagerAllComplaintsComponent from './ManagerAllComplaintsComponent';
-import ManagerAllCouriersComponent from './ManagerAllCouriersComponent';
-import ManagerGetCustomerComponent from './ManagerGetCustomerComponent';
-import ManagerDeleteStaffComponent from './ManagerDeleteStaffComponent';
-import CustomerAddressComponent from './CustomerAddressComponent';
-import ManagerAllOfficeComponent from './ManagerAllOfficeComponent';
-import OfficeAddressComponent from './OfficeAddressComponent';
-import ManagerDeleteOfficeComponent from './ManagerDeleteOfficeComponent';
-import ShipmentComponent from './ShipmentComponent';
-import ShipmentStatusesComponent from './ShipmentStatusesComponent';
-import ShipmentInitiateComponent from './ShipmentInitiateComponent';
-import ShipmentCloseComponent from './ShipmentCloseComponent';
-import ShipmentRejectComponent from './ShipmentRejectComponent';
+import CustomerComponent from './Customer/CustomerComponent';
+import ManagerComponent from './Manager/ManagerComponent';
+
+import LoginPage from './Bootstrap/LoginPage';
+import CustomerRegisterComponent from './Customer/CustomerRegisterComponent';
+import CustomerProfileComponent from './Customer/CustomerProfileComponent';
+import AddCourierComponent from './Customer/AddCourierComponent';
+import AddComplaintComponent from './Customer/AddComplaintComponent';
+import CustomerCouriersComponent from './Customer/CustomerCouriersComponent';
+import CustomerComplaintsComponent from './Customer/CustomerComplaintsComponent';
+import CustomerAddressComponent from './Customer/CustomerAddressComponent';
+
+import ManagerLoginComponent from './Manager/ManagerLoginComponent';
+import AddManagerComponent from './Manager/AddManagerComponent';
+import AddStaffComponent from './Manager/AddStaffComponent';
+import AddOfficeComponent from './Manager/AddOfficeComponent';
+import ManagerAllStaffComponent from './Manager/ManagerAllStaffComponent';
+import ManagerStaffComponent from './Manager/ManagerStaffComponent';
+import ManagerAllComplaintsComponent from './Manager/ManagerAllComplaintsComponent';
+import ManagerAllCouriersComponent from './Manager/ManagerAllCouriersComponent';
+import ManagerGetCustomerComponent from './Manager/ManagerGetCustomerComponent';
+import ManagerDeleteStaffComponent from './Manager/ManagerDeleteStaffComponent';
+import ManagerAllOfficeComponent from './Manager/ManagerAllOfficeComponent';
+import ManagerDeleteOfficeComponent from './Manager/ManagerDeleteOfficeComponent';
+import OfficeAddressComponent from './Manager/OfficeAddressComponent';
+
+import ShipmentComponent from './Shipment/ShipmentComponent';
+import ShipmentStatusesComponent from './Shipment/ShipmentStatusesComponent';
+import ShipmentInitiateComponent from './Shipment/ShipmentInitiateComponent';
+import ShipmentCloseComponent from './Shipment/ShipmentCloseComponent';
+import ShipmentRejectComponent from './Shipment/ShipmentRejectComponent';
 
 const Routes = () => (
     <BrowserRouter>
@@ -40,14 +42,13 @@ const Routes = () => (
             <Route path={`/manager/managerid=:managerid/Home`} component={ManagerComponent}/>
             <Route path={`/:managerid/Shipment`} component={ShipmentComponent} />
 --------------------------------------------------------------------------------------------------------------------------------------
-            <Route path={`/login`} component={CustomerLoginComponent}/>
+            <Route path={`/login`} component={LoginPage}/>
             <Route path={`/register`} component={CustomerRegisterComponent}/>
             <Route path={`/profile/:customerid`} component={CustomerProfileComponent}/>
             <Route path={`/registerAddress/:customerid`} component={CustomerAddressComponent}/>
             <Route path={`/newCourier`} component={AddCourierComponent}/>
             <Route path={`/getCouriers/:customerid`} component={CustomerCouriersComponent}/>
             <Route path={`/getComplaints/:customerid`} component={CustomerComplaintsComponent}/>
-            <Route path={`/checkStatus`} component={CheckStatusComponent}/>
             <Route path={`/registerComplaint`} component={AddComplaintComponent}/>
 ----------------------------------------------------------------------------------------------------------------------------------------
             <Route path={`/managerLogin`} component={ManagerLoginComponent}/>

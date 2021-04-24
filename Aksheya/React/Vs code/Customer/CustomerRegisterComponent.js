@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import * as homeActions from '../store/actions/HomeActions';
+import * as homeActions from '../store/actions/CustomerActions';
 
 
 class CustomerRegisterComponent extends Component {
