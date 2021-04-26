@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -118,7 +122,43 @@ class AddOfficeComponent extends Component {
 
         return (
             <div>
-                <h3>Add Office</h3>
+
+                <InputLabel htmlFor="openingTime-native-simple">Opening Time</InputLabel>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="time"
+                    id="openingTime"
+                    name="openingTime"
+                    autoComplete="openingTime"
+                    value={this.state.openingTime}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <InputLabel htmlFor="closingTime-native-simple">Closing Time</InputLabel>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="time"
+                    id="closingTime"
+                    name="closingTime"
+                    autoComplete="closingTime"
+                    value={this.state.closingTime}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <Button variant="contained" color="secondary" onClick={this.createOffice}>
+                    Add
+                </Button>
+
+
+                {/* <h3>Add Office</h3>
                 <form onSubmit={this.createOffice}>
                     <table>
                         <tbody>
@@ -133,7 +173,7 @@ class AddOfficeComponent extends Component {
                         </tbody>
                     </table>
                     <input type="submit" value="Submit"></input>
-                </form>
+                </form> */}
             </div >
         );
     }

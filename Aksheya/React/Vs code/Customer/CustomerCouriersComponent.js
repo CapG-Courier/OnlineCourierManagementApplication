@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TestNav2 from '../Bootstrap/TestNav2';
+import Box from '@material-ui/core/Box';
 import * as customerActions from '../store/actions/CustomerActions';
+import CustomerCouriersPage from '../Bootstrap/CustomerCouriersPage';
 import { Link } from 'react-router-dom';
  
 class GetAllCouriersComponent extends Component {
@@ -15,7 +18,10 @@ class GetAllCouriersComponent extends Component {
     render() {
         return (
             <div class="container">
-                <h2>Courier Details</h2>
+                <Box m={15}/>
+              <CustomerCouriersPage/>
+                <TestNav2/>
+                <Box m={5}/>
                 {
                      this.props.couriers !== undefined ?
  

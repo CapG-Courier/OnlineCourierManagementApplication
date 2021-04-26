@@ -8,8 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import CustomerLoginComponent from '../Customer/CustomerLoginComponent';
-import Footer from './Footer';
+import ManagerLoginComponent from '../Manager/ManagerLoginComponent';
 
 function Copyright() {
   return (
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://github.githubassets.com/images/modules/site/home/globe.jpg)',
+    backgroundImage: 'url(https://f.hellowork.com/blogdumoderateur/2019/11/post-it-illustration-1200x982.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -67,10 +66,10 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Customer Login
+            Manager Login
           </Typography>
           <form className={classes.form} noValidate>
-              <CustomerLoginComponent />
+              <ManagerLoginComponent />
             {/* <TextField
               variant="outlined"
               margin="normal"

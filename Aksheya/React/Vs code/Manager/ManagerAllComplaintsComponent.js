@@ -30,7 +30,7 @@ class ManagerAllComplaintsComponent extends Component {
                                 <th>Consignment No.</th>
                                 <th>Short Description</th>
                                 <th>Detailed Description</th>
-                                <th>Customer ID</th>
+                                {/* <th>Customer ID</th> */}
                                 <th>View Customer</th>
                             </tr>
                         </thead>
@@ -42,7 +42,7 @@ class ManagerAllComplaintsComponent extends Component {
                                         <td>{complaint.consignmentNo}</td>
                                         <td>{complaint.shortDescription}</td>
                                         <td>{complaint.detailDescription}</td>
-                                        <td>{complaint.customer.customerid}</td>
+                                        {/* <td>{complaint.customer.customerid}</td> */}
                                         <td><Link to={`/getCustomer/${managerid}/view/${Number(complaint.customer.customerid)}`}>View</Link></td>
                                     </tr>)
                             }

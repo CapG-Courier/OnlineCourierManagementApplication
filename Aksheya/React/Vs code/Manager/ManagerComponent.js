@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import NavBarLogin from '../Bootstrap/NavBarLogin';
+import Footer from '../Bootstrap/Footer';
+import ManagerCards from '../Bootstrap/ManagerCards';
 
 export default function ManagerComponent () {
 
@@ -7,8 +10,10 @@ export default function ManagerComponent () {
     Number(managerid);
 
     return(
-
+        
         <div>
+            <NavBarLogin/><br></br>
+            <ManagerCards/>
             <h2>Manager Home Page</h2>
             <p>
                 <Link to={`/addManager/${managerid}`}>Add New Manager</Link>
@@ -37,6 +42,7 @@ export default function ManagerComponent () {
             <p>
                 <Link to={`/${managerid}/Shipment`}>Shipment</Link>
             </p>
+            <Footer/>
         </div>
     )
 

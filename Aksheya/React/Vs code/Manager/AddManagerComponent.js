@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -128,49 +133,74 @@ class AddManagerComponent extends Component {
 
         return (
             <div>
-                <h3>Add Manager</h3>
-                <form onSubmit={this.createManager}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><label>Name:</label></td>
-                                <td><input type="text" placeholder="Name" name="name" id="name" value={this.state.name} onChange={this.handleInputChange}></input></td>
-                            </tr>
-                            <tr>
-                                <td><label>Office Id:</label></td>
-                                <td><input type="number" placeholder="OfficeId" name="officeid" id="officeid" value={this.state.officeid} onChange={this.handleInputChange}></input></td>
-                            </tr>
-                            <tr>
-                                <td><label>Password:</label></td>
-                                <td><input type="password" placeholder="Password" name="password" id="password" value={this.state.password} onChange={this.handleInputChange}></input></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>
-                                    Choose your Staff Type:
-                                    <select type="text" name="role" id="role" value={this.state.role} onChange={this.handleInputChange}> 
-                                        <option value="MANAGER">MANAGER</option>           
-                                        <option value="STAFF">STAFF</option>
-                                    </select>
-                                    </label>
-                                </td>
-                            </tr>
-                            {/* <tr>
-                                <td><label>Role:</label></td>
-                                <td><input type="radio" name="role" id="role" value={this.state.role} onChange={this.handleInputChange}></input></td>
-                                <label for="MANAGER">MANAGER</label><br></br>
-                                <td><input type="radio" name="role" id="role" value={this.state.role} onChange={this.handleInputChange}></input></td>
-                                <label for="STAFF">STAFF</label><br></br>
-                            </tr> */}
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit"></input>
-                </form>
-                {/* 
-                {
-                    this.props.courier !== undefined &&
-                    <Redirect to="/customer/Home" />
-                } */}
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="name"
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
+                    value={this.state.name}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="officeid"
+                    label="Office Id."
+                    name="officeid"
+                    autoComplete="officeid"
+                    value={this.state.officeid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="password"
+                    id="password"
+                    label="Password"
+                    name="password"
+                    autoComplete="password"
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <InputLabel htmlFor="role-native-simple">Role</InputLabel>
+                    <Select
+                    variant="outlined"
+                    required
+                    fullWidth
+                    autoComplete="role"
+                    value={this.state.role}
+                    onChange={this.handleInputChange}
+                    inputProps={{
+                        name: 'role',
+                        id: 'role',
+                    }}
+                    autoFocus
+                    >
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="STAFF">STAFF</option>
+                    </Select>
+                    <Box m={2} />
+
+                <Button variant="contained" color="secondary" onClick={this.createManager}>
+                    Add
+                </Button>
 
             </div >
         );

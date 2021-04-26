@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TestNav2 from '../Bootstrap/TestNav2';
+import Box from '@material-ui/core/Box';
 import * as customerActions from '../store/actions/CustomerActions';
+import CustomerComplaintsPage from '../Bootstrap/CustomerComplaintsPage';
  
 class GetAllComplaintsComponent extends Component {
  
     componentDidMount() {    
-
+        
         const { customerActions, match } = this.props;
         customerActions.fetchAllComplaints(match.params.customerid);  
         
@@ -15,7 +18,10 @@ class GetAllComplaintsComponent extends Component {
     render() {
         return (
             <div class="container">
-                <h2>Complaint Details</h2>
+              <Box m={15}/>
+              <CustomerComplaintsPage/>
+                <TestNav2/>
+                <Box m={5}/>
                 {
                      this.props.complaints !== undefined ?
  

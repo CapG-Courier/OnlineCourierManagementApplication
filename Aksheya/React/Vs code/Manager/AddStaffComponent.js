@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -125,7 +130,64 @@ class AddStaffComponent extends Component {
 
         return (
             <div>
-                <h3>Add Staff</h3>
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="name"
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
+                    value={this.state.name}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="officeid"
+                    label="Office Id."
+                    name="officeid"
+                    autoComplete="officeid"
+                    value={this.state.officeid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <InputLabel htmlFor="role-native-simple">Role</InputLabel>
+                    <Select
+                    variant="outlined"
+                    required
+                    fullWidth
+                    autoComplete="role"
+                    value={this.state.role}
+                    onChange={this.handleInputChange}
+                    inputProps={{
+                        name: 'role',
+                        id: 'role',
+                    }}
+                    autoFocus
+                    >
+                    <option value="STAFF">STAFF</option>           
+                    <option value="ACCOUNTING">ACCOUNTING</option>
+                    <option value="SALES">SALES</option>
+                    <option value="MARKETING">MARKETING</option>
+                    </Select>
+                    <Box m={2} />
+
+                <Button variant="contained" color="secondary" onClick={this.createManager}>
+                    Add
+                </Button>
+
+
+                {/* <h3>Add Staff</h3>
                 <form onSubmit={this.createStaff}>
                     <table>
                         <tbody>
@@ -153,13 +215,7 @@ class AddStaffComponent extends Component {
                         </tbody>
                     </table>
                     <input type="submit" value="Submit"></input>
-                </form>
-                {/* 
-                {
-                    this.props.courier !== undefined &&
-                    <Redirect to="/customer/Home" />
-                } */}
-
+                </form> */}
             </div >
         );
     }

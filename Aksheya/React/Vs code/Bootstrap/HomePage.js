@@ -11,7 +11,7 @@ export default class HomePage extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src="https://image.freepik.com/free-vector/delivery-service-24-7-illustration-logistics-shipping-tracking-technology_33099-644.jpg"
+                    src="https://shipox.com/wp-content/uploads/2020/06/blogimage-foster.jpg"
                     alt="First slide"
                     />
                     <Carousel.Caption>
@@ -34,13 +34,13 @@ export default class HomePage extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src="https://www.sevenhillscourier.com/wp-content/uploads/2019/02/FMT-New-Banner-Courier-1-1010x312.png"
+                    src="https://img.freepik.com/free-vector/courier-carrying-order-illustration_335657-479.jpg?size=626&ext=jpg"
                     alt="Third slide"
                     />
 
                     <Carousel.Caption>
-                    <h3>Customer Satisfaction</h3>
-                    <p>Our Complaint services are the best in the world and customer satisfaction is our primary goal!</p>
+                    <h3 style={{color:"black"}}>Customer Satisfaction</h3>
+                    <p style={{color:"black"}}>Our Complaint services are the best in the world and customer satisfaction is our primary goal!</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 </Carousel>
