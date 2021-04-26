@@ -6,17 +6,16 @@ export default class HomePage extends Component {
     render(){
 
         return (
-
             <Carousel fade>
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src="https://shipox.com/wp-content/uploads/2020/06/blogimage-foster.jpg"
+                    src="https://img.freepik.com/free-vector/delivery-man-riding-scooter-with-delivery-case-box-road-downtown-area-night-delivery-service-business_34259-583.jpg?size=626&ext=jpg"
                     alt="First slide"
                     />
                     <Carousel.Caption>
-                    <h3>24 Hour Delivery</h3>
-                    <p>We offer courier services around the clock!</p>
+                    <h3 style={{color:"black"}}>24 Hour Delivery</h3>
+                    <p style={{color:"black"}}>We offer courier services around the clock around the world!</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -34,7 +33,7 @@ export default class HomePage extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src="https://img.freepik.com/free-vector/courier-carrying-order-illustration_335657-479.jpg?size=626&ext=jpg"
+                    src="https://cdn.shopify.com/s/files/1/0070/7032/files/HolidayDelivery-illustration.jpg?v=1602854666"
                     alt="Third slide"
                     />
 

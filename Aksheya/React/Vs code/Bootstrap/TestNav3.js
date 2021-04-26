@@ -92,8 +92,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer() {
 
-    let { customerid } = useParams()
-    Number(customerid);
+    let { managerid } = useParams()
+    Number(managerid);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -153,19 +153,19 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         <Divider />
-        <List>
+        {/* <List>
           {['Profile'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon color="primary">{index % 2 === 0 ? <Link to= {`/profile/${Number(customerid)}`}><FaceIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemIcon color="primary">{index % 2 === 0 ? <Link to= {`/profile/${Number(customerid)}`}><FaceIcon  color="primary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider/>
+        <Divider/> */}
         <List>
           {['Return Home'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Link to= {`/customer/customerid=${Number(customerid)}/Home`}><SupervisedUserCircleIcon color="secondary"/></Link> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <Link to= {`/manager/managerid=${managerid}/Home`}><SupervisedUserCircleIcon color="secondary"/></Link> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

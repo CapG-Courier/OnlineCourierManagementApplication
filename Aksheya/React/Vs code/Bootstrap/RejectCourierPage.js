@@ -4,13 +4,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import AddManagerComponent from '../Manager/AddManagerComponent';
-import TestNav2Manager from './TestNav2Manager';
+import ShipmentRejectComponent from '../Shipment/ShipmentRejectComponent';
+import TestNav3Shipment from './TestNav3Shipment';
 import Footer from './Footer';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -31,7 +31,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paperContainer: {
-        backgroundImage: `url(https://i.pinimg.com/736x/d2/fd/ca/d2fdca8c981215fe1bf81def0ca3ffa3.jpg)`,
+        backgroundImage: `url(https://st4.depositphotos.com/12501784/23802/v/600/depositphotos_238020828-stock-video-abstract-pattern-black-white-texture.jpg)`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     },
@@ -68,7 +68,7 @@ export default function SignIn() {
 
   return (
     <Paper className={classes.paperContainer}>
-    <TestNav2Manager/>
+    <TestNav3Shipment/>
     <Box m={15}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -77,24 +77,24 @@ export default function SignIn() {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Manager"
+          alt="Reject"
           height="200"
-          image="https://ksusentinel.com/wp-content/uploads/2021/03/sales-manager-openings.gif"
-          title="Manager"
+          image="https://i.pinimg.com/originals/9b/36/7c/9b367cb0eb8efdcae58e62422e2233d8.gif"
+          title="Reject"
         />
       </CardActionArea>
     </Card>
     <Box m={5}/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AddCircleIcon />
+          <CancelIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Manager Registration
+          Reject Courier
         </Typography>
         <form className={classes.form} noValidate>
             <Grid container component="main" spacing={24} direction="row" justify="center" alignItems="center">
-                <AddManagerComponent />
+                <ShipmentRejectComponent />
             </Grid>
         </form>
       </div>

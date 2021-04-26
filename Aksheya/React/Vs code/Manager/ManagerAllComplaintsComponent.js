@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as managerActions from '../store/actions/ManagerActions';
+import TestNav2Manager from '../Bootstrap/TestNav2Manager';
+import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
+import ManagerComplaintsPage from '../Bootstrap/ManagerComplaintsPage';
  
 class ManagerAllComplaintsComponent extends Component {
  
@@ -19,7 +22,10 @@ class ManagerAllComplaintsComponent extends Component {
         
         return (
             <div class="container">
-            <h2>Complaint Details</h2>
+            <Box m={15}/>
+              <ManagerComplaintsPage/>
+                <TestNav2Manager/>
+                <Box m={5}/>
             {
                  this.props.complaints !== undefined ?
 

@@ -6,6 +6,8 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -16,7 +18,8 @@ class AddOfficeComponent extends Component {
         this.state = {
 
             openingTime: '',
-            closingTime: ''
+            closingTime: '',
+            managerid: 0
 
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -40,7 +43,7 @@ class AddOfficeComponent extends Component {
         }
 
         const { managerActions, match } = this.props;
-        managerActions.createOffice(payload, match.params.managerid);
+        managerActions.createOffice(payload);
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -107,17 +110,26 @@ class AddOfficeComponent extends Component {
     clear = () => {
         this.setState = ({
             openingTime: '',
-            closingTime: ''
+            closingTime: '',
+            managerid: 0
         });
     }
 
     render() {
 
-        if (this.props.office !== undefined) {
+        // if (this.props.office !== undefined) {
 
-            const { match } = this.props;
-            let empid = parseInt(match.params.managerid)
-            return <Redirect to={`/manager/managerid=${empid}/Home`} />;
+        //     const { match } = this.props;
+        //     let empid = parseInt(this.props.office.managerid)
+        //     return <Redirect to={`/manager/managerid=${empid}/Home`} />;
+        // }
+
+        if(this.props.office !== undefined) {
+
+            return <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                     You have successfully added a new office!
+            </Alert>
         }
 
         return (
@@ -128,7 +140,7 @@ class AddOfficeComponent extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    type="time"
+                    type="text"
                     id="openingTime"
                     name="openingTime"
                     autoComplete="openingTime"
@@ -143,11 +155,26 @@ class AddOfficeComponent extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    type="time"
+                    type="text"
                     id="closingTime"
                     name="closingTime"
                     autoComplete="closingTime"
                     value={this.state.closingTime}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="managerid"
+                    label="Re-enter Manager Id"
+                    name="managerid"
+                    autoComplete="managerid"
+                    value={this.state.managerid}
                     onChange={this.handleInputChange}
                     autoFocus
                 />

@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import * as managerActions from '../store/actions/ManagerActions';
 
 class ManagerDeleteOfficeComponent extends React.Component {
@@ -44,8 +47,13 @@ class ManagerDeleteOfficeComponent extends React.Component {
 
         if (isAuthDeleteOffice) {
 
-            const { match } = this.props;
-            return <Redirect to={`/manager/managerid=${Number(match.params.managerid)}/Home`} />;
+            return <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                     You have successfully deleted the office!
+            </Alert>
+
+            // const { match } = this.props;
+            // return <Redirect to={`/manager/managerid=${Number(match.params.managerid)}/Home`} />;
         }
 
         return (
@@ -55,7 +63,41 @@ class ManagerDeleteOfficeComponent extends React.Component {
                     (this.props.isAuthDeleteOffice === false) && <div>Could Not Delete Office!</div>
                 }
 
-                <p>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="managerid"
+                    label="Re-enter Manager Id."
+                    name="managerid"
+                    autoComplete="managerid"
+                    value={this.state.managerid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="officeid"
+                    label="Office to Delete"
+                    name="officeid"
+                    autoComplete="officeid"
+                    value={this.state.officeid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
+
+                <Button variant="contained" color="secondary" onClick={this.doDeleteOffice}>
+                    Delete
+                </Button>
+
+                {/* <p>
                     <label>Re-enter Manager Id:</label>
                     <input type="number" placeholder="Manager Id" name="managerid" id="managerid" value={this.state.managerid} onChange={this.handleInputChange}></input>
 
@@ -68,7 +110,7 @@ class ManagerDeleteOfficeComponent extends React.Component {
                 <p>
                     <button onClick={this.doDeleteOffice}>Delete</button>
 
-                </p>
+                </p> */}
             </div>
 
         )

@@ -25,6 +25,7 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  
     paperContainer: {
         backgroundImage: `url(https://blog.shipperhq.com/wp-content/uploads/2020/01/39.jpeg)`,
         backgroundRepeat: 'no-repeat',

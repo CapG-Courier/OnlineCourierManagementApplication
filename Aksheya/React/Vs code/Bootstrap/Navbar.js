@@ -8,8 +8,8 @@ export default class Navbar extends Component {
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="/">
-                    <img src= "https://image.flaticon.com/icons/png/512/98/98999.png" width="30" height="30" class="d-inline-block align-top" alt=""></img>
-                     Online Courier Management
+                    <img src= "https://i.pinimg.com/originals/47/7f/a4/477fa4df6509e5120468638e7ab14d22.png" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+                    <p>Online Courier Management</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

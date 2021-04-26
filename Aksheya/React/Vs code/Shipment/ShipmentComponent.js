@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ShipmentCards from '../Bootstrap/ShipmentCards';
+import ShipmentHeader from '../Bootstrap/ShipmentHeader';
+import TestNav3 from '../Bootstrap/TestNav3';
+import Box from '@material-ui/core/Box';
 
 export default function ShipmentComponent () {
 
@@ -9,7 +13,13 @@ export default function ShipmentComponent () {
     return(
 
         <div>
-            <h2>Shipment Home Page</h2>
+            <TestNav3/>
+            <Box m={8.2}/>
+            <ShipmentHeader/>
+            <Box m={5}/>
+            <ShipmentCards/>
+            <Box m={15}/>
+            {/* <h2>Shipment Home Page</h2>
             <p>
                 <Link to={`/initiateCourier/${managerid}`}>Initiate Process</Link>
             </p>
@@ -21,7 +31,7 @@ export default function ShipmentComponent () {
             </p>
             <p>
                 <Link to={`/getStatus/${managerid}`}>Check Status</Link>
-            </p>
+            </p> */}
         </div>
     )
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TestNav2Manager from '../Bootstrap/TestNav2Manager';
+import Box from '@material-ui/core/Box';
 import * as managerActions from '../store/actions/ManagerActions';
 import { Link } from 'react-router-dom';
+import ManagerOfficesPage from '../Bootstrap/ManagerOfficesPage';
  
 class ManagerAllOfficeComponent extends Component {
  
@@ -19,7 +22,10 @@ class ManagerAllOfficeComponent extends Component {
 
         return (
             <div class="container">
-                <h2>Office Details</h2>
+                <Box m={15}/>
+              <ManagerOfficesPage/>
+                <TestNav2Manager/>
+                <Box m={5}/>
                 {
                      this.props.offices !== undefined ?
  

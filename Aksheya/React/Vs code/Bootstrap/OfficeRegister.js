@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import AddOfficeComponent from '../Manager/AddOfficeComponent';
-import NavbarBarRegister from './NavBarRegister';
+import TestNav2Manager from './TestNav2Manager';
 import Footer from './Footer';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -68,7 +68,8 @@ export default function SignIn() {
 
   return (
     <Paper className={classes.paperContainer}>
-    <NavbarBarRegister/>
+    <TestNav2Manager/>
+    <Box m={15}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box m={5}/>

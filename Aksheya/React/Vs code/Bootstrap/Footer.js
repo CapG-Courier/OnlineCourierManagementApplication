@@ -4,10 +4,26 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
 
-export default class Footer extends Component {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
-  render() {
+export default function Footer () {
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
     return (
 
@@ -41,7 +57,27 @@ export default class Footer extends Component {
                     </div>
                   </div>
                   <div class="col-auto">
-                    <button type="submit" class="btn btn-outline-light mb-4">
+                  <Collapse in={open}>
+                      <Alert
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                      >
+                        You have subscribed to our email chain! Thank you for your patronage.
+                      </Alert>
+                    </Collapse><br></br>
+                    <button disabled={open} onClick={() => {
+                        setOpen(true);
+                      }} type="submit" class="btn btn-outline-light mb-4">
                       Subscribe
                      </button>
                   </div>
@@ -60,8 +96,6 @@ export default class Footer extends Component {
           </div>
         </footer>
       </div>
-    )
-
-  }
+    );
 }
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TestNav2Manager from '../Bootstrap/TestNav2Manager';
+import Box from '@material-ui/core/Box';
 import * as managerActions from '../store/actions/ManagerActions';
 import { Link } from 'react-router-dom';
+import ManagerStaffsPage from '../Bootstrap/ManagerStaffsPage';
  
 class ManagerAllStaffComponent extends Component {
  
@@ -19,7 +22,10 @@ class ManagerAllStaffComponent extends Component {
 
         return (
             <div class="container">
-                <h2>Staff Details</h2>
+                 <Box m={15}/>
+              <ManagerStaffsPage/>
+                <TestNav2Manager/>
+                <Box m={5}/>
                 {
                      this.props.staffs !== undefined ?
  

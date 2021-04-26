@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TestNav2Manager from '../Bootstrap/TestNav2Manager';
+import Box from '@material-ui/core/Box';
 import * as managerActions from '../store/actions/ManagerActions';
 import { Link } from 'react-router-dom';
+import ManagerCouriersPage from '../Bootstrap/ManagerCouriersPage';
+
  
 class ManagerAllCouriersComponent extends Component {
  
@@ -19,7 +23,10 @@ class ManagerAllCouriersComponent extends Component {
         
         return (
             <div class="container">
-            <h2>Courier Details</h2>
+           <Box m={15}/>
+              <ManagerCouriersPage/>
+                <TestNav2Manager/>
+                <Box m={5}/>
             {
                  this.props.couriers !== undefined ?
 

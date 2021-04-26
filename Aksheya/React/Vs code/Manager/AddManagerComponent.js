@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -21,7 +23,8 @@ class AddManagerComponent extends Component {
                 officeid: 0,
             },
             password: '',
-            role: ''
+            role: '',
+            managerid: 0
 
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,12 +45,13 @@ class AddManagerComponent extends Component {
             name: this.state.name,
             officeid: this.state.officeid,
             password: this.state.password,
-            role: this.state.role
+            role: this.state.role,
+            managerid: this.state.managerid
 
         }
 
         const { managerActions, match } = this.props;
-        managerActions.createManager(payload, match.params.managerid);
+        managerActions.createManager(payload);
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -118,17 +122,26 @@ class AddManagerComponent extends Component {
                 officeid: 0
             },
             password: '',
-            role: ''
+            role: '',
+            managerid: 0
         });
     }
 
     render() {
 
-        if (this.props.manager !== undefined) {
+        // if (this.props.manager !== undefined) {
 
-            const { match } = this.props;
-            let empid = parseInt(match.params.managerid)
-            return <Redirect to={`/manager/managerid=${empid}/Home`} />;
+        //     const { match } = this.props;
+        //     let empid = parseInt(this.props.managerid)
+        //     return <Redirect to={`/manager/managerid=${empid}/Home`} />;
+        // }
+
+        if(this.props.manager !== undefined) {
+
+            return <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                     You have successfully added a new manager!
+            </Alert>
         }
 
         return (
@@ -197,6 +210,21 @@ class AddManagerComponent extends Component {
                     <option value="STAFF">STAFF</option>
                     </Select>
                     <Box m={2} />
+
+                    <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="managerid"
+                    label="Re-enter Manager Id"
+                    name="managerid"
+                    autoComplete="managerid"
+                    value={this.state.managerid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
 
                 <Button variant="contained" color="secondary" onClick={this.createManager}>
                     Add

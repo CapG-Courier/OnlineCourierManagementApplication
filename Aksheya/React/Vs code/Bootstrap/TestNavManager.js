@@ -15,14 +15,19 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import FaceIcon from '@material-ui/icons/Face';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import BusinessIcon from '@material-ui/icons/Business';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import AddLocationIcon from '@material-ui/icons/AddLocation';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-
 
 const drawerWidth = 240;
 
@@ -89,11 +94,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function MiniDrawer() {
 
-    let { customerid } = useParams()
-    Number(customerid);
+    let { managerid } = useParams()
+    Number(managerid);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -119,7 +123,7 @@ export default function MiniDrawer() {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+          color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -130,7 +134,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Details
+            Manager Home Page
           </Typography>
         </Toolbar>
       </AppBar>
@@ -154,18 +158,72 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {['Profile'].map((text, index) => (
+          {['Add Manager'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon color="primary">{index % 2 === 0 ? <Link to= {`/profile/${Number(customerid)}`}><FaceIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/addManager/${managerid}`}><PersonAddIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider/>
+        <Divider />
         <List>
-          {['Return Home'].map((text, index) => (
+          {['Add Staff'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Link to= {`/customer/customerid=${Number(customerid)}/Home`}><SupervisedUserCircleIcon color="secondary"/></Link> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/addStaff/${managerid}`}><GroupAddIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Add Office'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/addOffice/${managerid}`}><AddLocationIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Delete Staff'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/deleteStaff/${managerid}`}><PersonAddDisabledIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Couriers'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getAllCouriers/${managerid}`}><FormatListBulletedIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Complaints'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getAllComplaints/${managerid}`}><ClearAllIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Offices'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getAllOffice/${managerid}`}><BusinessIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Shipment'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/${managerid}/Shipment`}><LocalShippingIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -180,7 +238,6 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-
     </div>
   );
 }

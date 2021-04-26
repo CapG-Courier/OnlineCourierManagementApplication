@@ -2,9 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import * as managerActions from '../store/actions/ManagerActions';
 
 class ManagerDeleteStaffComponent extends React.Component {
@@ -44,8 +47,13 @@ class ManagerDeleteStaffComponent extends React.Component {
 
         if (isAuthDelete) {
 
-            let mid = parseInt(this.state.managerid)
-            return <Redirect to={`/manager/managerid=${mid}/Home`} />;
+            // let mid = parseInt(this.state.managerid)
+            // return <Redirect to={`/manager/managerid=${mid}/Home`} />;
+
+            return <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                     You have successfully deleted the staff member!
+            </Alert>
         }
 
         return (
@@ -55,20 +63,40 @@ class ManagerDeleteStaffComponent extends React.Component {
                     (this.props.isAuthDelete === false) && <div>Could Not Delete Employee!</div>
                 }
 
-                <p>
-                    <label>Re-enter Manager Id:</label>
-                    <input type="number" placeholder="Manager Id" name="managerid" id="managerid" value={this.state.managerid} onChange={this.handleInputChange}></input>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="managerid"
+                    label="Re-enter Manager Id."
+                    name="managerid"
+                    autoComplete="managerid"
+                    value={this.state.managerid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
 
-                </p>
-                <p>
-                    <label>Employee to Delete:</label>
-                    <input type="number" placeholder="Employee Id" name="empid" id="empid" value={this.state.empid} onChange={this.handleInputChange}></input>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="empid"
+                    label="Employee to Delete"
+                    name="empid"
+                    autoComplete="empid"
+                    value={this.state.empid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box m={2} />
 
-                </p>
-                <p>
-                    <button onClick={this.doDelete}>Delete</button>
+                <Button variant="contained" color="secondary" onClick={this.doDelete}>
+                    Delete
+                </Button>
 
-                </p>
             </div>
 
         )

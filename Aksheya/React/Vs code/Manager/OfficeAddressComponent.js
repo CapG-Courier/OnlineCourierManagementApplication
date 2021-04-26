@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import * as managerActions from '../store/actions/ManagerActions';
 
 
@@ -128,16 +133,133 @@ class OfficeAddressComponent extends Component {
 
     render() {
 
-        if(this.props.address !== undefined) {    
+        // if(this.props.address !== undefined) {    
             
-            const { match } = this.props;
-            return <Redirect to={`/manager/managerid=${match.params.managerid}/Home`} />;
-        }  
+        //     const { match } = this.props;
+        //     return <Redirect to={`/manager/managerid=${match.params.managerid}/Home`} />;
+        // }
+        
+        if(this.props.address !== undefined) {
+
+            return <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                     You have successfully updated the office address!
+            </Alert>
+        }
 
         return (
             <div>
-                <h3>Register Address</h3>
-                <form onSubmit={this.createAddress}>
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="houseNo"
+                    label="House No."
+                    name="houseNo"
+                    autoComplete="houseNo"
+                    value={this.state.houseNo}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="street"
+                    label="Street"
+                    name="street"
+                    autoComplete="street"
+                    value={this.state.street}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="city"
+                    label="City Name"
+                    name="city"
+                    autoComplete="city"
+                    value={this.state.city}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="state"
+                    label="State Name"
+                    name="state"
+                    autoComplete="state"
+                    value={this.state.state}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="text"
+                    id="country"
+                    label="Country"
+                    name="country"
+                    autoComplete="country"
+                    value={this.state.country}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="zip"
+                    label="Zip Code"
+                    name="zip"
+                    autoComplete="zip"
+                    value={this.state.zip}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="officeid"
+                    label="Office Id"
+                    name="officeid"
+                    autoComplete="officeid"
+                    value={this.state.officeid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <Button variant="contained" color="secondary" onClick={this.createAddress}>
+                    Register Address
+                </Button>
+
+                {/* <form onSubmit={this.createAddress}>
                     <table>
                         <tbody>
                             <tr>
@@ -171,7 +293,7 @@ class OfficeAddressComponent extends Component {
                         </tbody>
                     </table>
                     <input type="submit" value="Submit"></input>
-                </form>
+                </form> */}
             </div >
         );
     }

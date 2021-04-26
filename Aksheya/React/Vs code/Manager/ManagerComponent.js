@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import NavBarLogin from '../Bootstrap/NavBarLogin';
+import TestNavManager from '../Bootstrap/TestNavManager';
 import Footer from '../Bootstrap/Footer';
 import ManagerCards from '../Bootstrap/ManagerCards';
+import Box from '@material-ui/core/Box';
 
 export default function ManagerComponent () {
 
@@ -12,36 +13,10 @@ export default function ManagerComponent () {
     return(
         
         <div>
-            <NavBarLogin/><br></br>
+            <TestNavManager/><br></br>
+            <Box m={5}/>
             <ManagerCards/>
-            <h2>Manager Home Page</h2>
-            <p>
-                <Link to={`/addManager/${managerid}`}>Add New Manager</Link>
-            </p>
-            <p>
-                <Link to={`/addStaff/${managerid}`}>Add New Staff</Link>
-            </p>
-            <p>
-                <Link to={`/addOffice/${managerid}`}>Add New Office</Link>
-            </p>
-            <p>
-                <Link to={`/deleteStaff`}>Delete Staff</Link>
-            </p>
-            <p>
-                <Link to={`/getAllStaff/${managerid}`}>Get All Staff</Link>
-            </p>
-            <p>
-                <Link to={`/getAllComplaints/${managerid}`}>Get All Complaints</Link>
-            </p>
-            <p>
-                <Link to={`/getAllCouriers/${managerid}`}>Get All Couriers</Link>
-            </p>
-            <p>
-                <Link to={`/getAllOffice/${managerid}`}>Get All Offices</Link>
-            </p>
-            <p>
-                <Link to={`/${managerid}/Shipment`}>Shipment</Link>
-            </p>
+            <Box m={10}/>
             <Footer/>
         </div>
     )

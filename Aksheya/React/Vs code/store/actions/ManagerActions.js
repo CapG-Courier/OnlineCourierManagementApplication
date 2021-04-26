@@ -113,9 +113,7 @@ export const deleteOfficeFailure = () => {
     }
 };
 
-export const createManager = (payload, managerid) => {
-
-    Number(managerid)
+export const createManager = (payload) => {
 
     let data = {
         name: payload.name,
@@ -123,10 +121,11 @@ export const createManager = (payload, managerid) => {
             officeid: Number(payload.officeid),
         },
         password: payload.password,
-        role: payload.role
+        role: payload.role,
+        managerid: payload.managerid
     }
     return (dispatch) => {
-        return Axios.post(apiUrl + `/managerid=` + managerid + `/addManager`, data)
+        return Axios.post(apiUrl + `/managerid=` + data.managerid + `/addManager`, data)
             .then(response => {
                 dispatch(createManagerSuccess(response.data))
             })
@@ -136,19 +135,18 @@ export const createManager = (payload, managerid) => {
     };
 };
 
-export const createStaff = (payload, managerid) => {
-
-    Number(managerid)
+export const createStaff = (payload) => {
 
     let data = {
         name: payload.name,
         office:{
             officeid: Number(payload.officeid),
         },
-        role: payload.role
+        role: payload.role,
+        managerid: payload.managerid
     }
     return (dispatch) => {
-        return Axios.post(apiUrl + `/managerid=` + managerid + `/addStaff`, data)
+        return Axios.post(apiUrl + `/managerid=` + data.managerid + `/addStaff`, data)
             .then(response => {
                 dispatch(createStaffSuccess(response.data))
             })
@@ -158,18 +156,17 @@ export const createStaff = (payload, managerid) => {
     };
 };
 
-export const createOffice = (payload, managerid) => {
-
-    Number(managerid)
+export const createOffice = (payload) => {
 
     let data = {
         openingTime: payload.openingtime,
-        closingTime: payload.closingtime
+        closingTime: payload.closingtime,
+        managerid: payload.managerid
 
     }
 
     return (dispatch) => {
-        return Axios.post(apiUrl + `/managerid=` + managerid + `/addOffice`, data)
+        return Axios.post(apiUrl + `/managerid=` + data.managerid + `/addOffice`, data)
             .then(response => {
                 dispatch(createOfficeSuccess(response.data))
             })

@@ -18,10 +18,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ImgMediaCard() {
+export default function ShipmentCards() {
 
-    let { customerid } = useParams()
-    Number(customerid);
+    let { managerid } = useParams()
+    Number(managerid);
 
   const classes = useStyles();
 
@@ -33,23 +33,23 @@ export default function ImgMediaCard() {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Profile"
+          alt="Initiate Process"
           height="200"
-          image="https://alejandrocremades.com/wp-content/uploads/2020/09/Screen-Shot-2020-09-18-at-3.47.00-PM.png"
-          title="Customer Profile"
+          image="https://thumbs.dreamstime.com/b/initiate-text-written-red-speech-bubble-stamp-213649963.jpg"
+          title="Initiate Process"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Customer Profile
+            Initiate Process
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Check and Update your profile here.
+            Initiate the courier process here.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/profile/${customerid}`}><Button size="large" color="primary">
-          Profile
+      <Link to={`/initiateCourier/${managerid}`}><Button size="large" color="primary">
+          Initiate
         </Button></Link>
         {/* <Button size="small" color="primary">
           Learn More
@@ -57,29 +57,29 @@ export default function ImgMediaCard() {
       </CardActions>
     </Card>
     </Grid>
-
-      <Grid item xs={6} sm={3}>
+ 
+        <Grid item xs={6} sm={3}>
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Get Couriers"
+          alt="Close Process"
           height="200"
-          image="https://thumbs.dreamstime.com/b/happy-excited-pug-dog-delivery-box-204689445.jpg"
-          title="Get Couriers"
+          image="https://c8.alamy.com/comp/HDXTRH/delivered-stamp-sign-seal-HDXTRH.jpg"
+          title="Close Process"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Get All Couriers
+            Close Courier
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Get a list of all your registered couriers here.
+            Close the courier process here.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/getCouriers/${customerid}`}><Button size="large" color="primary">
-          List Couriers
+      <Link to={`/closeCourier/${managerid}`}><Button size="large" color="primary">
+          Close
         </Button></Link>
         {/* <Button size="small" color="primary">
           Learn More
@@ -93,23 +93,23 @@ export default function ImgMediaCard() {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Get Complaints"
+          alt="Reject Courier"
           height="200"
-          image="https://image.shutterstock.com/image-illustration/complaints-concept-word-on-folder-260nw-269047922.jpg"
-          title="Get Complaints"
+          image="https://poetsandquants.com/wp-content/uploads/sites/5/2019/10/reject1.jpg"
+          title="Reject Courier"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Get All Complaints
+            Reject Courier
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Get a list of all your registered complaints here.
+            Reject the courier process here.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/getComplaints/${customerid}`}><Button size="large" color="primary">
-          List Complaints
+      <Link to={`/rejectCourier/${managerid}`}><Button size="large" color="primary">
+          Reject
         </Button></Link>
         {/* <Button size="small" color="primary">
           Learn More
@@ -117,31 +117,32 @@ export default function ImgMediaCard() {
       </CardActions>
     </Card>
     </Grid>
-    </Grid><Box m={10}></Box>
+    </Grid>
 
+    <Box m={5}/>
     <Grid container component="main" spacing={3} direction="row" justify="space-evenly" alignItems="center"> 
-        <Grid item xs={14} sm={3}>
+    <Grid item xs={6} sm={3}>
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Register Courier"
+          alt="Get Status"
           height="200"
-          image="https://image.freepik.com/free-vector/order-delivery-service-online-background_73174-203.jpg"
-          title="Register Courier"
+          image="https://media.istockphoto.com/photos/status-word-written-in-wooden-cube-newspaper-picture-id1142949938?k=6&m=1142949938&s=170667a&w=0&h=PscW5X2dh1pjmbjzs8u2XtDOZhK7X4TD-Ckd4AR30sc="
+          title="Get Status"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Initiate Courier
+            Get Status
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Send or initiate the courier process here.
+            View all courier statuses here.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/newCourier/${customerid}`}><Button size="large" color="primary">
-          Send Courier
+      <Link to={`/getStatus/${managerid}`}><Button size="large" color="primary">
+          Check Status
         </Button></Link>
         {/* <Button size="small" color="primary">
           Learn More
@@ -149,35 +150,7 @@ export default function ImgMediaCard() {
       </CardActions>
     </Card>
     </Grid>
-    <Grid item xs={14} sm={3}>
-      <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Register Complaint"
-          height="200"
-          image="https://media.istockphoto.com/vectors/concept-of-complaint-vector-id858082574?k=6&m=858082574&s=612x612&w=0&h=dUnskAWJYPPk-ZSqgBWkz4w-2iV28r9XQi_kUAHxuco="
-          title="Register Complaint"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Register a Complaint
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Leave a detailed complaint regarding your courier here.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-      <Link to={`/registerComplaint/${customerid}`}><Button size="large" color="primary">
-          Register Complaint
-        </Button></Link>
-        {/* <Button size="small" color="primary">
-          Learn More
-        </Button> */}
-      </CardActions>
-    </Card>
-    </Grid>
+    
     </Grid>
 
     </div>

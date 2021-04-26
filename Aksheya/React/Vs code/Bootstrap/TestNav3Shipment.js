@@ -15,11 +15,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import FaceIcon from '@material-ui/icons/Face';
 import MailIcon from '@material-ui/icons/Mail';
-import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -92,8 +90,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer() {
 
-    let { customerid } = useParams()
-    Number(customerid);
+    let { managerid } = useParams()
+    Number(managerid);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -130,7 +128,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Details
+            Shipment
           </Typography>
         </Toolbar>
       </AppBar>
@@ -152,20 +150,20 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider />
+        {/* <Divider />
         <List>
           {['Profile'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon color="primary">{index % 2 === 0 ? <Link to= {`/profile/${Number(customerid)}`}><FaceIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemIcon color="primary">{index % 2 === 0 ? <Link to= {`/profile/${customerid}`}><FaceIcon  color="primary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider/>
+        <Divider/> */}
         <List>
           {['Return Home'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Link to= {`/customer/customerid=${Number(customerid)}/Home`}><SupervisedUserCircleIcon color="secondary"/></Link> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <Link to= {`/${Number(managerid)}/Shipment`}><HomeWorkIcon color="secondary"/></Link> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

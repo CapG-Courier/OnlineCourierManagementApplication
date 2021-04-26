@@ -19,6 +19,10 @@ import FaceIcon from '@material-ui/icons/Face';
 import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import ErrorIcon from '@material-ui/icons/Error';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -108,7 +112,7 @@ export default function MiniDrawer() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-      color="secondary"
+      style={{ background: '#28282B' }}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
@@ -116,6 +120,7 @@ export default function MiniDrawer() {
       >
         <Toolbar>
           <IconButton
+          color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -144,7 +149,7 @@ export default function MiniDrawer() {
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton color="secondary" onClick={handleDrawerClose}>
+          <IconButton color="inherit" onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -152,7 +157,43 @@ export default function MiniDrawer() {
         <List>
           {['Profile'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/profile/${customerid}`}><FaceIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/profile/${Number(customerid)}`}><FaceIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Couriers'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getCouriers/${Number(customerid)}`}><AssignmentIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Complaints'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getComplaints/${Number(customerid)}`}><ClearAllIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Send Courier'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/newCourier/${customerid}`}><AddShoppingCartIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['File Complaint'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/registerComplaint/${customerid}`}><ErrorIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

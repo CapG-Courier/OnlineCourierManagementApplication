@@ -4,17 +4,17 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import AddManagerComponent from '../Manager/AddManagerComponent';
 import TestNav2Manager from './TestNav2Manager';
 import Footer from './Footer';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import ManagerDeleteOfficeComponent from '../Manager/ManagerDeleteOfficeComponent';
 
 function Copyright() {
   return (
@@ -31,7 +31,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paperContainer: {
-        backgroundImage: `url(https://i.pinimg.com/736x/d2/fd/ca/d2fdca8c981215fe1bf81def0ca3ffa3.jpg)`,
+        backgroundImage: `url(https://st4.depositphotos.com/12501784/23802/v/600/depositphotos_238020828-stock-video-abstract-pattern-black-white-texture.jpg)`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     },
@@ -77,24 +77,24 @@ export default function SignIn() {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Manager"
+          alt="Delete"
           height="200"
-          image="https://ksusentinel.com/wp-content/uploads/2021/03/sales-manager-openings.gif"
-          title="Manager"
+          image="https://i.graphicmama.com/blog/wp-content/uploads/2016/12/06091633/deleting.gif"
+          title="Delete"
         />
       </CardActionArea>
     </Card>
     <Box m={5}/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AddCircleIcon />
+          <DeleteForeverIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Manager Registration
+          Delete Office
         </Typography>
         <form className={classes.form} noValidate>
             <Grid container component="main" spacing={24} direction="row" justify="center" alignItems="center">
-                <AddManagerComponent />
+                <ManagerDeleteOfficeComponent />
             </Grid>
         </form>
       </div>

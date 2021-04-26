@@ -4,21 +4,17 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import AddManagerComponent from '../Manager/AddManagerComponent';
+import OfficeAddressComponent from '../Manager/OfficeAddressComponent';
 import TestNav2Manager from './TestNav2Manager';
-import Footer from './Footer';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
+import Paper from '@material-ui/core/Paper';
 
 function Copyright() {
   return (
-    <Typography position= "fixed-bottom" variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="/">
         Online Courier Management
@@ -31,7 +27,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paperContainer: {
-        backgroundImage: `url(https://i.pinimg.com/736x/d2/fd/ca/d2fdca8c981215fe1bf81def0ca3ffa3.jpg)`,
+        backgroundImage: `url(https://cdn.statically.io/img/venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-White-Pattern-Background-Image.jpg)`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     },
@@ -68,33 +64,20 @@ export default function SignIn() {
 
   return (
     <Paper className={classes.paperContainer}>
-    <TestNav2Manager/>
-    <Box m={15}/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box m={5}/>
-      <Card>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Manager"
-          height="200"
-          image="https://ksusentinel.com/wp-content/uploads/2021/03/sales-manager-openings.gif"
-          title="Manager"
-        />
-      </CardActionArea>
-    </Card>
-    <Box m={5}/>
+      <Box m={8}/>
+      <TestNav2Manager/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AddCircleIcon />
+          <ContactMailIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Manager Registration
+          Office Address Registration
         </Typography>
         <form className={classes.form} noValidate>
             <Grid container component="main" spacing={24} direction="row" justify="center" alignItems="center">
-                <AddManagerComponent />
+                <OfficeAddressComponent />
             </Grid>
         </form>
       </div>
@@ -104,7 +87,6 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
-    <Footer/>
     </Paper>
   );
 }
