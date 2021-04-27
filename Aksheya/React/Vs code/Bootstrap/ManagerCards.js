@@ -50,9 +50,10 @@ export default function ImgMediaCard() {
                       </CardActionArea>
                   </Card>
                     <Carousel.Caption>
-                    <Link to={`/addManager/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/addManager/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Add Manager
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -69,9 +70,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/addOffice/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/addOffice/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Add Office
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -88,9 +90,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/addStaff/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/addStaff/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Add Staff
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -107,9 +110,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/getAllStaff/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/getAllStaff/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Get All Staff
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -126,9 +130,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/getAllCouriers/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/getAllCouriers/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Get All Couriers
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -145,9 +150,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/getAllComplaints/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/getAllComplaints/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Get All Complaints
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -164,9 +170,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/getAllOffice/${managerid}`}><Button size="large" color="secondary">
+                    <Link to={`/getAllOffice/${managerid}`}><Button size="large" variant="contained" color="secondary">
                       Get All Offices
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -183,9 +190,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/${managerid}/Shipment`}><Button size="large" color="secondary">
+                    <Link to={`/${managerid}/Shipment`}><Button size="large"  variant="contained"color="secondary">
                       Go To Shipment
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -202,9 +210,10 @@ export default function ImgMediaCard() {
                   </Card>
 
                     <Carousel.Caption>
-                    <Link to={`/deleteStaff/${managerid}`}><Button size="large" color="primary">
+                    <Link to={`/deleteStaff/${managerid}`}><Button size="large" variant="contained" color="primary">
                       Delete Staff
                     </Button></Link>
+                    <Box m={10} />
                     </Carousel.Caption>
                 </Carousel.Item>
                 </Carousel>

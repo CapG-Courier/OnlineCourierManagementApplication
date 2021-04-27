@@ -175,39 +175,3 @@ export const fetchAllComplaints = (customerid) => {
             });
     };
 };
-
-// export const checkStatus = (payload) => {
-
-//     let data = {
-
-//         consignmentno: payload.consignmentno
-//     }
-
-//     return dispatch => {
-
-//         return Axios.get(apiUrl + `/customerid=1/checkStatus/${data.consignmentno}`,data)
-//             .then(resp => {
-            
-//                 dispatch(checkStatusSuccess(resp.data))
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//                 throw (error);
-//             });
-//     };
-// };
-
-// export const checkStatus = (customerid, consignmentno) => {
-
-//     return (dispatch) => {
-//         return Axios.get(apiUrl + `/customerid=` + customerid `/checkStatus/` + consignmentno)
-//             .then(resp => {
-
-//                 dispatch(checkStatusSuccess(resp.data));
-//             })
-//             .catch(error => {
-//                 throw (error);
-//             });
-//     };
-// };
- 

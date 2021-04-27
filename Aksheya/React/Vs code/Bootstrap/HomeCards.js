@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import VpnKeyTwoToneIcon from '@material-ui/icons/VpnKeyTwoTone';
+import PersonAddTwoToneIcon from '@material-ui/icons/PersonAddTwoTone';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -41,12 +43,20 @@ export default function ImgMediaCard() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/login`}><Button size="large" color="primary">
+      {/* <Link to={`/login`}><Button size="large" color="primary">
           Login
-        </Button></Link>
+        </Button></Link> */}
         {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
+        <Button
+        variant="outlined"
+        color="primary"
+        className={classes.button}
+        startIcon={<VpnKeyTwoToneIcon />}
+      >
+        <Link to={`/login`}>Login</Link>
+      </Button>
       </CardActions>
     </Card>
     </Grid>
@@ -71,12 +81,20 @@ export default function ImgMediaCard() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/managerlogin`}><Button size="large" color="primary">
+      {/* <Link to={`/managerlogin`}><Button size="large" color="primary">
           Login
-        </Button></Link>
+        </Button></Link> */}
         {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
+        <Button
+        variant="outlined"
+        color="primary"
+        className={classes.button}
+        startIcon={<VpnKeyTwoToneIcon />}
+      >
+        <Link to={`/managerlogin`}>Login</Link>
+      </Button>
       </CardActions>
     </Card>
     </Grid>
@@ -101,12 +119,20 @@ export default function ImgMediaCard() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Link to={`/register`}><Button size="large" color="primary">
+      {/* <Link to={`/register`}><Button size="large" color="primary">
           Register
-        </Button></Link>
+        </Button></Link> */}
         {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
+        <Button
+        variant="outlined"
+        color="primary"
+        className={classes.button}
+        startIcon={<PersonAddTwoToneIcon />}
+      >
+        <Link to={`/register`}>Register</Link>
+      </Button>
       </CardActions>
     </Card>
     </Grid>

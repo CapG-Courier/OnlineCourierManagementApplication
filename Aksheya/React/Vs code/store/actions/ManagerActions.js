@@ -159,8 +159,8 @@ export const createStaff = (payload) => {
 export const createOffice = (payload) => {
 
     let data = {
-        openingTime: payload.openingtime,
-        closingTime: payload.closingtime,
+        openingTime: payload.openingTime,
+        closingTime: payload.closingTime,
         managerid: payload.managerid
 
     }
@@ -176,9 +176,7 @@ export const createOffice = (payload) => {
     };
 };
 
-export const createAddress = (payload, managerid) => {
-
-    Number(managerid)
+export const createAddress = (payload) => {
 
     let data = {
         city: payload.city,
@@ -189,10 +187,11 @@ export const createAddress = (payload, managerid) => {
         zip: Number(payload.zip),
         office:{
             officeid: Number(payload.officeid),
-        }
+        },
+        managerid: Number(payload.managerid)
     }
     return (dispatch) => {
-        return Axios.post(apiUrl + `/managerid=` + managerid + `/registerAddress`, data)
+        return Axios.post(apiUrl + `/managerid=` + data.managerid + `/registerAddress`, data)
             .then(response => {
                 dispatch(createAddressSuccess(response.data))
             })

@@ -24,7 +24,8 @@ class OfficeAddressComponent extends Component {
             zip: 0,
             office: {
                 officeid: 0
-            }
+            },
+            managerid: 0
 
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,12 +49,13 @@ class OfficeAddressComponent extends Component {
             state: this.state.state,
             street: this.state.street,
             zip: this.state.zip,
-            officeid: this.state.officeid
+            officeid: this.state.officeid,
+            managerid: this.state.managerid
 
         }
 
         const { managerActions, match } = this.props;
-        managerActions.createAddress(payload, match.params.managerid);
+        managerActions.createAddress(payload);
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -127,7 +129,8 @@ class OfficeAddressComponent extends Component {
             zip: 0,
             office: {
                 officeid: 0
-            }
+            },
+            managerid: 0
         });
     }
 
@@ -250,6 +253,21 @@ class OfficeAddressComponent extends Component {
                     name="officeid"
                     autoComplete="officeid"
                     value={this.state.officeid}
+                    onChange={this.handleInputChange}
+                    autoFocus
+                />
+                <Box p={2} />
+
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="number"
+                    id="managerid"
+                    label="Re-enter Manager Id"
+                    name="managerid"
+                    autoComplete="managerid"
+                    value={this.state.managerid}
                     onChange={this.handleInputChange}
                     autoFocus
                 />

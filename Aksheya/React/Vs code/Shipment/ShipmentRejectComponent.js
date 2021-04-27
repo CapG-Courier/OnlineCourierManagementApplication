@@ -99,16 +99,13 @@ class ShipmentRejectComponent extends React.Component {
                 {/* <p>
                     <label>Re-enter Manager Id:</label>
                     <input type="number" placeholder="Manager Id" name="managerid" id="managerid" value={this.state.managerid} onChange={this.handleInputChange}></input>
-
                 </p>
                 <p>
                     <label>Courier to Reject:</label>
                     <input type="number" placeholder="Courier Id" name="courierid" id="courierid" value={this.state.courierid} onChange={this.handleInputChange}></input>
-
                 </p>
                 <p>
                     <button onClick={this.doReject}>Close</button>
-
                 </p> */}
             </div>
 

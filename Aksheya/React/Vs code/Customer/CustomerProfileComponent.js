@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import * as customerActions from '../store/actions/CustomerActions';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import TestNav2 from '../Bootstrap/TestNav2';
+import { Box } from '@material-ui/core';
  
 class CustomerProfileComponent extends Component {
 
@@ -18,36 +21,111 @@ class CustomerProfileComponent extends Component {
         const { customer } = this.props;
         return (
             <div class="container">
-                <h2>Customer Details</h2>
+                <TestNav2 />
+                <Box m={15} />
                 {
-                     customer !== undefined ?
- 
-                        <table class="table table-dark table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Customer ID</th>
-                                    <th>Aadhar No.</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Mobile No.</th>
-                                    <th>Bank Account No.</th>
-                                    <th>Update Address</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                        <tr>
-                                            <td>{customer.customerid}</td>
-                                            <td>{customer.aadharno}</td>
-                                            <td>{customer.firstname}</td>
-                                            <td>{customer.lastname}</td>
-                                            <td>{customer.mobileno}</td>
-                                            <td>{customer.acct.accountno}</td>
-                                            <td><Link to={`/registerAddress/${customer.customerid}`}>Update</Link></td>
-                                        </tr>
-                                }
-                            </tbody>
-                        </table>
+                    customer !== undefined ?
+
+                    // <form>
+                    //     <div class="panel panel-primary">
+                    //         <div class="panel-heading">Basic details</div>
+                    //         <div class="panel-body">
+                            //     <div class="form-group row">
+                            //         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Customer Id</label>
+                            //         <div class="col-sm-10">
+                            //             <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.customerid}></input>
+                            //         </div>
+                            //     </div>
+                            //     <div class="form-group row">
+                            //         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
+                            //         <div class="col-sm-10">
+                            //             <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.firstname}></input>
+                            //         </div>
+                            //     </div>
+                            //     <div class="form-group row">
+                            //         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
+                            //         <div class="col-sm-10">
+                            //             <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.lastname}></input>
+                            //         </div>
+                            //     </div>
+                            //     <div class="form-group row">
+                            //         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Aadhar Number</label>
+                            //         <div class="col-sm-10">
+                            //             <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.aadharno}></input>
+                            //         </div>
+                            //     </div>
+                            //     <div class="form-group row">
+                            //         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Mobile Number</label>
+                            //         <div class="col-sm-10">
+                            //             <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.mobileno}></input>
+                            //         </div>
+                            //     </div>
+                            // </div>
+                    //     </div>
+                    //     <div class="panel panel-primary">
+                    //     <div class="panel-heading">Panel with panel-primary class</div>
+                    //     <div class="panel-body">Panel Content</div>
+                    //     </div>
+                    // </form>
+                    <div class="card">
+                        <div class="card-header h5">Personal Details</div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Customer Id</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.customerid}></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.firstname}></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.lastname}></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Aadhar Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.aadharno}></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Mobile Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.mobileno}></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header h5">Bank Account Details</div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Account Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.acct.accountno}></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Account Type</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control form-control-lg" id="colFormLabelLg" value={customer.acct.accountType}></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header h5">Address Details</div>
+                        <Button variant="contained" color="primary">
+                        <Link to={`/registerAddress/${customer.customerid}`}>
+                        Update
+                        </Link>
+                        </Button>
+
+                    </div>
+
+                    
                         :
                         <h3>Loading....</h3>
                 }

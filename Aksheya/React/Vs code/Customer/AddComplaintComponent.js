@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import * as customerActions from '../store/actions/CustomerActions';
+import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import * as customerActions from '../store/actions/CustomerActions';
 
 
 class AddComplaintComponent extends Component {
@@ -125,7 +124,6 @@ class AddComplaintComponent extends Component {
     render() {
 
         if(this.props.complaint !== undefined) {
-
 
             return <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
@@ -246,5 +244,4 @@ function mapDispatchToProps(dispatch) {
         customerActions: bindActionCreators(customerActions, dispatch)
     }
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(AddComplaintComponent);

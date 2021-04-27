@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import * as managerActions from '../store/actions/ManagerActions';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import * as managerActions from '../store/actions/ManagerActions';
-
 
 class AddManagerComponent extends Component {
 
@@ -52,6 +51,7 @@ class AddManagerComponent extends Component {
 
         const { managerActions, match } = this.props;
         managerActions.createManager(payload);
+
 
         // if(this.validate()) {
         //     const { homeActions } = this.props;
@@ -132,12 +132,10 @@ class AddManagerComponent extends Component {
         // if (this.props.manager !== undefined) {
 
         //     const { match } = this.props;
-        //     let empid = parseInt(this.props.managerid)
+        //     let empid = parseInt(match.params.managerid)
         //     return <Redirect to={`/manager/managerid=${empid}/Home`} />;
         // }
-
         if(this.props.manager !== undefined) {
-
             return <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
                      You have successfully added a new manager!

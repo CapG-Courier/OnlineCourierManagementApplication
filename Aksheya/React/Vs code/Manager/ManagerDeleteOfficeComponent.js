@@ -100,16 +100,13 @@ class ManagerDeleteOfficeComponent extends React.Component {
                 {/* <p>
                     <label>Re-enter Manager Id:</label>
                     <input type="number" placeholder="Manager Id" name="managerid" id="managerid" value={this.state.managerid} onChange={this.handleInputChange}></input>
-
                 </p>
                 <p>
                     <label>Office to Delete:</label>
                     <input type="number" placeholder="Office Id" name="officeid" id="officeid" value={this.state.officeid} onChange={this.handleInputChange}></input>
-
                 </p>
                 <p>
                     <button onClick={this.doDeleteOffice}>Delete</button>
-
                 </p> */}
             </div>
 

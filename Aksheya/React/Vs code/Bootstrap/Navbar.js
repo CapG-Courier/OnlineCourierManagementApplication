@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 
 export default class Navbar extends Component {
 
@@ -43,7 +44,10 @@ export default class Navbar extends Component {
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
+                        <Button variant="contained" color="primary" href="https://www.google.com/">
+                            SEARCH
+                        </Button>
                     </form>
                 </div>
             </nav>

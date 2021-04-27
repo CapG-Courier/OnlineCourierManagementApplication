@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import * as customerActions from '../store/actions/CustomerActions';
+import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import * as customerActions from '../store/actions/CustomerActions';
-
 
 class AddCourierComponent extends Component {
 
@@ -118,20 +117,10 @@ class AddCourierComponent extends Component {
 
     render() {
 
-        // if(this.props.courier !== undefined) {
-
-        //     let cid = parseInt(this.state.customerid)
-        //     return <Redirect to={`/customer/customerid=${cid}/Home`} />;
-        // }
-
         if(this.props.courier !== undefined) {
-
-
-            return <Alert severity="success">
-                        <AlertTitle>Success</AlertTitle>
-                        You have successfully created registered a courier!
-            </Alert>
-           
+            
+            let cid = parseInt(this.state.customerid)
+            return <Redirect to={`/byCard/${cid}`} />;
         }
 
         return (

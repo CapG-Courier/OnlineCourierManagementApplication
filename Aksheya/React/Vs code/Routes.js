@@ -12,9 +12,10 @@ import RegistrationPage from './Bootstrap/RegistrationPage';
 import CustomerProfileComponent from './Customer/CustomerProfileComponent';
 import CourierRegister from './Bootstrap/CourierRegister';
 import ComplaintRegister from './Bootstrap/ComplaintRegister';
-import CustomerCouriersComponent from './Customer/CustomerCouriersComponent';
-import CustomerComplaintsComponent from './Customer/CustomerComplaintsComponent';
+import CustomerCouriersComponent from './Customer/CustomerCouriersComponents';
+import CustomerComplaintsComponent from './Customer/CustomerComplaintsComponents';
 import CustomerAddressPage from './Bootstrap/CustomerAddressPage';
+import Checkout from './Bootstrap/Checkout';
 
 import ManagerLogin from './Bootstrap/ManagerLogin';
 import ManagerRegister from './Bootstrap/ManagerRegister';
@@ -52,6 +53,7 @@ const Routes = () => (
             <Route path={`/profile/:customerid`} component={CustomerProfileComponent}/>
             <Route path={`/registerAddress/:customerid`} component={CustomerAddressPage}/>
             <Route path={`/newCourier/:customerid`} component={CourierRegister}/>
+            <Route path={`/byCard/:customerid`} component={Checkout}/>
             <Route path={`/getCouriers/:customerid`} component={CustomerCouriersComponent}/>
             <Route path={`/getComplaints/:customerid`} component={CustomerComplaintsComponent}/>
             <Route path={`/registerComplaint/:customerid`} component={ComplaintRegister}/>

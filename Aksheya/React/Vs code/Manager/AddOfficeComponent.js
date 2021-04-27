@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import * as managerActions from '../store/actions/ManagerActions';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import * as managerActions from '../store/actions/ManagerActions';
 
 
 class AddOfficeComponent extends Component {
@@ -41,7 +41,6 @@ class AddOfficeComponent extends Component {
             closingTime: this.state.closingTime
 
         }
-
         const { managerActions, match } = this.props;
         managerActions.createOffice(payload);
 
@@ -120,12 +119,11 @@ class AddOfficeComponent extends Component {
         // if (this.props.office !== undefined) {
 
         //     const { match } = this.props;
-        //     let empid = parseInt(this.props.office.managerid)
+        //     let empid = parseInt(match.params.managerid)
         //     return <Redirect to={`/manager/managerid=${empid}/Home`} />;
         // }
 
         if(this.props.office !== undefined) {
-
             return <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
                      You have successfully added a new office!
@@ -164,7 +162,6 @@ class AddOfficeComponent extends Component {
                     autoFocus
                 />
                 <Box m={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -205,7 +202,6 @@ class AddOfficeComponent extends Component {
         );
     }
 }
-
 function mapStateToProps(state) {
 
     return { office: state.managerReducer.office }
@@ -216,5 +212,4 @@ function mapDispatchToProps(dispatch) {
         managerActions: bindActionCreators(managerActions, dispatch)
     }
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(AddOfficeComponent);

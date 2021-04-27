@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TestNav2Manager from '../Bootstrap/TestNav2Manager';
-import Box from '@material-ui/core/Box';
 import * as managerActions from '../store/actions/ManagerActions';
 import { Link } from 'react-router-dom';
+import '../Bootstrap/Design.css';
+import Box from '@material-ui/core/Box';
 import ManagerOfficesPage from '../Bootstrap/ManagerOfficesPage';
+import TestNav2Manager from '../Bootstrap/TestNav2Manager';
+import AddLocationTwoToneIcon from '@material-ui/icons/AddLocationTwoTone';
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import IconButton from '@material-ui/core/IconButton';
  
 class ManagerAllOfficeComponent extends Component {
  
@@ -23,35 +27,53 @@ class ManagerAllOfficeComponent extends Component {
         return (
             <div class="container">
                 <Box m={15}/>
-              <ManagerOfficesPage/>
-                <TestNav2Manager/>
+                    <ManagerOfficesPage/>
+                    <TestNav2Manager/>
                 <Box m={5}/>
                 {
                      this.props.offices !== undefined ?
  
-                        <table class="table table-dark table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Office ID</th>
-                                    <th>Opening Time</th>
-                                    <th>Closing Time</th>
-                                    <th>Update Address</th>
-                                    <th>Delete Office</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="container">
+                            <br></br>
+                            <br></br>
+                            <h2>Office Details</h2>
+                            <br></br>
+                            <ul class="responsive-table">
+                                <li class="table-header">
+                                    <div class="col">Office ID</div>
+                                    <div class="col">Opening Time</div>
+                                    <div class="col">Closing Time</div>
+                                    <div class="col">Update Address</div>
+                                    <div class="col">Delete Office</div>
+                                </li>
+                            </ul>
+                            <ul>
                                 {
                                     this.props.offices.map((office, index) =>
-                                        <tr>
-                                            <td>{office.officeid}</td>
-                                            <td>{office.openingTime}</td>
-                                            <td>{office.closingTime}</td>
-                                           <td><Link to={`/addAddress/${match.params.managerid}/office/${office.officeid}`}>Update</Link></td>
-                                           <td><Link to={`/deleteOffice/${match.params.managerid}/office/${office.officeid}`}>Delete</Link></td>
-                                        </tr>)
+                                        <li class= "table-row">
+                                            <div class="col">{office.officeid}</div>
+                                            <div class="col">{office.openingTime}</div>
+                                            <div class="col">{office.closingTime}</div>
+                                            {/* <div class="col"><Link to={`/addAddress/${match.params.managerid}/office/${office.officeid}`}>Update</Link></div>
+                                            <div class="col"><Link to={`/deleteOffice/${match.params.managerid}/office/${office.officeid}`}>Delete</Link></div> */}
+                                            <div class= "col">
+                                                <IconButton size="large" color="secondary" >
+                                                <Link to={`/addAddress/${match.params.managerid}/office/${office.officeid}`}>
+                                                    <AddLocationTwoToneIcon fontSize="large" text-align="center" color="secondary" />
+                                                </Link>
+                                                </IconButton>
+                                            </div>
+                                            <div class= "col">
+                                                <IconButton size="large" color="secondary" >
+                                                <Link to={`/deleteOffice/${match.params.managerid}/office/${office.officeid}`}>
+                                                    <DeleteTwoToneIcon fontSize="large" text-align="center" color="secondary" />
+                                                </Link>
+                                                </IconButton>
+                                            </div>
+                                        </li>)
                                 }
-                            </tbody>
-                        </table>
+                            </ul>
+                        </div>
                         :
                         <h3>No Offices to show!</h3>
                 }

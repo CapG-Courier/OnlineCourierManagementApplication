@@ -133,24 +133,19 @@ class CustomerAddressComponent extends Component {
 
     render() {
 
-        // if(this.props.address !== undefined) {    
+        if(this.props.address !== undefined) {    
             
-        //     const { match } = this.props.address;
-        //     return <Redirect to={`/customer/customerid=${Number(match.customerid)}/Home`} />;
-        // }  
-
-        if(this.props.address !== undefined) {
-
-
+            // const { match } = this.props;
+            // return <Redirect to={`/customer/customerid=${Number(match.params.customerid)}/Home`} />;
             return <Alert severity="success">
-                        <AlertTitle>Success</AlertTitle>
-                        You have successfully updated your address!
-            </Alert>
-           
-        }
+            <AlertTitle>Success</AlertTitle>
+            You have successfully updated your address!
+        </Alert>
+        }  
 
         return (
             <div>
+                <h3>Register Address</h3>
 
                 <TextField
                     variant="outlined"
@@ -166,7 +161,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -181,7 +175,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -196,7 +189,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -211,7 +203,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -226,7 +217,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -241,7 +231,6 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <TextField
                     variant="outlined"
                     required
@@ -256,11 +245,9 @@ class CustomerAddressComponent extends Component {
                     autoFocus
                 />
                 <Box p={2} />
-
                 <Button variant="contained" color="secondary" onClick={this.createAddress}>
                     Register Address
                 </Button>
-                
                 {/* <form onSubmit={this.createAddress}>
                     <table>
                         <tbody>
@@ -311,5 +298,4 @@ function mapDispatchToProps(dispatch) {
         customerActions: bindActionCreators(customerActions, dispatch)
     }
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerAddressComponent);

@@ -26,6 +26,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -215,6 +216,15 @@ export default function MiniDrawer() {
           {['Get All Offices'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getAllOffice/${managerid}`}><BusinessIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Get All Staffs'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon color="secondary">{index % 2 === 0 ? <Link to= {`/getAllStaff/${managerid}`}><SupervisedUserCircleIcon  color="secondary"/></Link>: <InfoIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     //   minWidth: 120,
     // },
     selectEmpty: {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(5),
     },
 }));
 
@@ -70,7 +70,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Customer Registration
+          Register
         </Typography>
         <form className={classes.form} noValidate>
             <Grid container component="main" spacing={24} direction="row" justify="center" alignItems="center">
